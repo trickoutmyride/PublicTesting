@@ -1,4 +1,4 @@
-package cs340.server.requests;
+package cs340.server.results;
 
 import model.Game;
 
