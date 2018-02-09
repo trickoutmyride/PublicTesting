@@ -1,8 +1,19 @@
-package cs340.shared.requests;
+package requests;
 
-/**
- * Created by Mark on 2/4/2018.
- */
+import model.Player;
 
 public class StartGameRequest {
+	private Player player;
+
+	public StartGameRequest(Player player) {
+		this.player = player;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
 }
