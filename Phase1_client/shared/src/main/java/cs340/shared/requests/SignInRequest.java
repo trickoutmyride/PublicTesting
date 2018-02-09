@@ -1,4 +1,4 @@
-package requests;
+package cs340.shared.requests;
 
 public class SignInRequest {
 	private String username;
