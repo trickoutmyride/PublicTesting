@@ -1,4 +1,4 @@
-package cs340.ui;
+package cs340.ui.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import cs340.shared.model.Player;
+import cs340.ui.R;
 
 public class LoginActivity extends AppCompatActivity implements ILoginActivity {
 
@@ -153,7 +154,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
                         //Pass username and password to the Presenter for Register
                         //Toast toast = Toast.makeText(getApplicationContext(), "Register() call- username: " + username + ", password: " + password, Toast.LENGTH_SHORT);
                         //toast.show();
-                        onRegistrationSuccess(null);
+                        onLogin(null);
                     }
                 }
                 else if (loginMode) {
@@ -171,7 +172,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
                         //Pass username and password to the Presenter for Login
                         //Toast toast = Toast.makeText(getApplicationContext(), "Login() call- username: " + username + ", password: " + password, Toast.LENGTH_SHORT);
                         //toast.show();
-                        onLoginSuccess(null);
+                        onLogin(null);
                     }
                 }
                 return;
@@ -180,12 +181,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
     }
 
     //Presenter Calls These Methods
-    public void onLoginSuccess(Player currentPlayer){
-        Intent intent = new Intent(this, PreGameActivity.class);
-        startActivity(intent);
-    }
-
-    public void onRegistrationSuccess(Player currentPlayer){
+    public void onLogin(Player currentPlayer) {
         Intent intent = new Intent(this, PreGameActivity.class);
         startActivity(intent);
     }

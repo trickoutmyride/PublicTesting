@@ -1,8 +1,7 @@
-package cs340.ui;
+package cs340.ui.activities;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +9,7 @@ import android.widget.TextView;
 
 import cs340.shared.model.Game;
 import cs340.shared.model.GameList;
-
-import static android.content.ContentValues.TAG;
+import cs340.ui.R;
 
 /**
  * Created by sam on 2/7/18.

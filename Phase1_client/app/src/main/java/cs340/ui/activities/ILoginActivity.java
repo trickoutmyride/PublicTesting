@@ -1,4 +1,4 @@
-package cs340.ui;
+package cs340.ui.activities;
 
 import cs340.shared.model.Player;
 
@@ -8,9 +8,7 @@ import cs340.shared.model.Player;
 
 public interface ILoginActivity {
 
-    public void onLoginSuccess(Player currentPlayer);
+    public void onLogin(Player currentPlayer);
 
     public void onError(String msg);
-
-    public void onRegistrationSuccess(Player currentPlayer);
 }

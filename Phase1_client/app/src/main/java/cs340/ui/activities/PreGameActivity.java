@@ -1,30 +1,36 @@
-package cs340.ui;
+package cs340.ui.activities;
 
+import android.app.DialogFragment;
 import android.app.FragmentManager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.NumberPicker;
 
 import java.util.ArrayList;
 
 import cs340.shared.model.Game;
 import cs340.shared.model.GameList;
 import cs340.shared.model.Player;
+import cs340.ui.R;
 
-public class PreGameActivity extends AppCompatActivity {
+public class PreGameActivity extends AppCompatActivity implements CreateGameDialogFragment.CreateGameDialogListener, IPreGameActivity {
 
     private RecyclerView gameList;
     private RecyclerView.Adapter gameListAdapter;
     private RecyclerView.LayoutManager gameListLayoutManager;
     private Button createGameButton;
+    private String newGameColor;
+    private int newGameCapacity;
+    private String newGameName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Default is 2
+        newGameCapacity = 2;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre_game);
 
@@ -74,6 +80,25 @@ public class PreGameActivity extends AppCompatActivity {
     protected void joinGame(Game game) {
         //Send join game request to Presenter
         System.out.println("Join Game Attempt: " + game.getGameName());
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        //confirm button clicked
+        CreateGameDialogFragment cdf = (CreateGameDialogFragment)dialog;
+        System.out.println("New game!");
+        System.out.println("Name: " + cdf.getNewGameName());
+        System.out.println("Capacity: " + cdf.getNewGameCapacity());
+        System.out.println("Color: " + cdf.getNewGameColor());
+    }
+
+    public void onError(String message) {
+
+    }
+
+    @Override
+    public void onGameListUpdated(GameList games) {
+
     }
 
 }
