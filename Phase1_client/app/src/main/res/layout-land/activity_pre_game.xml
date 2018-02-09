@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pregameactivity"
+    tools:context="cs340.ui.PreGameActivity">
+
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="350dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/gamelist_border"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--android:background="@drawable/simple_border"-->
+
+        <TextView
+            android:id="@+id/games_list_label"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="@string/games_list_label"
+            android:textAlignment="center"
+            android:textAppearance="@android:style/TextAppearance.Material.Small"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/game_number_label"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:background="@drawable/simple_border_white"
+                android:text="@string/game_number_label"
+                android:textAlignment="center"
+                android:textAppearance="@android:style/TextAppearance.Material.Small"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/game_name_label"
+                android:layout_width="95dp"
+                android:layout_height="20dp"
+                android:background="@drawable/simple_border_white"
+                android:text="@string/game_name_label"
+                android:textAlignment="center"
+                android:textAppearance="@android:style/TextAppearance.Material.Small"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/game_players_label"
+                android:layout_width="200dp"
+                android:layout_height="20dp"
+                android:background="@drawable/simple_border_white"
+                android:text="@string/game_players_label"
+                android:textAlignment="center"
+                android:textAppearance="@android:style/TextAppearance.Material.Small"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/game_capacity_label"
+                android:layout_width="70dp"
+                android:layout_height="20dp"
+                android:background="@drawable/simple_border_white"
+                android:text="@string/game_capacity_label"
+                android:textAlignment="center"
+                android:textAppearance="@android:style/TextAppearance.Material.Small"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/games_list"
+            android:layout_width="390dp"
+            android:layout_height="260dp" />
+
+        <Button
+            android:id="@+id/createGameButton"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="@string/create_game_button_label"
+            android:textAlignment="center" />
+
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

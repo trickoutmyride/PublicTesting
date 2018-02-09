@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Ticket To Ride Client</string>
+    <string name="username_field_label">Username:</string>
+    <string name="username_field_hint">Username</string>
+    <string name="password_field_label">Password:</string>
+    <string name="password_field_hint">password</string>
+    <string name="confirm_field_label">Confirm:</string>
+    <string name="confirm_field_hint">password</string>
+    <string name="login_radio_label">Login</string>
+    <string name="register_radio_label">Register</string>
+    <string name="submit_button_label">Submit</string>
+    <string name="games_list_label">Current Games</string>
+    <string name="game_number_label">#</string>
+    <string name="game_name_label">Name</string>
+    <string name="game_players_label">Players</string>
+    <string name="game_capacity_label">Capacity</string>
+    <string name="create_game_button_label">Create Game</string>
+</resources>
