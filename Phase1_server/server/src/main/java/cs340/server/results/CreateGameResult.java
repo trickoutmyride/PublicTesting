@@ -1,4 +1,4 @@
-package results;
+package cs340.server.results;
 
 import java.util.ArrayList;
 
