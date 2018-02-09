@@ -1,4 +1,4 @@
-package requests;
+package cs340.server.requests;
 
 import model.Player;
 
