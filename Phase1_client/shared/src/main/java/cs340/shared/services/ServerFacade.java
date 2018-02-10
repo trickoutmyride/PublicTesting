@@ -3,8 +3,7 @@ package cs340.shared.services;
 import cs340.shared.interfaces.IServer;
 import cs340.shared.requests.CreateGameRequest;
 import cs340.shared.requests.JoinGameRequest;
-import cs340.shared.requests.LoginRequest;
-import cs340.shared.requests.RegisterRequest;
+import cs340.shared.requests.SignInRequest;
 import cs340.shared.requests.StartGameRequest;
 
 public class ServerFacade implements IServer {
@@ -38,7 +37,7 @@ public class ServerFacade implements IServer {
 	//@post user detailed in request is logged in OR error is sent
 	@Override
 	public void login(Object request) {
-		LoginRequest loginRequest = (LoginRequest)request;
+		SignInRequest loginRequest = (SignInRequest)request;
 		
 		//Login logic -- DO NOW
 	}
@@ -49,7 +48,7 @@ public class ServerFacade implements IServer {
 	//@post user detailed in register is registered OR error is sent
 	@Override
 	public void register(Object request) {
-		RegisterRequest registerRequest = (RegisterRequest)request;
+		SignInRequest registerRequest = (SignInRequest)request;
 		
 		//Register logic -- DO NOW
 	}

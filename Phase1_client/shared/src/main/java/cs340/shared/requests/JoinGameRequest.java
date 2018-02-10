@@ -1,6 +1,6 @@
 package cs340.shared.requests;
 
-import model.Player;
+import cs340.shared.model.Player;
 
 public class JoinGameRequest {
 	private int gameID;

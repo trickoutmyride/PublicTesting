@@ -27,14 +27,14 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" scope="PROVIDED" name="javax.websocket-api-1.1" level="project" />
-    <orderEntry type="library" exported="" scope="PROVIDED" name="tyrus-container-grizzly-server-1.13.1" level="project" />
-    <orderEntry type="library" exported="" scope="PROVIDED" name="gson-2.8.2" level="project" />
-    <orderEntry type="library" exported="" scope="PROVIDED" name="tyrus-spi-1.13.1" level="project" />
-    <orderEntry type="library" exported="" scope="PROVIDED" name="tyrus-server-1.13.1" level="project" />
-    <orderEntry type="library" exported="" scope="PROVIDED" name="tyrus-core-1.13.1" level="project" />
-    <orderEntry type="library" exported="" scope="PROVIDED" name="tyrus-client-1.13.1" level="project" />
     <orderEntry type="library" exported="" scope="PROVIDED" name="grizzly-http-all-2.4.3" level="project" />
+    <orderEntry type="library" exported="" scope="PROVIDED" name="gson-2.8.2" level="project" />
+    <orderEntry type="library" exported="" scope="PROVIDED" name="javax.websocket-api-1.1" level="project" />
+    <orderEntry type="library" exported="" scope="PROVIDED" name="tyrus-client-1.13.1" level="project" />
     <orderEntry type="library" exported="" scope="PROVIDED" name="tyrus-container-grizzly-client-1.13.1" level="project" />
+    <orderEntry type="library" exported="" scope="PROVIDED" name="tyrus-container-grizzly-server-1.13.1" level="project" />
+    <orderEntry type="library" exported="" scope="PROVIDED" name="tyrus-core-1.13.1" level="project" />
+    <orderEntry type="library" exported="" scope="PROVIDED" name="tyrus-server-1.13.1" level="project" />
+    <orderEntry type="library" exported="" scope="PROVIDED" name="tyrus-spi-1.13.1" level="project" />
   </component>
 </module>
