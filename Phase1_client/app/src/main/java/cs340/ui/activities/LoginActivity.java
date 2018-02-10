@@ -12,8 +12,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import cs340.shared.model.Player;
 import cs340.ui.R;
+import cs340.ui.presenters.ILoginPresenter;
+import cs340.ui.presenters.MockLoginPresenter;
 
 public class LoginActivity extends AppCompatActivity implements ILoginActivity {
 
@@ -25,11 +29,16 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
     Boolean registerMode;
     Boolean loginMode;
     String username, password, confirm;
+    ILoginPresenter loginPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //Setup Login Presenter
+
+        loginPresenter = new MockLoginPresenter(this);
 
         //Grab radio group, buttons, editTexts, etc.
         loginRadio = findViewById(R.id.login_radio);
@@ -152,9 +161,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
                     }
                     else {
                         //Pass username and password to the Presenter for Register
-                        //Toast toast = Toast.makeText(getApplicationContext(), "Register() call- username: " + username + ", password: " + password, Toast.LENGTH_SHORT);
-                        //toast.show();
-                        onLogin(null);
+                        loginPresenter.login(username, password);
                     }
                 }
                 else if (loginMode) {
@@ -170,9 +177,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
                     }
                     else {
                         //Pass username and password to the Presenter for Login
-                        //Toast toast = Toast.makeText(getApplicationContext(), "Login() call- username: " + username + ", password: " + password, Toast.LENGTH_SHORT);
-                        //toast.show();
-                        onLogin(null);
+                        loginPresenter.login(username, password);
                     }
                 }
                 return;
@@ -183,6 +188,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
     //Presenter Calls These Methods
     public void onLogin(Player currentPlayer) {
         Intent intent = new Intent(this, PreGameActivity.class);
+        Gson gson = new Gson();
+        intent.putExtra("currentPlayer", gson.toJson(currentPlayer));
         startActivity(intent);
     }
 

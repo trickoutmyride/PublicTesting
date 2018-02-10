@@ -2,12 +2,14 @@ package cs340.ui.activities;
 
 import android.app.DialogFragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -90,15 +92,51 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
         System.out.println("Name: " + cdf.getNewGameName());
         System.out.println("Capacity: " + cdf.getNewGameCapacity());
         System.out.println("Color: " + cdf.getNewGameColor());
+        onGameListUpdated(null);
     }
 
     public void onError(String message) {
-
+        //toast it up
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     @Override
     public void onGameListUpdated(GameList games) {
 
+        //Add a bunch of dummy game data
+        GameList listOfGames = new GameList();
+        ArrayList<Game> arrayListOfGames = new ArrayList<>();
+        Game tempGame = new Game();
+        tempGame.setCapacity(5);
+        tempGame.setGameName("GAME1");
+        Player tempPlayer = new Player("TEST", "test", "test");
+        tempPlayer.setUsername("TEST");
+        ArrayList<Player> listOfPlayers = new ArrayList<>();
+        listOfPlayers.add(tempPlayer);
+        tempGame.setPlayers(listOfPlayers);
+        arrayListOfGames.add(tempGame);
+        Game tempGame2 = new Game();
+        tempGame2.setCapacity(5);
+        tempGame2.setGameName("GAME2");
+        Player tempPlayer2 = new Player("TEST2", "test2", "test2");
+        tempPlayer2.setUsername("TEST2");
+        ArrayList<Player> listOfPlayers2 = new ArrayList<>();
+        listOfPlayers2.add(tempPlayer2);
+        tempGame2.setPlayers(listOfPlayers2);
+        arrayListOfGames.add(tempGame2);
+        listOfGames.setGames(arrayListOfGames);
+        games = listOfGames;
+
+        gameListAdapter = new GameListAdapter(games, this);
+        gameList.setAdapter(gameListAdapter);
+    }
+
+    @Override
+    public void onGameJoined(Game game) {
+        //Go to lobby activity
+        Intent intent = new Intent(this, LobbyActivity.class);
+        startActivity(intent);
     }
 
 }
