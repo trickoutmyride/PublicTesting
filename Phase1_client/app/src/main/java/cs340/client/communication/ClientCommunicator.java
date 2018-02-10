@@ -21,27 +21,37 @@ import cs340.shared.message.MessageEncoder;
 		encoders = MessageEncoder.class
 )
 public class ClientCommunicator {
-	private static ClientCommunicator singleton = new ClientCommunicator("localhost:8080/command");
+	//private static final String address = "wss://real.okcoin.cn:10440/websocket/okcoinapi";
+	private static final String address = "wss://localhost:8080/command";
+	private static ClientCommunicator singleton;
 	private Session userSession = null;
 	private MessageHandler messageHandler;
+	private MessageEncoder encoder;
+	private MessageDecoder decoder;
+
 
 	public static ClientCommunicator getInstance() {
 		if (singleton == null) {
-			singleton = new ClientCommunicator("localhost:8080/command");
+			System.out.println("Connecting to " + address);
+			try {
+				singleton = new ClientCommunicator(new URI(address));
+			} catch (Exception e) {
+				System.out.println("error at getInstance(): " + e.getLocalizedMessage());
+			}
 		}
 		return singleton;
 	}
 
-	public ClientCommunicator(String address) {
+
+	public ClientCommunicator(URI endpointURI) {
 		try {
-			URI endpointURI = new URI(address);
 			WebSocketContainer container = ContainerProvider.getWebSocketContainer();
 			container.connectToServer(this, endpointURI);
-
-			this.messageHandler = new MessageHandler();
 		} catch (Exception e) {
-			System.out.println("Unable to connect to server...");
+			System.out.println("error during Connection: " + e.getLocalizedMessage());
 		}
+		encoder = new MessageEncoder();
+		decoder = new MessageDecoder();
 	}
 
 	/**
@@ -79,15 +89,24 @@ public class ClientCommunicator {
 	}
 
 	/**
+	 * register message handler
+	 *
+	 * @param msgHandler
+	 */
+	public void addMessageHandler(MessageHandler msgHandler) {
+		this.messageHandler = msgHandler;
+	}
+	/**
 	 * Sends a message containing a command object and an AuthToken to the server's websocket handler.
 	 * @param message A ServerCommand wrapped in a message
 	 */
 	public void sendMessage(Message message) {
-		this.userSession.getAsyncRemote().sendObject(message);
+		String send = encoder.encode(message);
+		this.userSession.getAsyncRemote().sendObject(send);
 	}
 
 	/**
-	 * Sends a message containing only a string to the server's websocket handler. For testing.
+	 * Sends a message containing ONLY A STRING to the server's websocket handler. For testing.
 	 *
 	 * @param message
 	 */
@@ -98,10 +117,8 @@ public class ClientCommunicator {
 	/**
 	 * Message handler.
 	 */
-	private class MessageHandler {
-		public void handleMessage(String message) {
-			System.out.println(message); // change to execute commands
-		}
+	private static interface MessageHandler {
+		public void handleMessage(String message);
 	}
 
 	/**
@@ -109,8 +126,34 @@ public class ClientCommunicator {
 	 *
 	 * @param args
 	 */
+
+	public static void main(String[] args) {
+		try {
+			// open websocket
+			final ClientCommunicator clientEndPoint = ClientCommunicator.getInstance();
+
+			// add listener
+			clientEndPoint.addMessageHandler(new ClientCommunicator.MessageHandler() {
+				public void handleMessage(String message) {
+					System.out.println(message);
+				}
+			});
+			System.out.println("Sending test message...");
+			// send message to websocket
+			clientEndPoint.sendMessage(new Message("test", new ServerCommand("test", "test")));
+			//clientEndPoint.sendMessage("{'event':'addChannel','channel':'ok_btccny_ticker'}");  // For testing, does work (fails authentication though)
+
+			// wait 5 seconds for messages from websocket
+			Thread.sleep(5000);
+
+		} catch (Exception e) {
+			System.err.println("Error in main(): " + e.getLocalizedMessage());
+		}
+	}
+	/*
 	public static void main(String args[]) {
 		System.out.println("Opening connection with server...");
 		ClientCommunicator.getInstance().sendMessage(new Message("test", new ServerCommand("test", "test")));
 	}
+	*/
 }
