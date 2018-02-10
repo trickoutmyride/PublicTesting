@@ -21,28 +21,46 @@ import cs340.ui.presenters.MockLoginPresenter;
 
 public class LoginActivity extends AppCompatActivity implements ILoginActivity {
 
-    RadioButton loginRadio;
-    RadioButton registerRadio;
-    RadioGroup login_registerRadioGroup;
-    EditText usernameField, passwordField, confirmField;
-    Button submitButton;
-    Boolean registerMode;
-    Boolean loginMode;
-    String username, password, confirm;
-    ILoginPresenter loginPresenter;
+    //View fields
+    private RadioButton loginRadio;
+    private RadioGroup login_registerRadioGroup;
+    private EditText usernameField, passwordField, confirmField;
+    private Button submitButton;
 
+    //User information, options
+    private Boolean registerMode;
+    private Boolean loginMode;
+    private String username, password, confirm;
+
+    //Presenter
+    private ILoginPresenter loginPresenter;
+
+    /**
+     * onCreate
+     *
+     * Purpose:
+     * Initializes the Activity. Sets state of radio buttons, adds radio/text listeners
+     *
+     * Functionality:
+     * Adds listeners for username, confirm, password fields and login, register radio buttons
+     * Adds listener for the submit button
+     * Verifies user input
+     *      username, password fields are not null
+     *      confirm field matches password field (for register)
+     * When user input is valid, calls login or register on the presenter
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         //Setup Login Presenter
-
         loginPresenter = new MockLoginPresenter(this);
 
         //Grab radio group, buttons, editTexts, etc.
         loginRadio = findViewById(R.id.login_radio);
-        registerRadio = findViewById(R.id.register_radio);
         login_registerRadioGroup = findViewById(R.id.login_registerGroup);
         usernameField = findViewById(R.id.username_field);
         passwordField = findViewById(R.id.password_field);
@@ -138,24 +156,21 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
         submitButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //User is attempting to register
                 if (registerMode) {
                     if (username == null) {
-                        //Toast - enter password
                         Toast toast = Toast.makeText(getApplicationContext(), "Username field required.", Toast.LENGTH_SHORT);
                         toast.show();
                     }
                     else if (password == null) {
-                        //Toast - enter username
                         Toast toast = Toast.makeText(getApplicationContext(), "Password field required.", Toast.LENGTH_SHORT);
                         toast.show();
                     }
                     else if (confirm == null) {
-                        //Toast - enter username
                         Toast toast = Toast.makeText(getApplicationContext(), "Confirm field required.", Toast.LENGTH_SHORT);
                         toast.show();
                     }
                     else if (!password.equals(confirm)) {
-                        //Toast - passwords do not match
                         Toast toast = Toast.makeText(getApplicationContext(), "Passwords do not match.", Toast.LENGTH_SHORT);
                         toast.show();
                     }
@@ -164,14 +179,13 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
                         loginPresenter.login(username, password);
                     }
                 }
+                //User is attempting to login
                 else if (loginMode) {
                     if (username == null) {
-                        //Toast - enter password
                         Toast toast = Toast.makeText(getApplicationContext(), "Username field required.", Toast.LENGTH_SHORT);
                         toast.show();
                     }
                     else if (password == null) {
-                        //Toast - enter username
                         Toast toast = Toast.makeText(getApplicationContext(), "Password field required.", Toast.LENGTH_SHORT);
                         toast.show();
                     }
@@ -180,12 +194,23 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
                         loginPresenter.login(username, password);
                     }
                 }
-                return;
             }
         });
     }
 
-    //Presenter Calls These Methods
+    /* Presenter Calls The Following Methods */
+
+    /**
+     * onLogin
+     *
+     * Purpose:
+     * Called by LoginPresenter to let the Activity know that the player login was successful
+     *
+     * Functionality:
+     * Passes the logged in player to the PreGameActivity and starts the activity
+     *
+     * @param currentPlayer currently logged in player
+     */
     public void onLogin(Player currentPlayer) {
         Intent intent = new Intent(this, PreGameActivity.class);
         Gson gson = new Gson();
@@ -193,6 +218,17 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
         startActivity(intent);
     }
 
+    /**
+     * onError
+     *
+     * Purpose:
+     * Called by LoginPresenter to let the Activity know that the player login or register was unsuccessful
+     *
+     * Functionality:
+     * Displays an Android Toast to the user containing the error message from the server
+     *
+     * @param msg error message from the server
+     */
     public void onError(String msg) {
         Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
         toast.show();

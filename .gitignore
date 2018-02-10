@@ -1,0 +1,15 @@
+.DS_Store
+*.iml
+*.gradle
+*.properties
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+*.log
+*.zip
+*.com
+*.class
+.idea
+Phase1_client/build/

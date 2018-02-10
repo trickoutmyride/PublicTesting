@@ -11,12 +11,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 import cs340.shared.model.Game;
 import cs340.shared.model.GameList;
 import cs340.shared.model.Player;
 import cs340.ui.R;
+import cs340.ui.presenters.IPreGamePresenter;
+import cs340.ui.presenters.MockPreGamePresenter;
 
 public class PreGameActivity extends AppCompatActivity implements CreateGameDialogFragment.CreateGameDialogListener, IPreGameActivity {
 
@@ -27,9 +31,19 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
     private String newGameColor;
     private int newGameCapacity;
     private String newGameName;
+    private IPreGamePresenter preGamePresenter;
+    private Player currentPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Get current player from LoginActivity
+        Bundle bundle = getIntent().getExtras();
+        Gson gson = new Gson();
+        currentPlayer = gson.fromJson(bundle.getString("currentPlayer"), Player.class);
+
+        //Initialize preGamePresenter
+        preGamePresenter = new MockPreGamePresenter(this);
+
         //Default is 2
         newGameCapacity = 2;
 
@@ -58,9 +72,12 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
         tempGame2.setCapacity(5);
         tempGame2.setGameName("game2");
         Player tempPlayer2 = new Player("test2", "test2", "test2");
+        Player tempPlayer3 = new Player("test3", "test3", "test3");
+        tempPlayer3.setUsername("test3");
         tempPlayer2.setUsername("test2");
         ArrayList<Player> listOfPlayers2 = new ArrayList<>();
         listOfPlayers2.add(tempPlayer2);
+        listOfPlayers.add(tempPlayer3);
         tempGame2.setPlayers(listOfPlayers2);
         arrayListOfGames.add(tempGame2);
         listOfGames.setGames(arrayListOfGames);
@@ -81,18 +98,16 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
 
     protected void joinGame(Game game) {
         //Send join game request to Presenter
-        System.out.println("Join Game Attempt: " + game.getGameName());
+        preGamePresenter.joinGame(game);
+
     }
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
-        //confirm button clicked
+        //confirm button clicked, everything was verified
         CreateGameDialogFragment cdf = (CreateGameDialogFragment)dialog;
-        System.out.println("New game!");
-        System.out.println("Name: " + cdf.getNewGameName());
-        System.out.println("Capacity: " + cdf.getNewGameCapacity());
-        System.out.println("Color: " + cdf.getNewGameColor());
-        onGameListUpdated(null);
+        preGamePresenter.createGame(((CreateGameDialogFragment) dialog).getNewGameName(),
+                ((CreateGameDialogFragment) dialog).getNewGameCapacity(), currentPlayer);
     }
 
     public void onError(String message) {
@@ -127,6 +142,7 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
         arrayListOfGames.add(tempGame2);
         listOfGames.setGames(arrayListOfGames);
         games = listOfGames;
+        //End dummy data
 
         gameListAdapter = new GameListAdapter(games, this);
         gameList.setAdapter(gameListAdapter);
@@ -136,6 +152,10 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
     public void onGameJoined(Game game) {
         //Go to lobby activity
         Intent intent = new Intent(this, LobbyActivity.class);
+        Gson gson = new Gson();
+        //Pass game and current player to the lobby activity
+        intent.putExtra("currentGame", gson.toJson(game));
+        intent.putExtra("currentPlayer", gson.toJson(currentPlayer));
         startActivity(intent);
     }
 

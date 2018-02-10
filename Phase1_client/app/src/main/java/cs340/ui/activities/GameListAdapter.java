@@ -82,6 +82,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
         sb.append(game.getCapacity());
         holder.gameCapacity.setText(sb.toString());
 
+        //Send join game request when clicked
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

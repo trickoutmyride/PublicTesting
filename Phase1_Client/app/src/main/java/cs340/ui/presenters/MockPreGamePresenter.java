@@ -1,6 +1,9 @@
 package cs340.ui.presenters;
 
+import java.util.ArrayList;
+
 import cs340.shared.model.Game;
+import cs340.shared.model.Player;
 import cs340.ui.activities.PreGameActivity;
 
 /**
@@ -21,7 +24,13 @@ public class MockPreGamePresenter implements IPreGamePresenter {
     }
 
     @Override
-    public void createGame(Game game) {
+    public void createGame(String name, int capacity, Player currentPlayer) {
+        Game game = new Game();
+        game.setGameName(name);
+        game.setCapacity(capacity);
+        ArrayList<Player> p = new ArrayList<>();
+        p.add(currentPlayer);
+        game.setPlayers(p);
         preGameActivity.onGameJoined(game);
     }
 
