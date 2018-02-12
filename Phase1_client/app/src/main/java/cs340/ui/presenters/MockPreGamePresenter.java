@@ -26,19 +26,13 @@ public class MockPreGamePresenter implements IPregamePresenter {
 
     @Override
     public void createGame(String name, Player player, int capacity, String color) {
-        /*Game game = new Game();
-        game.setGameName(name);
-        game.setCapacity(capacity);
-        ArrayList<Player> p = new ArrayList<>();
-        p.add(currentPlayer);
-        game.setPlayers(p);
-        //game.setOwner(currentPlayer);
-        preGameActivity.onGameJoined(game);*/
+
     }
 
     @Override
     public void joinGame(int gameID, Player player, String color) {
-
+        preGameActivity.onError("nah fam.");
+        preGameActivity.onGameListUpdated(null);
     }
 
     @Override

@@ -21,9 +21,10 @@ import cs340.shared.model.GameList;
 import cs340.shared.model.Player;
 import cs340.ui.R;
 import cs340.ui.presenters.IPregamePresenter;
+import cs340.ui.presenters.MockPreGamePresenter;
 import cs340.ui.presenters.PregamePresenter;
 
-public class PreGameActivity extends AppCompatActivity implements CreateGameDialogFragment.CreateGameDialogListener, IPreGameActivity {
+public class PreGameActivity extends AppCompatActivity implements CreateGameDialogFragment.CreateGameDialogListener, IPreGameActivity, JoinGameDialogFragment.JoinGameDialogListener {
 
     //TODO: Can't create a game with the same name, fix this
     //TODO: Joining player needs a color
@@ -37,6 +38,7 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
     private String newGameName;
     private IPregamePresenter preGamePresenter;
     private Player currentPlayer;
+    private Game joinGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
         currentPlayer = gson.fromJson(bundle.getString("currentPlayer"), Player.class);
 
         //Initialize preGamePresenter
+        //preGamePresenter = new PregamePresenter(this);
         preGamePresenter = new PregamePresenter(this);
 
         //Default is 2
@@ -63,26 +66,24 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
         //Add a bunch of dummy game data
         GameList listOfGames = new GameList();
         ArrayList<Game> arrayListOfGames = new ArrayList<>();
-        Game tempGame = new Game();
-        tempGame.setCapacity(5);
-        tempGame.setGameName("game1");
+
         Player tempPlayer = new Player("test", "test", "test");
         tempPlayer.setUsername("test");
         ArrayList<Player> listOfPlayers = new ArrayList<>();
         listOfPlayers.add(tempPlayer);
-        tempGame.setPlayers(listOfPlayers);
+        Game tempGame = new Game("game1", listOfPlayers, 5);
+        tempGame.setColor("test", "blue");
         arrayListOfGames.add(tempGame);
-        Game tempGame2 = new Game();
-        tempGame2.setCapacity(5);
-        tempGame2.setGameName("game2");
         Player tempPlayer2 = new Player("test2", "test2", "test2");
         Player tempPlayer3 = new Player("test3", "test3", "test3");
         tempPlayer3.setUsername("test3");
         tempPlayer2.setUsername("test2");
         ArrayList<Player> listOfPlayers2 = new ArrayList<>();
         listOfPlayers2.add(tempPlayer2);
-        listOfPlayers.add(tempPlayer3);
-        tempGame2.setPlayers(listOfPlayers2);
+        listOfPlayers2.add(tempPlayer3);
+        Game tempGame2 = new Game("game2", listOfPlayers2, 5);
+        tempGame2.setColor("test2", "blue");
+        tempGame2.setColor("test3", "red");
         arrayListOfGames.add(tempGame2);
         listOfGames.setGames(arrayListOfGames);
 
@@ -101,20 +102,29 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
     }
 
     protected void joinGame(Game game) {
+        joinGame = game;
         //Send join game request to Presenter
-
-        preGamePresenter.joinGame(game.getGameID(), currentPlayer, "@android:color/black");
-
+        JoinGameDialogFragment joinGameFragment = new JoinGameDialogFragment();
+        FragmentManager fm = getFragmentManager();
+        joinGameFragment.show(fm, "joingame");
     }
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
-        //confirm button clicked, everything was verified
-        CreateGameDialogFragment cdf = (CreateGameDialogFragment)dialog;
-        preGamePresenter.createGame(((CreateGameDialogFragment) dialog).getNewGameName(),
-                currentPlayer,
-                ((CreateGameDialogFragment) dialog).getNewGameCapacity(),
-                ((CreateGameDialogFragment) dialog).getNewGamePlayerColor());
+
+        if (dialog.getClass() == CreateGameDialogFragment.class) {
+            //confirm button clicked, everything was verified
+            CreateGameDialogFragment cdf = (CreateGameDialogFragment)dialog;
+            preGamePresenter.createGame(((CreateGameDialogFragment) dialog).getNewGameName(),
+                    currentPlayer,
+                    ((CreateGameDialogFragment) dialog).getNewGameCapacity(),
+                    ((CreateGameDialogFragment) dialog).getNewGamePlayerColor());
+        }
+        else if (dialog.getClass() == JoinGameDialogFragment.class) {
+            //confirm button clicked, everything was verified
+            JoinGameDialogFragment cdf = (JoinGameDialogFragment) dialog;
+            preGamePresenter.joinGame(joinGame.getGameID(), currentPlayer, ((JoinGameDialogFragment) dialog).getPlayerColor());
+        }
     }
 
     public void onError(String message) {
@@ -129,26 +139,26 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
         //Add a bunch of dummy game data
         GameList listOfGames = new GameList();
         ArrayList<Game> arrayListOfGames = new ArrayList<>();
-        Game tempGame = new Game();
-        tempGame.setCapacity(5);
-        tempGame.setGameName("GAME1");
+
         Player tempPlayer = new Player("TEST", "test", "test");
         tempPlayer.setUsername("TEST");
         ArrayList<Player> listOfPlayers = new ArrayList<>();
         listOfPlayers.add(tempPlayer);
-        tempGame.setPlayers(listOfPlayers);
+        Game tempGame = new Game("GAME1", listOfPlayers, 5);
+        tempGame.setColor("TEST", "blue");
         arrayListOfGames.add(tempGame);
-        Game tempGame2 = new Game();
-        tempGame2.setCapacity(5);
-        tempGame2.setGameName("GAME2");
         Player tempPlayer2 = new Player("TEST2", "test2", "test2");
+        Player tempPlayer3 = new Player("TEST3", "test3", "test3");
+        tempPlayer3.setUsername("TEST3");
         tempPlayer2.setUsername("TEST2");
         ArrayList<Player> listOfPlayers2 = new ArrayList<>();
         listOfPlayers2.add(tempPlayer2);
-        tempGame2.setPlayers(listOfPlayers2);
+        listOfPlayers2.add(tempPlayer3);
+        Game tempGame2 = new Game("GAME2", listOfPlayers2, 5);
+        tempGame2.setColor("TEST2", "blue");
+        tempGame2.setColor("TEST3", "red");
         arrayListOfGames.add(tempGame2);
         listOfGames.setGames(arrayListOfGames);
-        games = listOfGames;
         //End dummy data
 
         gameListAdapter = new GameListAdapter(games, this);
@@ -164,6 +174,10 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
         intent.putExtra("currentGame", gson.toJson(game));
         intent.putExtra("currentPlayer", gson.toJson(currentPlayer));
         startActivity(intent);
+    }
+
+    public Game getJoinGame(){
+        return joinGame;
     }
 
 }

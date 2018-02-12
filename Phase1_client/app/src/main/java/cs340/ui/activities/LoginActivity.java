@@ -58,6 +58,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
         setContentView(R.layout.activity_login);
 
         //Setup Login Presenter
+        //loginPresenter = new LoginPresenter(this);
         loginPresenter = new LoginPresenter(this);
 
         //Grab radio group, buttons, editTexts, etc.

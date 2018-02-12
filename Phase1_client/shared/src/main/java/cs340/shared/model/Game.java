@@ -1,6 +1,7 @@
 package cs340.shared.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Game {
 	/* Fields */
@@ -11,11 +12,23 @@ public class Game {
 	private int capacity;
 	private ArrayList<ErrorObserver> errorObservers = new ArrayList<>();
 	private ArrayList<LobbyObserver> lobbyObservers = new ArrayList<>();
+	private HashMap<String,String> colors;
+	private int playerCount;
 	
 	/* "Maybe Later" Fields */
 	//private Map gameMap;
 	//private TrainCard[5] shownCards;
 	//private Stack<TrainCard> deck;
+
+	public Game(String gameName, ArrayList<Player> players, int capacity) {
+		this.gameName = gameName;
+		this.players = players;
+		this.capacity = capacity;
+		this.playerCount = 1;
+		//this.gameID = ServerModel.getNextGameID();
+		this.colors = new HashMap<String,String>();
+		this._hasStarted = false;
+	}
 	
 	/* Methods */
 	public void addErrorObserver(ErrorObserver observer) {
@@ -72,5 +85,47 @@ public class Game {
 	public interface LobbyObserver extends ErrorObserver {
 		void onGameStarted();
 		void onRosterUpdated(ArrayList<Player> players);
+	}
+
+	public HashMap<String,String> getColors(){
+		return this.colors;
+	}
+
+	public void setColor(String username, String color){
+		this.colors.put(username, color);
+	}
+
+	public ArrayList<String> getRemainingColors(){
+		ArrayList<String> remainingColors = new ArrayList<String>();
+		boolean blue = false;
+		boolean red = false;
+		boolean green = false;
+		boolean yellow = false;
+		boolean black = false;
+
+		//Iterates through all players
+		for(Player p : this.players){
+			String color = this.colors.get(p.getUsername()); //Gets the color and sets the flags for which ones have been taken
+			if(color.equals("blue")){
+				blue = true;
+			}else if(color.equals("red")){
+				red = true;
+			}else if(color.equals("green")){
+				green = true;
+			}else if(color.equals("yellow")){
+				yellow = true;
+			}else if(color.equals("black")){
+				black = true;
+			}
+		}
+
+		//Adds colors to the remaining list based on which ones are available
+		if(!blue) remainingColors.add("blue");
+		if(!red) remainingColors.add("red");
+		if(!green) remainingColors.add("green");
+		if(!yellow) remainingColors.add("yellow");
+		if(!black) remainingColors.add("black");
+
+		return remainingColors;
 	}
 }
