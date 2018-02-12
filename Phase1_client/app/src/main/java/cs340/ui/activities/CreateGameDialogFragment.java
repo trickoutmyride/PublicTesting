@@ -26,12 +26,12 @@ import cs340.ui.R;
 
 public class CreateGameDialogFragment extends DialogFragment {
 
-    private String newGameColor;
+    private String newGamePlayerColor;
     private int newGameCapacity;
     private String newGameName;
 
-    public String getNewGameColor() {
-        return newGameColor;
+    public String getNewGamePlayerColor() {
+        return newGamePlayerColor;
     }
 
     public String getNewGameName() {
@@ -42,8 +42,8 @@ public class CreateGameDialogFragment extends DialogFragment {
         return newGameCapacity;
     }
 
-    public void setNewGameColor(String color){
-        newGameColor = color;
+    public void setNewGamePlayerColor(String color){
+        newGamePlayerColor = color;
     }
 
     public void setNewGameCapacity(int capacity) {
@@ -154,7 +154,7 @@ public class CreateGameDialogFragment extends DialogFragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String color = (String) adapterView.getItemAtPosition(i);
-                setNewGameColor(color);
+                setNewGamePlayerColor(color);
             }
 
             @Override

@@ -43,6 +43,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/username_field_hint"
+                android:maxLength="15"
                 android:inputType="text" />
 
         </LinearLayout>

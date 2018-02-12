@@ -107,7 +107,7 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
         //confirm button clicked, everything was verified
         CreateGameDialogFragment cdf = (CreateGameDialogFragment)dialog;
         preGamePresenter.createGame(((CreateGameDialogFragment) dialog).getNewGameName(),
-                ((CreateGameDialogFragment) dialog).getNewGameCapacity(), currentPlayer);
+                ((CreateGameDialogFragment) dialog).getNewGameCapacity(), currentPlayer, ((CreateGameDialogFragment) dialog).getNewGamePlayerColor());
     }
 
     public void onError(String message) {

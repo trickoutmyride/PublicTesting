@@ -1,6 +1,5 @@
 .DS_Store
 *.iml
-*.gradle
 *.properties
 .DS_Store?
 ._*

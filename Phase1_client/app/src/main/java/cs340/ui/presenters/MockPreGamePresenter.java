@@ -24,7 +24,7 @@ public class MockPreGamePresenter implements IPreGamePresenter {
     }
 
     @Override
-    public void createGame(String name, int capacity, Player currentPlayer) {
+    public void createGame(String name, int capacity, Player currentPlayer, String currentPlayerColor) {
         Game game = new Game();
         game.setGameName(name);
         game.setCapacity(capacity);

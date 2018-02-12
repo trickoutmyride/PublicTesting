@@ -31,6 +31,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="text"
+                android:maxLength="20"
                 android:textColor="@android:color/black"
                 android:textSize="15sp" />
 
