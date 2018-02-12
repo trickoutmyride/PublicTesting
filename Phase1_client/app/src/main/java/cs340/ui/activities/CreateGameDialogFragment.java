@@ -7,6 +7,7 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -110,6 +111,14 @@ public class CreateGameDialogFragment extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
+
+
+
+        AlertDialog d = (AlertDialog)getDialog();
+        if (d != null) {
+            d.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+            d.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+        }
 
         //Setup editText for game name
         EditText et = (EditText) getDialog().findViewById(R.id.new_game_name);

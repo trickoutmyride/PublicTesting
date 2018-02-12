@@ -12,9 +12,11 @@
         android:id="@+id/start_game_button"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="400dp"
+        android:layout_marginStart="450dp"
         android:layout_marginTop="100dp"
+        android:background="@drawable/dark_background"
         android:text="Start Game"
+        android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,7 +24,7 @@
         android:id="@+id/logout_button"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="400dp"
+        android:layout_marginStart="450dp"
         android:layout_marginTop="200dp"
         android:text="Logout"
         android:visibility="invisible"
@@ -30,8 +32,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="325dp"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/gamelist_border"
@@ -43,21 +45,22 @@
             android:id="@+id/game_lobby_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/simple_border_black"
+            android:background="@drawable/dark_background"
+            android:fontFamily="sans-serif"
             android:text="Game Lobby"
             android:textAlignment="center"
             android:textAppearance="@android:style/TextAppearance.Material.Large"
-            android:textColor="@android:color/white"
-            android:textStyle="bold" />
+            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/current_game_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/simple_border_black"
-            android:textAlignment="center"
+            android:background="@drawable/primary_background"
+            android:layout_marginBottom="1dp"
             android:textAppearance="@android:style/TextAppearance.Material.Medium"
-            android:textColor="@android:color/white" />
+            android:textAlignment="center"
+            android:textColor="@android:color/white"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/lobby_player_list"

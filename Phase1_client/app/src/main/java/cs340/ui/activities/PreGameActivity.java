@@ -1,5 +1,6 @@
 package cs340.ui.activities;
 
+import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Intent;

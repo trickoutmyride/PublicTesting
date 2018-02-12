@@ -24,7 +24,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public View layout;
 
-        public TextView gameNum;
+        //public TextView gameNum;
         public TextView gameName;
         public TextView gamePlayers;
         public TextView gameCapacity;
@@ -32,7 +32,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
         public ViewHolder(View v) {
             super(v);
             layout = v;
-            gameNum = v.findViewById(R.id.game_number);
+            //gameNum = v.findViewById(R.id.game_number);
             gameName = v.findViewById(R.id.game_name);
             gamePlayers = v.findViewById(R.id.game_players);
             gameCapacity = v.findViewById(R.id.game_capacity);
@@ -61,7 +61,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
         System.out.println("OnBindViewHolder " + position);
 
         final Game game = _gameList.getGames().get(position);
-        holder.gameNum.setText(String.valueOf(position));
+        //holder.gameNum.setText(String.valueOf(position));
         holder.gameName.setText(game.getGameName());
 
         StringBuilder sb = new StringBuilder();

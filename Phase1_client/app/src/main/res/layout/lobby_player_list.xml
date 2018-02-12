@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="290dp"
+    android:layout_width="350dp"
     android:layout_height="35dp"
-    android:orientation="horizontal"
-    android:background="@drawable/simple_border_black">
+    android:orientation="horizontal">
 
     <TextView
         android:id="@+id/player_name"
-        android:layout_width="290dp"
+        android:layout_width="350dp"
         android:layout_height="match_parent"
         android:gravity="center"
         android:textAlignment="center"
-        android:textAppearance="@android:style/TextAppearance.Material.Large" />
+        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="1dp"
+        android:background="@drawable/accent_background"/>
 </LinearLayout>

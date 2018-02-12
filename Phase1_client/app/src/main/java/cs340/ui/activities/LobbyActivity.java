@@ -63,7 +63,9 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
 
         //Set currentGameName textView
         currentGameName = findViewById(R.id.current_game_name);
-        currentGameName.setText(currentGame.getGameName());
+        String currentGameNameText;
+        currentGameNameText = "Current Game: " + currentGame.getGameName();
+        currentGameName.setText(currentGameNameText);
 
         //Setup player list RecyclerView
         playerList = findViewById(R.id.lobby_player_list);

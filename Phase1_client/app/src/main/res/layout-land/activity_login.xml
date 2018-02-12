@@ -14,7 +14,7 @@
         android:layout_marginEnd="150dp"
         android:layout_marginStart="150dp"
         android:layout_marginTop="160dp"
-        android:background="@drawable/border"
+        android:background="@drawable/login_border"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,8 +43,8 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/username_field_hint"
-                android:maxLength="15"
-                android:inputType="text" />
+                android:inputType="text"
+                android:maxLength="15" />
 
         </LinearLayout>
 
@@ -132,7 +132,10 @@
             android:gravity="center"
             android:text="@string/submit_button_label"
             android:textAlignment="center"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="5dp"/>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

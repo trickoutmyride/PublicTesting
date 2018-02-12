@@ -21,17 +21,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!--android:background="@drawable/simple_border"-->
-
         <TextView
             android:id="@+id/games_list_label"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="35dp"
+            android:background="@drawable/dark_background"
             android:text="@string/games_list_label"
             android:textAlignment="center"
-            android:textAppearance="@android:style/TextAppearance.Material.Small"
-            android:textColor="@android:color/white"
-            android:textStyle="bold" />
+            android:textAppearance="@android:style/TextAppearance.Material.Large"
+            android:textColor="@android:color/white" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,21 +37,23 @@
 
             android:orientation="horizontal">
 
+            <!--
             <TextView
                 android:id="@+id/game_number_label"
                 android:layout_width="25dp"
                 android:layout_height="20dp"
-                android:background="@drawable/simple_border_white"
+                android:background="@drawable/accent_background"
                 android:text="@string/game_number_label"
                 android:textAlignment="center"
                 android:textAppearance="@android:style/TextAppearance.Material.Small"
                 android:textColor="@android:color/white" />
+            -->
 
             <TextView
                 android:id="@+id/game_name_label"
-                android:layout_width="95dp"
+                android:layout_width="100dp"
                 android:layout_height="20dp"
-                android:background="@drawable/simple_border_white"
+                android:background="@drawable/primary_background"
                 android:text="@string/game_name_label"
                 android:textAlignment="center"
                 android:textAppearance="@android:style/TextAppearance.Material.Small"
@@ -61,9 +61,9 @@
 
             <TextView
                 android:id="@+id/game_players_label"
-                android:layout_width="200dp"
+                android:layout_width="225dp"
                 android:layout_height="20dp"
-                android:background="@drawable/simple_border_white"
+                android:background="@drawable/primary_background"
                 android:text="@string/game_players_label"
                 android:textAlignment="center"
                 android:textAppearance="@android:style/TextAppearance.Material.Small"
@@ -71,9 +71,9 @@
 
             <TextView
                 android:id="@+id/game_capacity_label"
-                android:layout_width="70dp"
+                android:layout_width="75dp"
                 android:layout_height="20dp"
-                android:background="@drawable/simple_border_white"
+                android:background="@drawable/primary_background"
                 android:text="@string/game_capacity_label"
                 android:textAlignment="center"
                 android:textAppearance="@android:style/TextAppearance.Material.Small"
@@ -83,15 +83,17 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/games_list"
-            android:layout_width="390dp"
-            android:layout_height="260dp" />
+            android:layout_width="400dp"
+            android:layout_height="255dp" />
 
         <Button
             android:id="@+id/createGameButton"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:background="@drawable/dark_background"
             android:text="@string/create_game_button_label"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@android:color/white" />
 
 
     </LinearLayout>
