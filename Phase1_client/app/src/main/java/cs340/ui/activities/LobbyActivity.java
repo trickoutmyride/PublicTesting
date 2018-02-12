@@ -17,8 +17,7 @@ import cs340.shared.model.Game;
 import cs340.shared.model.Player;
 import cs340.ui.R;
 import cs340.ui.presenters.ILobbyPresenter;
-import cs340.ui.presenters.IPreGamePresenter;
-import cs340.ui.presenters.MockLobbyPresenter;
+import cs340.ui.presenters.LobbyPresenter;
 
 public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
 
@@ -41,13 +40,13 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
 
-        lobbyPresenter = new MockLobbyPresenter(this);
-
         Gson gson = new Gson();
         currentPlayer = gson.fromJson(getIntent().getStringExtra("currentPlayer"), Player.class);
         currentGame = gson.fromJson(getIntent().getStringExtra("currentGame"), Game.class);
         System.out.println("Current Player: " + currentPlayer.getUsername());
         System.out.println("Current Game: " + currentGame.getGameName());
+
+        lobbyPresenter = new LobbyPresenter(this, currentGame);
 
         startButton = findViewById(R.id.start_game_button);
 
@@ -83,14 +82,26 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
                 Toast toast = Toast.makeText(getApplicationContext(), "Start Game!", Toast.LENGTH_SHORT);
                 toast.show();
                 //Test recycler view update
-                lobbyPresenter.startGame(currentGame);
+                lobbyPresenter.startGame();
             }
         });
     }
 
     @Override
-    public void onPlayerListChanged(ArrayList<Player> newPlayerList) {
-        playerListAdapter = new PlayerListAdapter(newPlayerList, this);
+    public void onError(String message) {
+        Toast toast = Toast.makeText(getApplicationContext(), "message", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    @Override
+    public void onGameStarted() {
+        Toast toast = Toast.makeText(getApplicationContext(), "Game Started!", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    @Override
+    public void onRosterUpdated(ArrayList<Player> players) {
+        playerListAdapter = new PlayerListAdapter(players, this);
         playerList.setAdapter(playerListAdapter);
 
     }

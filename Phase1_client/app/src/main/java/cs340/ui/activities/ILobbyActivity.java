@@ -5,5 +5,7 @@ import java.util.ArrayList;
 import cs340.shared.model.Player;
 
 public interface ILobbyActivity {
-    public void onPlayerListChanged(ArrayList<Player> newPlayerList);
+    void onError(String message);
+    void onGameStarted();
+    void onRosterUpdated(ArrayList<Player> players);
 }

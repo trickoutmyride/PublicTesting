@@ -19,22 +19,27 @@ public class MockLobbyPresenter implements ILobbyPresenter {
     }
 
     @Override
-    public void startGame(Game game) {
-        ArrayList<Player> newPlayerList = new ArrayList<>();
-        Player fakePlayer, fakePlayer2, fakePlayer3, fakePlayer4;
-        fakePlayer = new Player("fakePlayer1", "p", "a");
-        fakePlayer.setUsername("fakePlayer1");
-        fakePlayer2 = new Player("fakePlayer2", "p", "a");
-        fakePlayer2.setUsername("fakePlayer2");
-        fakePlayer3 = new Player("fakePlayer3", "p", "a");
-        fakePlayer3.setUsername("fakePlayer3");
-        fakePlayer4 = new Player("fakePlayer4", "p", "a");
-        fakePlayer4.setUsername("fakePlayer4");
-        newPlayerList.add(fakePlayer);
-        newPlayerList.add(fakePlayer2);
-        newPlayerList.add(fakePlayer3);
-        newPlayerList.add(fakePlayer4);
+    public void detach() {
 
-        _lobbyActivity.onPlayerListChanged(newPlayerList);
+    }
+
+    @Override
+    public void startGame() {
+
+    }
+
+    @Override
+    public void onError(String message) {
+
+    }
+
+    @Override
+    public void onGameStarted() {
+
+    }
+
+    @Override
+    public void onRosterUpdated(ArrayList<Player> players) {
+
     }
 }

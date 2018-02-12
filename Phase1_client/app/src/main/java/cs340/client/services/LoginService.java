@@ -1,16 +1,37 @@
 package cs340.client.services;
 
+import cs340.shared.interfaces.IServer;
+import cs340.shared.model.ClientModel;
+import cs340.shared.model.Player;
 import cs340.shared.requests.SignInRequest;
-import cs340.client.communication.ServerProxy;
 
-public class LoginService {
-	private static final LoginService singleton = new LoginService();
+public class LoginService implements ILoginService {
+    private static LoginService instance = new LoginService();
+    private IServer proxy = null;
 
-	public void login(SignInRequest request) {
-		singleton.loginInner(request);
-	}
+    private LoginService() {}
 
-	private void loginInner(SignInRequest request) {
-		ServerProxy.singleton.login(request);
-	}
+    public static LoginService getInstance() {
+        return instance;
+    }
+
+    @Override
+    public void login(String username, String password) {
+        if (proxy != null) proxy.login(new SignInRequest(username, password));
+    }
+
+    @Override
+    public void onLogin(Player player) {
+        ClientModel.getInstance().setCurrentPlayer(player);
+    }
+
+    @Override
+    public void register(String username, String password) {
+        if (proxy != null) proxy.register(new SignInRequest(username, password));
+    }
+
+    @Override
+    public void setProxy(IServer proxy) {
+        this.proxy = proxy;
+    }
 }

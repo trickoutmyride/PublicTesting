@@ -20,12 +20,13 @@ import cs340.shared.model.Game;
 import cs340.shared.model.GameList;
 import cs340.shared.model.Player;
 import cs340.ui.R;
-import cs340.ui.presenters.IPreGamePresenter;
-import cs340.ui.presenters.MockPreGamePresenter;
+import cs340.ui.presenters.IPregamePresenter;
+import cs340.ui.presenters.PregamePresenter;
 
 public class PreGameActivity extends AppCompatActivity implements CreateGameDialogFragment.CreateGameDialogListener, IPreGameActivity {
 
     //TODO: Can't create a game with the same name, fix this
+    //TODO: Joining player needs a color
 
     private RecyclerView gameList;
     private RecyclerView.Adapter gameListAdapter;
@@ -34,7 +35,7 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
     private String newGameColor;
     private int newGameCapacity;
     private String newGameName;
-    private IPreGamePresenter preGamePresenter;
+    private IPregamePresenter preGamePresenter;
     private Player currentPlayer;
 
     @Override
@@ -45,7 +46,7 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
         currentPlayer = gson.fromJson(bundle.getString("currentPlayer"), Player.class);
 
         //Initialize preGamePresenter
-        preGamePresenter = new MockPreGamePresenter(this);
+        preGamePresenter = new PregamePresenter(this);
 
         //Default is 2
         newGameCapacity = 2;
@@ -101,7 +102,8 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
 
     protected void joinGame(Game game) {
         //Send join game request to Presenter
-        preGamePresenter.joinGame(game);
+
+        preGamePresenter.joinGame(game.getGameID(), currentPlayer, "@android:color/black");
 
     }
 
@@ -110,7 +112,9 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
         //confirm button clicked, everything was verified
         CreateGameDialogFragment cdf = (CreateGameDialogFragment)dialog;
         preGamePresenter.createGame(((CreateGameDialogFragment) dialog).getNewGameName(),
-                ((CreateGameDialogFragment) dialog).getNewGameCapacity(), currentPlayer, ((CreateGameDialogFragment) dialog).getNewGamePlayerColor());
+                currentPlayer,
+                ((CreateGameDialogFragment) dialog).getNewGameCapacity(),
+                ((CreateGameDialogFragment) dialog).getNewGamePlayerColor());
     }
 
     public void onError(String message) {

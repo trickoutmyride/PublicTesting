@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import cs340.shared.model.Player;
 import cs340.ui.R;
 import cs340.ui.presenters.ILoginPresenter;
+import cs340.ui.presenters.LoginPresenter;
 import cs340.ui.presenters.MockLoginPresenter;
 
 public class LoginActivity extends AppCompatActivity implements ILoginActivity {
@@ -57,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
         setContentView(R.layout.activity_login);
 
         //Setup Login Presenter
-        loginPresenter = new MockLoginPresenter(this);
+        loginPresenter = new LoginPresenter(this);
 
         //Grab radio group, buttons, editTexts, etc.
         loginRadio = findViewById(R.id.login_radio);
