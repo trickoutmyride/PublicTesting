@@ -7,6 +7,7 @@ public class Game {
 	private String gameName;
 	private int gameID;
 	private ArrayList<Player> players;
+	private Player owner;
 	private int capacity;
 	
 	/* "Maybe Later" Fields */
@@ -35,4 +36,6 @@ public class Game {
 	}
 	public int getCapacity(){ return capacity; };
 	public void setCapacity(int capacity){ this.capacity = capacity; }
+	public Player getOwner(){ return owner;}
+	public void setOwner(Player owner) {this.owner = owner;}
 }

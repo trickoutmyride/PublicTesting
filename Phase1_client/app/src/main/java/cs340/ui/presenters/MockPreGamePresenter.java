@@ -31,6 +31,7 @@ public class MockPreGamePresenter implements IPreGamePresenter {
         ArrayList<Player> p = new ArrayList<>();
         p.add(currentPlayer);
         game.setPlayers(p);
+        game.setOwner(currentPlayer);
         preGameActivity.onGameJoined(game);
     }
 
