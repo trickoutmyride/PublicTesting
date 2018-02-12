@@ -25,6 +25,8 @@ import cs340.ui.presenters.MockPreGamePresenter;
 
 public class PreGameActivity extends AppCompatActivity implements CreateGameDialogFragment.CreateGameDialogListener, IPreGameActivity {
 
+    //TODO: Can't create a game with the same name, fix this
+
     private RecyclerView gameList;
     private RecyclerView.Adapter gameListAdapter;
     private RecyclerView.LayoutManager gameListLayoutManager;

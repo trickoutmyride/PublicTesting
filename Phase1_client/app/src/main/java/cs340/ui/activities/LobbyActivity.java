@@ -24,6 +24,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
 
 
     //TODO: Display the current player somewhere
+    //maybe "(you)" after the current player on the list?
 
     private Player currentPlayer;
     private Game currentGame;
