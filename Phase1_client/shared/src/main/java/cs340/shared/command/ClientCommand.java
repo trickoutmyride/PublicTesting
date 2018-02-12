@@ -6,7 +6,7 @@ import cs340.shared.interfaces.ICommand;
 import cs340.shared.services.ClientFacade;
 
 public class ClientCommand implements ICommand {
-	private String _methodName; //Specifies the method to call within the client facade
+	private String _methodName; //Specifies the method to call within the Client Facade
 	private Object _param; //Object parameter makes this easy
 	
 	//Public constructor
