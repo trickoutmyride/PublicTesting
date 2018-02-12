@@ -1,49 +1,39 @@
 package cs340.client.communication;
 
 import cs340.shared.interfaces.IServer;
+import com.google.gson.Gson;
 
 public class ServerProxy implements IServer{
-	public static final ServerProxy singleton = new ServerProxy();
+	private static Gson gson = new Gson();
 
 	@Override
-	public void createGame(Object request){
-
+	public void createGame(Object request) {
+		CreateGameRequest createRequest = (CreateGameRequest) request;
+		Message message = new Message(request.getPlayer().getAuthToken(), request);
+		ClientCommunicator.getInstance().sendMessage(message);
 	}
 	@Override
-	public void joinGame(Object request){
-
+	public void joinGame(Object request) {
+		JoinGameRequest createRequest = (CreateGameRequest) request;
+		Message message = new Message(request.getPlayer().getAuthToken(), request);
+		ClientCommunicator.getInstance().sendMessage(message);
 	}
 	@Override
-	public void login(Object request){
-
+	public void login(Object request) {
+		SignInGameRequest createRequest = (CreateGameRequest) request;
+		Message message = new Message(request.getPlayer().getAuthToken(), request);
+		ClientCommunicator.getInstance().sendMessage(message);
 	}
 	@Override
-	public void register(Object request){
-
+	public void register(Object request) {
+		SignInGameRequest createRequest = (CreateGameRequest) request;
+		Message message = new Message(request.getPlayer().getAuthToken(), request);
+		ClientCommunicator.getInstance().sendMessage(message);
 	}
 	@Override
-	public void startGame(Object request){
-
+	public void startGame(Object request) {
+		StartGameRequest createRequest = (CreateGameRequest) request;
+		Message message = new Message(request.getPlayer().getAuthToken(), request);
+		ClientCommunicator.getInstance().sendMessage(message);
 	}
-/*
-	private void createGameInner(Object request) {
-		
-	}
-
-	private void joinGameInner(Object request) {
-		
-	}
-
-	private void loginInner(Object request) {
-		
-	}
-
-	private void registerInner(Object request) {
-		
-	}
-
-	private void startGameInner(Object request) {
-		
-	}
-*/
 }
