@@ -49,6 +49,17 @@ public class PregamePresenter implements IPregamePresenter {
     }
 
     @Override
+    public void onCurrentGameSet(Game game) {
+        final Game currentGame = game;
+        ((Activity) activity).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                activity.onGameJoined(currentGame);
+            }
+        });
+    }
+
+    @Override
     public void onGameListUpdated(final ArrayList<Game> games) {
         System.out.println("onGameListUpdated");
         ((Activity)activity).runOnUiThread(new Runnable() {
