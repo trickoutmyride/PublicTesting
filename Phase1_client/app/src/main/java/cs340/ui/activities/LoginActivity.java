@@ -1,6 +1,9 @@
 package cs340.ui.activities;
 
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.StrictMode;
+import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -57,9 +60,37 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
+
+
+
+        /**
+         *
+         *
+         *
+         *  Temporary override of network UI thread locking for testing:
+         *
+         *
+         */
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+
+
+
+        
+
+
+
+
+        MultiDex.install(this);
+
+        //MOCK LOGIN PRESENTER
+        //loginPresenter = new MockLoginPresenter(this);
+
         //Setup Login Presenter
-        //loginPresenter = new LoginPresenter(this);
         loginPresenter = new LoginPresenter(this);
+
 
         //Grab radio group, buttons, editTexts, etc.
         loginRadio = findViewById(R.id.login_radio);
@@ -178,7 +209,22 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
                     }
                     else {
                         //Pass username and password to the Presenter for Register
-                        loginPresenter.login(username, password);
+                        loginPresenter.register(username, password);
+
+                        /*
+                        new AsyncTask<Void, Void, Void>() {
+                            protected void onPreExecute() {
+                                // Pre Code
+                            }
+                            protected Void doInBackground(Void... unused) {
+                                loginPresenter.register(username, password);
+                                return null;
+                            }
+                            protected void onPostExecute(Void unused) {
+                                // Post Code
+                            }
+                        }.execute();
+                        */
                     }
                 }
                 //User is attempting to login
@@ -193,7 +239,22 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
                     }
                     else {
                         //Pass username and password to the Presenter for Login
-                        loginPresenter.login(username, password);
+                        loginPresenter.login(username,password);
+
+                        /*
+                        new AsyncTask<Void, Void, Void>() {
+                            protected void onPreExecute() {
+                                // Pre Code
+                            }
+                            protected Void doInBackground(Void... unused) {
+                                loginPresenter.login(username, password);
+                                return null;
+                            }
+                            protected void onPostExecute(Void unused) {
+                                // Post Code
+                            }
+                        }.execute();
+                        */
                     }
                 }
             }
@@ -235,5 +296,4 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
         Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
         toast.show();
     }
-
 }

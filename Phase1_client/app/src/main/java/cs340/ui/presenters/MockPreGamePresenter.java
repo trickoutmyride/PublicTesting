@@ -41,11 +41,6 @@ public class MockPreGamePresenter implements IPregamePresenter {
 
     }
 
-    @Override
-    public void onGameListUpdated(GameList games) {
-
-    }
-
 
     @Override
     public void onError(String message) {

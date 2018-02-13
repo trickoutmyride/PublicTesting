@@ -1,9 +1,9 @@
 package cs340.ui.activities;
 
-import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,71 +26,46 @@ import cs340.ui.presenters.PregamePresenter;
 
 public class PreGameActivity extends AppCompatActivity implements CreateGameDialogFragment.CreateGameDialogListener, IPreGameActivity, JoinGameDialogFragment.JoinGameDialogListener {
 
-    //TODO: Can't create a game with the same name, fix this
-    //TODO: Joining player needs a color
+    //TODO: Can't join a game if it's full
 
     private RecyclerView gameList;
     private RecyclerView.Adapter gameListAdapter;
     private RecyclerView.LayoutManager gameListLayoutManager;
     private Button createGameButton;
-    private String newGameColor;
     private int newGameCapacity;
-    private String newGameName;
     private IPregamePresenter preGamePresenter;
     private Player currentPlayer;
     private Game joinGame;
+    private ArrayList<Game> currentGameList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_pre_game);
+
         //Get current player from LoginActivity
         Bundle bundle = getIntent().getExtras();
         Gson gson = new Gson();
         currentPlayer = gson.fromJson(bundle.getString("currentPlayer"), Player.class);
 
         //Initialize preGamePresenter
-        //preGamePresenter = new PregamePresenter(this);
         preGamePresenter = new PregamePresenter(this);
 
-        //Default is 2
+        //Default capacity is 2
         newGameCapacity = 2;
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pre_game);
-
+        //Initialize gameList view
         gameList = findViewById(R.id.games_list);
         gameList.setHasFixedSize(true);
         gameListLayoutManager = new LinearLayoutManager(this);
         gameList.setLayoutManager(gameListLayoutManager);
         createGameButton = findViewById(R.id.createGameButton);
 
-        //Add a bunch of dummy game data
-        GameList listOfGames = new GameList();
-        ArrayList<Game> arrayListOfGames = new ArrayList<>();
-
-        Player tempPlayer = new Player("test", "test", "test");
-        tempPlayer.setUsername("test");
-        ArrayList<Player> listOfPlayers = new ArrayList<>();
-        listOfPlayers.add(tempPlayer);
-        Game tempGame = new Game("game1", listOfPlayers, 5);
-        tempGame.setColor("test", "blue");
-        arrayListOfGames.add(tempGame);
-        Player tempPlayer2 = new Player("test2", "test2", "test2");
-        Player tempPlayer3 = new Player("test3", "test3", "test3");
-        tempPlayer3.setUsername("test3");
-        tempPlayer2.setUsername("test2");
-        ArrayList<Player> listOfPlayers2 = new ArrayList<>();
-        listOfPlayers2.add(tempPlayer2);
-        listOfPlayers2.add(tempPlayer3);
-        Game tempGame2 = new Game("game2", listOfPlayers2, 5);
-        tempGame2.setColor("test2", "blue");
-        tempGame2.setColor("test3", "red");
-        arrayListOfGames.add(tempGame2);
-        listOfGames.setGames(arrayListOfGames);
-
-        gameListAdapter = new GameListAdapter(listOfGames, this);
-
+        //Initialize adapter for RecyclerView
         gameList.setAdapter(gameListAdapter);
 
+        //OnClickListener for Create Game button
         createGameButton.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -112,18 +87,66 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
 
+        //If called by CreateGameDialogFragment
         if (dialog.getClass() == CreateGameDialogFragment.class) {
-            //confirm button clicked, everything was verified
-            CreateGameDialogFragment cdf = (CreateGameDialogFragment)dialog;
-            preGamePresenter.createGame(((CreateGameDialogFragment) dialog).getNewGameName(),
-                    currentPlayer,
-                    ((CreateGameDialogFragment) dialog).getNewGameCapacity(),
-                    ((CreateGameDialogFragment) dialog).getNewGamePlayerColor());
+            String newGameName = ((CreateGameDialogFragment) dialog).getNewGameName();
+            Boolean inUse = false;
+
+            //Loop through current game list
+            for (int i = 0; i < currentGameList.size(); i++) {
+                //If the new game name is already in use
+                if (newGameName.equals(currentGameList.get(i).getGameName())) {
+                    inUse = true;
+                }
+            }
+            //If game in use, display an error.
+            if (inUse) {
+                onError("Try again- Game name in use");
+            } else {
+                final DialogFragment dialog2 = dialog;
+                preGamePresenter.createGame(((CreateGameDialogFragment)dialog2).getNewGameName(),
+                        currentPlayer,
+                        ((CreateGameDialogFragment) dialog2).getNewGameCapacity(),
+                        ((CreateGameDialogFragment) dialog2).getNewGamePlayerColor());
+
+                /*
+                new AsyncTask<Void, Void, Void>() {
+                    protected void onPreExecute() {
+                        // Pre Code
+                    }
+                    protected Void doInBackground(Void... unused) {
+                        preGamePresenter.createGame(((CreateGameDialogFragment)dialog2).getNewGameName(),
+                                currentPlayer,
+                                ((CreateGameDialogFragment) dialog2).getNewGameCapacity(),
+                                ((CreateGameDialogFragment) dialog2).getNewGamePlayerColor());
+                        return null;
+                    }
+                    protected void onPostExecute(Void unused) {
+                        // Post Code
+                    }
+                }.execute();
+                */
+            }
         }
+        //If called by JoinGameDialogFragment
         else if (dialog.getClass() == JoinGameDialogFragment.class) {
-            //confirm button clicked, everything was verified
-            JoinGameDialogFragment cdf = (JoinGameDialogFragment) dialog;
-            preGamePresenter.joinGame(joinGame.getGameID(), currentPlayer, ((JoinGameDialogFragment) dialog).getPlayerColor());
+            final DialogFragment dialog2 = dialog;
+            preGamePresenter.joinGame(joinGame.getGameID(), currentPlayer, ((JoinGameDialogFragment) dialog2).getPlayerColor());
+
+            /*
+            new AsyncTask<Void, Void, Void>() {
+                protected void onPreExecute() {
+                    // Pre Code
+                }
+                protected Void doInBackground(Void... unused) {
+                    preGamePresenter.joinGame(joinGame.getGameID(), currentPlayer, ((JoinGameDialogFragment) dialog2).getPlayerColor());
+                    return null;
+                }
+                protected void onPostExecute(Void unused) {
+                    // Post Code
+                }
+            }.execute();
+            */
         }
     }
 
@@ -134,33 +157,12 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
     }
 
     @Override
-    public void onGameListUpdated(GameList games) {
+    public void onGameListUpdated(ArrayList<Game> games) {
 
-        //Add a bunch of dummy game data
-        GameList listOfGames = new GameList();
-        ArrayList<Game> arrayListOfGames = new ArrayList<>();
+        System.out.println("OnGameListUpdated");
+        System.out.println(games.get(0).getGameName());
 
-        Player tempPlayer = new Player("TEST", "test", "test");
-        tempPlayer.setUsername("TEST");
-        ArrayList<Player> listOfPlayers = new ArrayList<>();
-        listOfPlayers.add(tempPlayer);
-        Game tempGame = new Game("GAME1", listOfPlayers, 5);
-        tempGame.setColor("TEST", "blue");
-        arrayListOfGames.add(tempGame);
-        Player tempPlayer2 = new Player("TEST2", "test2", "test2");
-        Player tempPlayer3 = new Player("TEST3", "test3", "test3");
-        tempPlayer3.setUsername("TEST3");
-        tempPlayer2.setUsername("TEST2");
-        ArrayList<Player> listOfPlayers2 = new ArrayList<>();
-        listOfPlayers2.add(tempPlayer2);
-        listOfPlayers2.add(tempPlayer3);
-        Game tempGame2 = new Game("GAME2", listOfPlayers2, 5);
-        tempGame2.setColor("TEST2", "blue");
-        tempGame2.setColor("TEST3", "red");
-        arrayListOfGames.add(tempGame2);
-        listOfGames.setGames(arrayListOfGames);
-        //End dummy data
-
+        currentGameList = games;
         gameListAdapter = new GameListAdapter(games, this);
         gameList.setAdapter(gameListAdapter);
     }

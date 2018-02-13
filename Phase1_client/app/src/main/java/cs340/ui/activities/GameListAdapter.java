@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import cs340.shared.model.Game;
 import cs340.shared.model.GameList;
 import cs340.ui.R;
@@ -17,7 +19,7 @@ import cs340.ui.R;
 
 public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHolder> {
 
-    private GameList _gameList;
+    private ArrayList<Game> _gameList;
     private Context _context;
 
     // Provide a reference to the views for each data item
@@ -39,7 +41,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
         }
     }
 
-    public GameListAdapter(GameList gameList, Context context) {
+    public GameListAdapter(ArrayList<Game> gameList, Context context) {
         _gameList = gameList;
         _context = context;
     }
@@ -60,7 +62,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
 
         System.out.println("OnBindViewHolder " + position);
 
-        final Game game = _gameList.getGames().get(position);
+        final Game game = _gameList.get(position);
         //holder.gameNum.setText(String.valueOf(position));
         holder.gameName.setText(game.getGameName());
 
@@ -95,7 +97,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
     //Return size of dataset
     @Override
     public int getItemCount() {
-        return _gameList.getGames().size();
+        return _gameList.size();
     }
 
 

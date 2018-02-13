@@ -1,0 +1,1 @@
+Lorg/osgi/framework/SynchronousBundleListener
