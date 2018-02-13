@@ -1,16 +1,14 @@
 package cs340.client.services;
 
-import cs340.shared.requests.StartGameRequest;
-import cs340.client.communication.ServerProxy;
+import java.util.ArrayList;
+
+import cs340.shared.model.ClientModel;
+import cs340.shared.model.Game;
 
 public class UpdateGameListService {
-	private static final UpdateGameListService singleton = new UpdateGameListService();
+	//private static final UpdateGameListService singleton = new UpdateGameListService();
 
-	public static void UpdateGameList(StartGameRequest request) {
-		singleton.UpdateGameListInner(request);
-	}
-
-	private void startGameInner(StartGameRequest request) {
-		ServerProxy.singleton.UpdateGameList(request);
+	public static void onUpdateGameList(ArrayList<Game> gameList){
+		ClientModel.getInstance().setGameList(gameList);
 	}
 }
