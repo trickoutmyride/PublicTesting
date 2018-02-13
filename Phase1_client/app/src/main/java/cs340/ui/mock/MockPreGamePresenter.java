@@ -1,7 +1,6 @@
 package cs340.ui.mock;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import cs340.shared.model.Game;
 import cs340.shared.model.Player;
@@ -12,7 +11,7 @@ import cs340.ui.presenters.IPregamePresenter;
  * Created by sam on 2/13/18.
  */
 
-public class MockPreGamePresenter implements IPregamePresenter {
+public abstract class MockPreGamePresenter implements IPregamePresenter {
 
     private PreGameActivity _preGameActivity;
 

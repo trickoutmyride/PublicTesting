@@ -3,7 +3,6 @@ package cs340.ui.presenters;
 import java.util.ArrayList;
 
 import cs340.shared.model.Game;
-import cs340.shared.model.GameList;
 import cs340.shared.model.Player;
 import cs340.ui.activities.PreGameActivity;
 
@@ -11,7 +10,7 @@ import cs340.ui.activities.PreGameActivity;
  * Created by sam on 2/10/18.
  */
 
-public class MockPreGamePresenter implements IPregamePresenter {
+public abstract class MockPreGamePresenter implements IPregamePresenter {
 
     private PreGameActivity preGameActivity;
 
