@@ -2,10 +2,10 @@ package cs340.client.services;
 
 import com.google.gson.Gson;
 
+import cs340.client.results.CreateGameResult;
+import cs340.client.results.JoinGameResult;
+import cs340.client.results.SignInResult;
 import cs340.shared.interfaces.IClient;
-import cs340.shared.model.Game;
-import cs340.shared.model.GameList;
-import cs340.shared.model.Player;
 
 /**
  * Executes functions based on ClientCommands processed by CommandProcessor coming from the server.
@@ -22,26 +22,32 @@ public class ClientFacade implements IClient {
 
 	public void createGame(String gameJson) {
 		System.out.println("ClientFacade: createGame()");
-		Game game = gson.fromJson(gameJson, Game.class);
-		CreateGameService.onGameCreated((Game) game);
+		//Game game = gson.fromJson(gameJson, Game.class);
+		CreateGameResult result = gson.fromJson(gameJson, CreateGameResult.class);
+		CreateGameService.onGameCreated(result.getGame());
+		UpdateGameListService.onUpdateGameList(result.getGames());
 	}
 
 	public void joinGame(String gameJson) {
 		System.out.println("ClientFacade: joinGame()");
-		Game game = gson.fromJson(gameJson, Game.class);
-		JoinGameService.onGameJoined((Game) game);
+		//Game game = gson.fromJson(gameJson, Game.class);
+		JoinGameResult result = gson.fromJson(gameJson, JoinGameResult.class);
+		JoinGameService.onGameJoined(result.getGame());
 	}
 
-	public void login(String playerJson) {
+	public void login(String signInJson) {
 		System.out.println("ClientFacade: login()");
-		Player player = gson.fromJson(playerJson, Player.class);
-		LoginService.onLogin((Player) player);
+		SignInResult result = gson.fromJson(signInJson, SignInResult.class);
+		LoginService.onLogin(result.getPlayer());
+		UpdateGameListService.onUpdateGameList(result.getGamelist());
 	}
 
-	public void register(String playerJson) {
+	public void register(String signInJson) {
 		System.out.println("ClientFacade: register()");
-		Player player = gson.fromJson(playerJson, Player.class);
-		RegisterService.onRegister((Player) player);
+		//Player player = gson.fromJson(playerJson, Player.class);
+		SignInResult result = gson.fromJson(signInJson, SignInResult.class);
+		RegisterService.onRegister(result.getPlayer());
+		UpdateGameListService.onUpdateGameList(result.getGamelist());
 	}
 
 	public void startGame() {
@@ -49,11 +55,11 @@ public class ClientFacade implements IClient {
 		StartGameService.onGameStarted();
 	}
 	
-	public void updateGameList(String gameListJson) {
+	/*public void updateGameList(String gameListJson) {
 		System.out.println("ClientFacade: updateGameList()" + gameListJson);
 		GameList gameList = gson.fromJson(gameListJson, GameList.class);
 		UpdateGameListService.onUpdateGameList(gameList.getGames());
-	}
+	}*/
 
 	public void error(String error) {
 		System.out.println("ClientFacade: error(): " + error);

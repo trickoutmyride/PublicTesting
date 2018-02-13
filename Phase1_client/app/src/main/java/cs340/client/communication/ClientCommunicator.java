@@ -1,7 +1,6 @@
 package cs340.client.communication;
 
 import android.os.Handler;
-import android.os.Looper;
 
 import com.google.gson.Gson;
 
@@ -32,7 +31,7 @@ import cs340.shared.requests.SignInRequest;
 public class ClientCommunicator {
 	//private static final String address = "wss://real.okcoin.cn:10440/websocket/okcoinapi";
 	//private static final String address = "ws://localhost:8080/ws/command";
-	private static final String address = "ws://10.0.2.2:8080/ws/command";
+	private static final String address = "ws://10.24.70.78:8080/ws/command";
 	private static ClientCommunicator singleton;
 	private Session userSession = null;
 	private MessageHandler messageHandler;
@@ -154,7 +153,6 @@ public class ClientCommunicator {
 			CommandProcessor.handle(message);
 		}
 	}
-
 
 	/**
 	 * For testing only.
