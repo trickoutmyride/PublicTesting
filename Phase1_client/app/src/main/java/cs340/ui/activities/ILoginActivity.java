@@ -1,5 +1,7 @@
 package cs340.ui.activities;
 
+import android.app.Activity;
+
 import cs340.shared.model.Player;
 
 /**

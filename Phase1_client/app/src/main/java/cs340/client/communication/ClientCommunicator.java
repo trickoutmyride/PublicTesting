@@ -1,5 +1,8 @@
 package cs340.client.communication;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import com.google.gson.Gson;
 
 import java.net.URI;
@@ -36,6 +39,7 @@ public class ClientCommunicator {
 	private MessageEncoder encoder;
 	private MessageDecoder decoder;
 	private Gson gson = new Gson();
+	public Handler mHandler;
 
 
 	public static ClientCommunicator getInstance() {

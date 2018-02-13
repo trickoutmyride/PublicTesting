@@ -1,5 +1,7 @@
 package cs340.ui.presenters;
 
+import android.app.Activity;
+
 import java.util.ArrayList;
 
 import cs340.client.services.StartGameService;
@@ -22,18 +24,33 @@ public class LobbyPresenter implements ILobbyPresenter {
     }
 
     @Override
-    public void onError(String message) {
-        activity.onError(message);
+    public void onError(final String message) {
+        ((Activity)activity).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                activity.onError(message);
+            }
+        });
     }
 
     @Override
     public void onGameStarted() {
-        activity.onGameStarted();
+        ((Activity)activity).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                activity.onGameStarted();
+            }
+        });
     }
 
     @Override
-    public void onGameUpdated(Game game) {
-        activity.onGameUpdated(game);
+    public void onGameUpdated(final Game game) {
+        ((Activity)activity).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                activity.onGameUpdated(game);
+            }
+        });
     }
 
     @Override
