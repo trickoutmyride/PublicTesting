@@ -90,10 +90,12 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
             Boolean inUse = false;
 
             //Loop through current game list
-            for (int i = 0; i < currentGameList.size(); i++) {
-                //If the new game name is already in use
-                if (newGameName.equals(currentGameList.get(i).getGameName())) {
-                    inUse = true;
+            if(currentGameList != null && currentGameList.size() != 0) {
+                for (int i = 0; i < currentGameList.size(); i++) {
+                    //If the new game name is already in use
+                    if (newGameName.equals(currentGameList.get(i).getGameName())) {
+                        inUse = true;
+                    }
                 }
             }
             //If game in use, display an error.
@@ -159,13 +161,15 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
         System.out.println("OnGameListUpdated");
         //System.out.println(games.get(0).getGameName());
 
-        //If null then make an empty list
-        currentGameList = games;
-        if (currentGameList == null) {
-            currentGameList = new ArrayList<>();
+        if (games != null && games.size() != 0){
+            currentGameList = games;
+            gameListAdapter = new GameListAdapter(currentGameList, this);
+            gameList.setAdapter(gameListAdapter);
         }
-        gameListAdapter = new GameListAdapter(games, this);
-        gameList.setAdapter(gameListAdapter);
+        else {
+            currentGameList = null;
+        }
+
     }
 
     @Override
