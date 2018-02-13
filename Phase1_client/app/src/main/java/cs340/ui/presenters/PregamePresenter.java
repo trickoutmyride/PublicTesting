@@ -1,5 +1,7 @@
 package cs340.ui.presenters;
 
+import android.app.Activity;
+
 import java.util.ArrayList;
 
 import cs340.client.services.CreateGameService;
@@ -37,12 +39,22 @@ public class PregamePresenter implements IPregamePresenter {
     }
 
     @Override
-    public void onError(String message) {
-        activity.onError(message);
+    public void onError(final String message) {
+        ((Activity)activity).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                activity.onError(message);
+            }
+        });
     }
 
     @Override
-    public void onGameListUpdated(ArrayList<Game> games) {
-        activity.onGameListUpdated(games);
+    public void onGameListUpdated(final ArrayList<Game> games) {
+        ((Activity)activity).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                activity.onGameListUpdated(games);
+            }
+        });
     }
 }
