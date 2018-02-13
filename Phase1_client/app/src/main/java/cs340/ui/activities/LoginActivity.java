@@ -1,6 +1,7 @@
 package cs340.ui.activities;
 
 import android.content.Intent;
+import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -55,6 +56,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        MultiDex.install(this);
 
         //Setup Login Presenter
         //loginPresenter = new LoginPresenter(this);
