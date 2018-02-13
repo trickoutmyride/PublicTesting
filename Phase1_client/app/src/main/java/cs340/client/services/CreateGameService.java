@@ -11,6 +11,6 @@ public class CreateGameService {
 	}
 
 	private void createGameInner(CreateGameRequest request) {
-		ServerProxy.singleton.createGame(request);
+		//ServerProxy.singleton.createGame(request);
 	}
 }

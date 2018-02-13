@@ -14,7 +14,7 @@ public class Game {
 	private ArrayList<LobbyObserver> lobbyObservers = new ArrayList<>();
 	private HashMap<String,String> colors;
 	private int playerCount;
-	
+
 	/* "Maybe Later" Fields */
 	//private Map gameMap;
 	//private TrainCard[5] shownCards;
@@ -29,7 +29,7 @@ public class Game {
 		this.colors = new HashMap<String,String>();
 		this._hasStarted = false;
 	}
-	
+
 	/* Methods */
 	public void addErrorObserver(ErrorObserver observer) {
 		errorObservers.add(observer);

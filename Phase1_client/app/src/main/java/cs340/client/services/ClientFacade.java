@@ -1,6 +1,10 @@
-package cs340.shared.services;
+package cs340.client.services;
+
+import java.util.ArrayList;
 
 import cs340.shared.interfaces.IClient;
+import cs340.shared.model.Game;
+import cs340.shared.model.Player;
 
 /**
  * Executes functions based on ClientCommands processed by CommandProcessor coming from the server.
