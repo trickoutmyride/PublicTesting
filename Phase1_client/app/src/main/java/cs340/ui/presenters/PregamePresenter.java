@@ -50,7 +50,8 @@ public class PregamePresenter implements IPregamePresenter {
 
     @Override
     public void onGameListUpdated(final ArrayList<Game> games) {
-        System.out.println("onGameListUpdated");
+        System.out.println("onGameListUpdated Presenter");
+        System.out.println("Games(0): " + games.get(0).getGameName());
         ((Activity)activity).runOnUiThread(new Runnable() {
             @Override
             public void run() {

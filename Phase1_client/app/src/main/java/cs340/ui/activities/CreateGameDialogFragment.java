@@ -64,6 +64,8 @@ public class CreateGameDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        //default capacity
+        newGameCapacity = 2;
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         //Get layout inflater:

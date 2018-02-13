@@ -86,66 +86,19 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
 
         //If called by CreateGameDialogFragment
         if (dialog.getClass() == CreateGameDialogFragment.class) {
-            String newGameName = ((CreateGameDialogFragment) dialog).getNewGameName();
-            Boolean inUse = false;
 
-            //Loop through current game list
-            if(currentGameList != null && currentGameList.size() != 0) {
-                for (int i = 0; i < currentGameList.size(); i++) {
-                    //If the new game name is already in use
-                    if (newGameName.equals(currentGameList.get(i).getGameName())) {
-                        inUse = true;
-                    }
-                }
+            if (currentPlayer == null) {
+                System.out.println("currentPlayer == null");
             }
-            //If game in use, display an error.
-            if (inUse) {
-                onError("Try again- Game name in use");
-            } else {
-                final DialogFragment dialog2 = dialog;
-                preGamePresenter.createGame(((CreateGameDialogFragment)dialog2).getNewGameName(),
-                        currentPlayer,
-                        ((CreateGameDialogFragment) dialog2).getNewGameCapacity(),
-                        ((CreateGameDialogFragment) dialog2).getNewGamePlayerColor());
 
-                /*
-                new AsyncTask<Void, Void, Void>() {
-                    protected void onPreExecute() {
-                        // Pre Code
-                    }
-                    protected Void doInBackground(Void... unused) {
-                        preGamePresenter.createGame(((CreateGameDialogFragment)dialog2).getNewGameName(),
-                                currentPlayer,
-                                ((CreateGameDialogFragment) dialog2).getNewGameCapacity(),
-                                ((CreateGameDialogFragment) dialog2).getNewGamePlayerColor());
-                        return null;
-                    }
-                    protected void onPostExecute(Void unused) {
-                        // Post Code
-                    }
-                }.execute();
-                */
-            }
+            preGamePresenter.createGame(((CreateGameDialogFragment)dialog).getNewGameName(),
+                    currentPlayer,
+                    ((CreateGameDialogFragment) dialog).getNewGameCapacity(),
+                    ((CreateGameDialogFragment) dialog).getNewGamePlayerColor());
         }
         //If called by JoinGameDialogFragment
         else if (dialog.getClass() == JoinGameDialogFragment.class) {
-            final DialogFragment dialog2 = dialog;
-            preGamePresenter.joinGame(joinGame.getGameID(), currentPlayer, ((JoinGameDialogFragment) dialog2).getPlayerColor());
-
-            /*
-            new AsyncTask<Void, Void, Void>() {
-                protected void onPreExecute() {
-                    // Pre Code
-                }
-                protected Void doInBackground(Void... unused) {
-                    preGamePresenter.joinGame(joinGame.getGameID(), currentPlayer, ((JoinGameDialogFragment) dialog2).getPlayerColor());
-                    return null;
-                }
-                protected void onPostExecute(Void unused) {
-                    // Post Code
-                }
-            }.execute();
-            */
+            preGamePresenter.joinGame(joinGame.getGameID(), currentPlayer, ((JoinGameDialogFragment) dialog).getPlayerColor());
         }
     }
 
@@ -158,7 +111,7 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
     @Override
     public void onGameListUpdated(ArrayList<Game> games) {
 
-        System.out.println("OnGameListUpdated");
+        System.out.println("OnGameListUpdated Activity");
         //System.out.println(games.get(0).getGameName());
 
         if (games != null && games.size() != 0){
