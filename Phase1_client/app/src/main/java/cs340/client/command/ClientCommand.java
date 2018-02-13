@@ -7,10 +7,10 @@ import cs340.shared.interfaces.ICommand;
 
 public class ClientCommand implements ICommand {
 	private String _methodName; //Specifies the method to call within the Client Facade
-	private Object _param; //Object parameter makes this easy
+	private String _param; //String parameter makes this easy
 	
 	//Public constructor
-	public ClientCommand(String method, Object param){
+	public ClientCommand(String method, String param){
 		this._methodName = method;
 		this._param = param;
 	}
@@ -19,7 +19,7 @@ public class ClientCommand implements ICommand {
 	public void execute() {
 		try {
 			Method method = ClientFacade.class.getMethod(_methodName, String.class);
-			method.invoke(null, _param);
+			method.invoke(ClientFacade.getInstance(), _param);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -36,12 +36,12 @@ public class ClientCommand implements ICommand {
 	}
 	
 	//Sets the paramvalue
-	public void setParam(Object param){
+	public void setParam(String param){
 		this._param = param;
 	}
 	
 	//Gets the paramvalue
-	public Object getParam(){
+	public String getParam(){
 		return this._param;
 	}
 }

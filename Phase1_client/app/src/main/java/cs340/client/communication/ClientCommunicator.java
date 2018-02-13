@@ -15,9 +15,11 @@ import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
 
 import cs340.client.command.CommandManager;
+import cs340.client.command.CommandProcessor;
 import cs340.shared.message.Message;
 import cs340.shared.message.MessageDecoder;
 import cs340.shared.message.MessageEncoder;
+import cs340.shared.message.ServerMessage;
 import cs340.shared.requests.SignInRequest;
 
 @ClientEndpoint(
@@ -27,14 +29,13 @@ import cs340.shared.requests.SignInRequest;
 public class ClientCommunicator {
 	//private static final String address = "wss://real.okcoin.cn:10440/websocket/okcoinapi";
 	//private static final String address = "ws://localhost:8080/ws/command";
-	private static final String address = "ws://10.0.2.1:8080/ws/command";
-	//private static final String address = "ws://echo.websocket.org";
-
+	private static final String address = "ws://10.37.84.13:8080/ws/command";
 	private static ClientCommunicator singleton;
 	private Session userSession = null;
 	private MessageHandler messageHandler;
 	private MessageEncoder encoder;
 	private MessageDecoder decoder;
+	private Gson gson = new Gson();
 
 
 	public static ClientCommunicator getInstance() {
@@ -97,7 +98,7 @@ public class ClientCommunicator {
 			try {
 				this.messageHandler.handleMessage(message);
 			} catch (Exception e) {
-				System.out.println("Error handling message");
+				System.out.println("Error handling message: " + e.getLocalizedMessage());
 			}
 		}
 	}
@@ -119,11 +120,13 @@ public class ClientCommunicator {
 	 *
 	 * @param message
 	 */
-	public void sendMessage(Message message) {
+	public void sendMessage(ServerMessage message) {
 		//String send = encoder.encode(message);
 		System.out.println("Sending test message object..." + message.getId());
+		//System.out.println(encoder.encode(message));
 		//Log.d("ClientCommunicator", "Sending test message object..." + message.getId() + "\n" + message.getContents());
-		this.userSession.getAsyncRemote().sendObject(message);
+		//this.userSession.getAsyncRemote().sendObject(message);
+		this.userSession.getAsyncRemote().sendText(gson.toJson(message));
 	}
 
 	/**
@@ -144,9 +147,7 @@ public class ClientCommunicator {
 		public void handleMessage(String msg) throws DecodeException {
 			System.out.println(msg);
 			Message message = decoder.decode(msg);
-		}
-		public void handleMessage (Message msg){
-
+			CommandProcessor.handle(message);
 		}
 	}
 
@@ -165,7 +166,7 @@ public class ClientCommunicator {
 			// add listener
 			System.out.println("Sending test message...");
 			// send message to websocket
-			Message message = new Message("user", CommandManager.getInstance().makeCommand("register", new SignInRequest("user", "pass")));
+			ServerMessage message = new ServerMessage("user", CommandManager.getInstance().makeCommand("register", new SignInRequest("user", "pass")));
 			clientEndPoint.sendMessage(message);
 			//clientEndPoint.sendMessage(new Message("user1", new ServerCommand("register", gson.toJson(new SignInRequest("user2", "pass2")))));
 			//clientEndPoint.sendMessage("String Stuff");
