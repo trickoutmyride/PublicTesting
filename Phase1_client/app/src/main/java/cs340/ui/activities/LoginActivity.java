@@ -78,9 +78,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
 
 
 
-        
-
-
 
 
         MultiDex.install(this);
