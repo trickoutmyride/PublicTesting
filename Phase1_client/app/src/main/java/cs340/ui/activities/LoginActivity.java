@@ -2,6 +2,7 @@ package cs340.ui.activities;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -58,6 +59,29 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+
+
+
+        /**
+         *
+         *
+         *
+         *  Temporary override of network UI thread locking for testing:
+         *
+         *
+         */
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+
+
+
+        
+
+
+
 
         MultiDex.install(this);
 
