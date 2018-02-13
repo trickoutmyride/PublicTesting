@@ -81,7 +81,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
         playerList.setHasFixedSize(true);
         playerListLayoutManager = new LinearLayoutManager(this);
         playerList.setLayoutManager(playerListLayoutManager);
-        playerListAdapter = new PlayerListAdapter(currentGame.getPlayers(), this, currentPlayer);
+        playerListAdapter = new PlayerListAdapter(currentGame.getPlayers(), this, currentPlayer, currentGame.getColors());
         playerList.setAdapter(playerListAdapter);
 
         //Listener for the start button
@@ -123,7 +123,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
      */
     @Override
     public void onGameUpdated(Game game) {
-        playerListAdapter = new PlayerListAdapter(game.getPlayers(), this, currentPlayer);
+        playerListAdapter = new PlayerListAdapter(game.getPlayers(), this, currentPlayer, currentGame.getColors());
         playerList.setAdapter(playerListAdapter);
 
     }
