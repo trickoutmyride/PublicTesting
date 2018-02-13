@@ -18,7 +18,6 @@ import cs340.shared.model.Player;
 import cs340.ui.R;
 import cs340.ui.presenters.ILoginPresenter;
 import cs340.ui.presenters.LoginPresenter;
-import cs340.ui.presenters.MockLoginPresenter;
 
 public class LoginActivity extends AppCompatActivity implements ILoginActivity {
 

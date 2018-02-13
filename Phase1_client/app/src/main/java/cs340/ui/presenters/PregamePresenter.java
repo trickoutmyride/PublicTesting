@@ -17,6 +17,8 @@ public class PregamePresenter implements IPregamePresenter {
     public PregamePresenter(IPreGameActivity activity) {
         this.activity = activity;
         ClientModel.getInstance().addGameListObserver(this);
+        //Initialize the game list for the activity
+        activity.onGameListUpdated(ClientModel.getInstance().getGameList());
     }
 
     @Override
@@ -40,12 +42,7 @@ public class PregamePresenter implements IPregamePresenter {
     }
 
     @Override
-    public void onGameListUpdated(GameList games) {
-        activity.onGameListUpdated(games);
-    }
-
-    @Override
     public void onGameListUpdated(ArrayList<Game> games) {
-
+        activity.onGameListUpdated(games);
     }
 }

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import cs340.shared.model.Game;
 import cs340.shared.model.Player;
@@ -35,6 +36,12 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
     private ILobbyPresenter lobbyPresenter;
 
 
+    /**
+     * On Activity creation, do the following:
+     *      Get current player and game from the PreGameActivity
+     *      Initialize LobbyPresenter
+     *      Setup buttons, playerList RecyclerView, etc.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +54,10 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
         System.out.println("Current Game: " + currentGame.getGameName());
 
         lobbyPresenter = new LobbyPresenter(this);
-
         startButton = findViewById(R.id.start_game_button);
 
         //Only enable the Create Game button if the current player is the owner of the game
+
         /*
         if (currentGame.getOwner().equals(currentPlayer.getUsername())) {
             startButton.setEnabled(true);
@@ -61,9 +68,11 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
         }
         */
 
+        HashMap<String, String> hm =  currentGame.getColors();
+
         //Set currentGameName textView
         currentGameName = findViewById(R.id.current_game_name);
-        String currentGameNameText;
+        final String currentGameNameText;
         currentGameNameText = "Current Game: " + currentGame.getGameName();
         currentGameName.setText(currentGameNameText);
 
@@ -72,37 +81,49 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
         playerList.setHasFixedSize(true);
         playerListLayoutManager = new LinearLayoutManager(this);
         playerList.setLayoutManager(playerListLayoutManager);
-        playerListAdapter = new PlayerListAdapter(currentGame.getPlayers(), this);
+        playerListAdapter = new PlayerListAdapter(currentGame.getPlayers(), this, currentPlayer);
         playerList.setAdapter(playerListAdapter);
 
         //Listener for the start button
         startButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Start Game!", Toast.LENGTH_SHORT);
-                toast.show();
-                //Test recycler view update
-                lobbyPresenter.startGame();
+                if (currentGame.getCapacity() == currentGame.getPlayers().size()){
+                    Toast toast = Toast.makeText(getApplicationContext(), "Start Game!", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else {
+                    onError("Not enough players to start. Waiting on " + Integer.toString(currentGame.getCapacity() - currentGame.getPlayers().size()) + "players.");
+                }
             }
         });
     }
 
+
+    /**
+     * Display an error message for the user
+     */
     @Override
     public void onError(String message) {
         Toast toast = Toast.makeText(getApplicationContext(), "message", Toast.LENGTH_SHORT);
         toast.show();
     }
 
+    /**
+     * Tell the user that another player has started the game
+     */
     @Override
     public void onGameStarted() {
         Toast toast = Toast.makeText(getApplicationContext(), "Game Started!", Toast.LENGTH_SHORT);
         toast.show();
     }
 
+    /**
+     * Update the game list by resetting the list adapter for the playerList RecyclerView
+     */
     @Override
     public void onGameUpdated(Game game) {
-
-        playerListAdapter = new PlayerListAdapter(game.getPlayers(), this);
+        playerListAdapter = new PlayerListAdapter(game.getPlayers(), this, currentPlayer);
         playerList.setAdapter(playerListAdapter);
 
     }
