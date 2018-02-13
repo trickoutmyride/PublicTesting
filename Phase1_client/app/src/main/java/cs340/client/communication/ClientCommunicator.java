@@ -27,7 +27,9 @@ import cs340.shared.requests.SignInRequest;
 public class ClientCommunicator {
 	//private static final String address = "wss://real.okcoin.cn:10440/websocket/okcoinapi";
 	//private static final String address = "ws://localhost:8080/ws/command";
-	private static final String address = "ws://192.168.1.8:8080/ws/command";
+	private static final String address = "ws://10.0.2.1:8080/ws/command";
+	//private static final String address = "ws://echo.websocket.org";
+
 	private static ClientCommunicator singleton;
 	private Session userSession = null;
 	private MessageHandler messageHandler;

@@ -1,6 +1,7 @@
 package cs340.ui.activities;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import cs340.shared.model.Player;
 import cs340.ui.R;
 import cs340.ui.presenters.ILoginPresenter;
 import cs340.ui.presenters.LoginPresenter;
+import cs340.ui.presenters.MockLoginPresenter;
 
 public class LoginActivity extends AppCompatActivity implements ILoginActivity {
 
@@ -59,9 +61,12 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
 
         MultiDex.install(this);
 
+        //MOCK LOGIN PRESENTER
+        //loginPresenter = new MockLoginPresenter(this);
+
         //Setup Login Presenter
-        //loginPresenter = new LoginPresenter(this);
         loginPresenter = new LoginPresenter(this);
+
 
         //Grab radio group, buttons, editTexts, etc.
         loginRadio = findViewById(R.id.login_radio);
@@ -180,7 +185,22 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
                     }
                     else {
                         //Pass username and password to the Presenter for Register
-                        loginPresenter.login(username, password);
+                        loginPresenter.register(username, password);
+
+                        /*
+                        new AsyncTask<Void, Void, Void>() {
+                            protected void onPreExecute() {
+                                // Pre Code
+                            }
+                            protected Void doInBackground(Void... unused) {
+                                loginPresenter.register(username, password);
+                                return null;
+                            }
+                            protected void onPostExecute(Void unused) {
+                                // Post Code
+                            }
+                        }.execute();
+                        */
                     }
                 }
                 //User is attempting to login
@@ -195,7 +215,22 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
                     }
                     else {
                         //Pass username and password to the Presenter for Login
-                        loginPresenter.login(username, password);
+                        loginPresenter.login(username,password);
+
+                        /*
+                        new AsyncTask<Void, Void, Void>() {
+                            protected void onPreExecute() {
+                                // Pre Code
+                            }
+                            protected Void doInBackground(Void... unused) {
+                                loginPresenter.login(username, password);
+                                return null;
+                            }
+                            protected void onPostExecute(Void unused) {
+                                // Post Code
+                            }
+                        }.execute();
+                        */
                     }
                 }
             }
@@ -237,5 +272,4 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
         Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
         toast.show();
     }
-
 }

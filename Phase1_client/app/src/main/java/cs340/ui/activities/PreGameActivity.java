@@ -3,6 +3,7 @@ package cs340.ui.activities;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,9 +21,12 @@ import cs340.shared.model.GameList;
 import cs340.shared.model.Player;
 import cs340.ui.R;
 import cs340.ui.presenters.IPregamePresenter;
+import cs340.ui.presenters.MockPreGamePresenter;
 import cs340.ui.presenters.PregamePresenter;
 
 public class PreGameActivity extends AppCompatActivity implements CreateGameDialogFragment.CreateGameDialogListener, IPreGameActivity, JoinGameDialogFragment.JoinGameDialogListener {
+
+    //TODO: Can't join a game if it's full
 
     private RecyclerView gameList;
     private RecyclerView.Adapter gameListAdapter;
@@ -99,16 +103,50 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
             if (inUse) {
                 onError("Try again- Game name in use");
             } else {
-                preGamePresenter.createGame(((CreateGameDialogFragment) dialog).getNewGameName(),
-                    currentPlayer,
-                    ((CreateGameDialogFragment) dialog).getNewGameCapacity(),
-                    ((CreateGameDialogFragment) dialog).getNewGamePlayerColor());
+                final DialogFragment dialog2 = dialog;
+                preGamePresenter.createGame(((CreateGameDialogFragment)dialog2).getNewGameName(),
+                        currentPlayer,
+                        ((CreateGameDialogFragment) dialog2).getNewGameCapacity(),
+                        ((CreateGameDialogFragment) dialog2).getNewGamePlayerColor());
+
+                /*
+                new AsyncTask<Void, Void, Void>() {
+                    protected void onPreExecute() {
+                        // Pre Code
+                    }
+                    protected Void doInBackground(Void... unused) {
+                        preGamePresenter.createGame(((CreateGameDialogFragment)dialog2).getNewGameName(),
+                                currentPlayer,
+                                ((CreateGameDialogFragment) dialog2).getNewGameCapacity(),
+                                ((CreateGameDialogFragment) dialog2).getNewGamePlayerColor());
+                        return null;
+                    }
+                    protected void onPostExecute(Void unused) {
+                        // Post Code
+                    }
+                }.execute();
+                */
             }
         }
         //If called by JoinGameDialogFragment
         else if (dialog.getClass() == JoinGameDialogFragment.class) {
-            JoinGameDialogFragment cdf = (JoinGameDialogFragment) dialog;
-            preGamePresenter.joinGame(joinGame.getGameID(), currentPlayer, ((JoinGameDialogFragment) dialog).getPlayerColor());
+            final DialogFragment dialog2 = dialog;
+            preGamePresenter.joinGame(joinGame.getGameID(), currentPlayer, ((JoinGameDialogFragment) dialog2).getPlayerColor());
+
+            /*
+            new AsyncTask<Void, Void, Void>() {
+                protected void onPreExecute() {
+                    // Pre Code
+                }
+                protected Void doInBackground(Void... unused) {
+                    preGamePresenter.joinGame(joinGame.getGameID(), currentPlayer, ((JoinGameDialogFragment) dialog2).getPlayerColor());
+                    return null;
+                }
+                protected void onPostExecute(Void unused) {
+                    // Post Code
+                }
+            }.execute();
+            */
         }
     }
 
@@ -120,6 +158,10 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
 
     @Override
     public void onGameListUpdated(ArrayList<Game> games) {
+
+        System.out.println("OnGameListUpdated");
+        System.out.println(games.get(0).getGameName());
+
         currentGameList = games;
         gameListAdapter = new GameListAdapter(games, this);
         gameList.setAdapter(gameListAdapter);
