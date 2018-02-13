@@ -3,9 +3,8 @@ package cs340.ui.activities;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,11 +16,9 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 import cs340.shared.model.Game;
-import cs340.shared.model.GameList;
 import cs340.shared.model.Player;
 import cs340.ui.R;
 import cs340.ui.presenters.IPregamePresenter;
-import cs340.ui.presenters.MockPreGamePresenter;
 import cs340.ui.presenters.PregamePresenter;
 
 public class PreGameActivity extends AppCompatActivity implements CreateGameDialogFragment.CreateGameDialogListener, IPreGameActivity, JoinGameDialogFragment.JoinGameDialogListener {
@@ -160,7 +157,7 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
     public void onGameListUpdated(ArrayList<Game> games) {
 
         System.out.println("OnGameListUpdated");
-        System.out.println(games.get(0).getGameName());
+        //System.out.println(games.get(0).getGameName());
 
         currentGameList = games;
         gameListAdapter = new GameListAdapter(games, this);

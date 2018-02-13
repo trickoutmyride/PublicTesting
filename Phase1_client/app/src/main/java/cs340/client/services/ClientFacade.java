@@ -14,26 +14,34 @@ import cs340.shared.model.Player;
  */
 public class ClientFacade implements IClient {
 	private static Gson gson = new Gson();
-	public void createGame(Object game) {
+	private static ClientFacade singleton;
+
+	public static ClientFacade getInstance(){
+		if (singleton == null) singleton = new ClientFacade();
+		return singleton;
+	}
+
+	public void createGame(String gameJson) {
 		System.out.println("ClientFacade: createGame()");
+		Game game = gson.fromJson(gameJson, Game.class);
 		CreateGameService.onGameCreated((Game) game);
 	}
 
-	public void joinGame(Object gameJson) {
+	public void joinGame(String gameJson) {
 		System.out.println("ClientFacade: joinGame()");
-		Game game = gson.fromJson((String)gameJson, Game.class);
+		Game game = gson.fromJson(gameJson, Game.class);
 		JoinGameService.onGameJoined((Game) game);
 	}
 
-	public void login(Object playerJson) {
+	public void login(String playerJson) {
 		System.out.println("ClientFacade: login()");
-		Player player = gson.fromJson((String)playerJson, Player.class);
+		Player player = gson.fromJson(playerJson, Player.class);
 		LoginService.onLogin((Player) player);
 	}
 
-	public void register(Object playerJson) {
+	public void register(String playerJson) {
 		System.out.println("ClientFacade: register()");
-		Player player = gson.fromJson((String)playerJson, Player.class);
+		Player player = gson.fromJson(playerJson, Player.class);
 		RegisterService.onRegister((Player) player);
 	}
 
@@ -42,13 +50,13 @@ public class ClientFacade implements IClient {
 		StartGameService.onGameStarted();
 	}
 	
-	public void updateGameList(Object gameListJson) {
+	public void updateGameList(String gameListJson) {
 		System.out.println("ClientFacade: updateGameList()");
-		ArrayList<Game> gameList = gson.fromJson((String)gameListJson, ArrayList.class);
+		ArrayList<Game> gameList = gson.fromJson(gameListJson, ArrayList.class);
 		UpdateGameListService.onUpdateGameList((ArrayList<Game>) gameList);
 	}
 
-	public void error(Object error) {
+	public void error(String error) {
 		System.out.println("ClientFacade: error()");
 		ErrorService.onError((String) error);
 	}

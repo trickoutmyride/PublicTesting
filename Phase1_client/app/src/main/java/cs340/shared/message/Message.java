@@ -1,12 +1,12 @@
 package cs340.shared.message;
 
-import cs340.shared.interfaces.ICommand;
+import cs340.client.command.ClientCommand;
 
 public class Message {
 	private String id;
-	private ICommand contents;
+	private ClientCommand contents;
 
-	public Message(String id, ICommand contents) {
+	public Message(String id, ClientCommand contents) {
 		this.id = id;
 		this.contents = contents;
 	}
@@ -19,11 +19,11 @@ public class Message {
 		this.id = id;
 	}
 
-	public cs340.shared.interfaces.ICommand getContents() {
+	public ClientCommand getContents() {
 		return contents;
 	}
 
-	public void setContents(cs340.shared.interfaces.ICommand contents) {
+	public void setContents(ClientCommand contents){
 		this.contents = contents;
 	}
 

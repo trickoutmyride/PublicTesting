@@ -1,11 +1,10 @@
 package cs340.ui.activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -21,7 +20,6 @@ import cs340.shared.model.Player;
 import cs340.ui.R;
 import cs340.ui.presenters.ILoginPresenter;
 import cs340.ui.presenters.LoginPresenter;
-import cs340.ui.presenters.MockLoginPresenter;
 
 public class LoginActivity extends AppCompatActivity implements ILoginActivity {
 

@@ -21,7 +21,7 @@ public class CommandProcessor {
 	}
 
 	private void handleInner(Message message) {
-		ClientCommand cmd = (ClientCommand) message.getContents();
+		ClientCommand cmd = message.getContents();
 		cmd.execute();
 	}
 }
