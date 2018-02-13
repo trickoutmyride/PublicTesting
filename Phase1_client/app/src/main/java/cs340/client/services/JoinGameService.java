@@ -1,16 +1,19 @@
 package cs340.client.services;
 
+import cs340.shared.model.ClientModel;
+import cs340.shared.model.Game;
+import cs340.shared.model.Player;
 import cs340.shared.requests.JoinGameRequest;
 import cs340.client.communication.ServerProxy;
 
 public class JoinGameService {
-	private static final JoinGameService singleton = new JoinGameService();
+	private static ServerProxy proxy = new ServerProxy();
 
-	public void joinGame(JoinGameRequest request) {
-		singleton.joinGameInner(request);
+	public static void joinGame(int gameID, Player player, String color) {
+		proxy.joinGame(new JoinGameRequest(gameID, player, color));
 	}
 
-	private void joinGameInner(JoinGameRequest request) {
-		ServerProxy.singleton.joinGame(request);
+	public static void onGameJoined(Game game) {
+		ClientModel.getInstance().setCurrentGame(game);
 	}
 }

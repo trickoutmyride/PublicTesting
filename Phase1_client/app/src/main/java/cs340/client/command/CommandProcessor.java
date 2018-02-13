@@ -1,6 +1,5 @@
 package cs340.client.command;
 
-import cs340.shared.command.ClientCommand;
 import cs340.shared.message.Message;
 
 public class CommandProcessor {

@@ -1,16 +1,18 @@
 package cs340.client.services;
 
+import cs340.shared.model.ClientModel;
+import cs340.shared.model.Player;
 import cs340.shared.requests.StartGameRequest;
 import cs340.client.communication.ServerProxy;
 
 public class StartGameService {
-	private static final StartGameService singleton = new StartGameService();
+	private static ServerProxy proxy = new ServerProxy();
 
-	public static void startGame(StartGameRequest request) {
-		singleton.startGameInner(request);
+	public static void onGameStarted() {
+		ClientModel.getInstance().startGame();
 	}
 
-	private void startGameInner(StartGameRequest request) {
-		ServerProxy.singleton.startGame(request);
+	public static void startGame(Player player) {
+		proxy.startGame(new StartGameRequest(player));
 	}
 }

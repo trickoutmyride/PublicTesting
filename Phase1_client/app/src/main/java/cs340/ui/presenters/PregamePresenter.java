@@ -2,6 +2,8 @@ package cs340.ui.presenters;
 
 import java.util.ArrayList;
 
+import cs340.client.services.CreateGameService;
+import cs340.client.services.JoinGameService;
 import cs340.client.services.PregameService;
 import cs340.shared.model.ClientModel;
 import cs340.shared.model.Game;
@@ -19,7 +21,7 @@ public class PregamePresenter implements IPregamePresenter {
 
     @Override
     public void createGame(String name, Player player, int capacity, String color) {
-        PregameService.getInstance().createGame(name, player, capacity, color);
+        CreateGameService.createGame(name, player, capacity, color);
     }
 
     @Override
@@ -29,7 +31,7 @@ public class PregamePresenter implements IPregamePresenter {
 
     @Override
     public void joinGame(int gameID, Player player, String color) {
-        PregameService.getInstance().joinGame(gameID, player, color);
+        JoinGameService.joinGame(gameID, player, color);
     }
 
     @Override

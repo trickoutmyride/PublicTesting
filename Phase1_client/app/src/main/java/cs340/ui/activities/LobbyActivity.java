@@ -46,7 +46,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
         System.out.println("Current Player: " + currentPlayer.getUsername());
         System.out.println("Current Game: " + currentGame.getGameName());
 
-        lobbyPresenter = new LobbyPresenter(this, currentGame);
+        lobbyPresenter = new LobbyPresenter(this);
 
         startButton = findViewById(R.id.start_game_button);
 
@@ -100,8 +100,9 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
     }
 
     @Override
-    public void onRosterUpdated(ArrayList<Player> players) {
-        playerListAdapter = new PlayerListAdapter(players, this);
+    public void onGameUpdated(Game game) {
+
+        playerListAdapter = new PlayerListAdapter(game.getPlayers(), this);
         playerList.setAdapter(playerListAdapter);
 
     }

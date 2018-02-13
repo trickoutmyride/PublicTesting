@@ -9,6 +9,7 @@ public class ClientModel {
     private ArrayList<CurrentPlayerObserver> currentPlayerObservers = new ArrayList<>();
     private ArrayList<ErrorObserver> errorObservers = new ArrayList<>();
     private ArrayList<GameListObserver> gameListObservers = new ArrayList<>();
+    private ArrayList<GameLobbyObserver> gameLobbyObservers = new ArrayList<>();
     private ArrayList<Game> games = new ArrayList<>();
     private static ClientModel instance = new ClientModel();
 
@@ -30,6 +31,11 @@ public class ClientModel {
 
     public void addGameListObserver(GameListObserver observer) {
         gameListObservers.add(observer);
+        addErrorObserver(observer);
+    }
+
+    public void addGameLobbyObserver(GameLobbyObserver observer) {
+        gameLobbyObservers.add(observer);
         addErrorObserver(observer);
     }
 
@@ -68,14 +74,19 @@ public class ClientModel {
         removeErrorObserver(observer);
     }
 
+    public void removeGameLobbyObserver(GameLobbyObserver observer) {
+        gameLobbyObservers.remove(observer);
+        removeErrorObserver(observer);
+    }
+
     public void sendError(String message) {
         for (ErrorObserver observer: errorObservers) observer.onError(message);
     }
 
     public void setCurrentGame(Game game) {
         currentGame = game;
-        for (CurrentGameObserver observer : currentGameObservers)
-            observer.onCurrentGameSet(game);
+        for (CurrentGameObserver observer : currentGameObservers) observer.onCurrentGameSet(game);
+        for (GameLobbyObserver observer : gameLobbyObservers) observer.onGameUpdated(game);
     }
 
     public void setCurrentPlayer(Player player) {
@@ -87,6 +98,10 @@ public class ClientModel {
     public void setGameList(ArrayList<Game> games) {
         this.games = games;
         for (GameListObserver observer : gameListObservers) observer.onGameListUpdated(games);
+    }
+
+    public void startGame() {
+        for (GameLobbyObserver observer : gameLobbyObservers) observer.onGameStarted();
     }
 
     public interface ErrorObserver {
@@ -103,5 +118,10 @@ public class ClientModel {
 
     public interface GameListObserver extends ErrorObserver {
         void onGameListUpdated(ArrayList<Game> games);
+    }
+
+    public interface GameLobbyObserver extends ErrorObserver {
+        void onGameStarted();
+        void onGameUpdated(Game game);
     }
 }

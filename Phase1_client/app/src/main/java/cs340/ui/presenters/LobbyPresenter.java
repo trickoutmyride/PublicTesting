@@ -2,7 +2,7 @@ package cs340.ui.presenters;
 
 import java.util.ArrayList;
 
-import cs340.client.services.LobbyService;
+import cs340.client.services.StartGameService;
 import cs340.shared.model.ClientModel;
 import cs340.shared.model.Game;
 import cs340.shared.model.Player;
@@ -10,17 +10,15 @@ import cs340.ui.activities.ILobbyActivity;
 
 public class LobbyPresenter implements ILobbyPresenter {
     private ILobbyActivity activity;
-    private Game game;
 
-    public LobbyPresenter(ILobbyActivity activity, Game game) {
+    public LobbyPresenter(ILobbyActivity activity) {
         this.activity = activity;
-        this.game = game;
-        game.addLobbyObserver(this);
+        ClientModel.getInstance().addGameLobbyObserver(this);
     }
 
     @Override
     public void detach() {
-        game.removeLobbyObserver(this);
+        ClientModel.getInstance().removeGameLobbyObserver(this);
     }
 
     @Override
@@ -30,16 +28,16 @@ public class LobbyPresenter implements ILobbyPresenter {
 
     @Override
     public void onGameStarted() {
-
+        activity.onGameStarted();
     }
 
     @Override
-    public void onRosterUpdated(ArrayList<Player> players) {
-        activity.onRosterUpdated(players);
+    public void onGameUpdated(Game game) {
+        activity.onGameUpdated(game);
     }
 
     @Override
     public void startGame() {
-        LobbyService.getInstance().startGame(ClientModel.getInstance().getCurrentPlayer());
+        StartGameService.startGame(ClientModel.getInstance().getCurrentPlayer());
     }
 }

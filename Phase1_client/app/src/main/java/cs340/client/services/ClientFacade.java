@@ -12,11 +12,11 @@ import cs340.shared.model.Player;
  */
 public class ClientFacade implements IClient {
 	public void createGame(Object game) {
-		CreateGameService.onCreateGame((Game) game);
+		CreateGameService.onGameCreated((Game) game);
 	}
 
 	public void joinGame(Object game) {
-		JoinGameService.onJoinGame((Game) game);
+		JoinGameService.onGameJoined((Game) game);
 	}
 
 	public void login(Object player) {
@@ -27,8 +27,8 @@ public class ClientFacade implements IClient {
 		RegisterService.onRegister((Player) player);
 	}
 
-	public void startGame() {
-		StartGameService.onStartGame();
+	public void startGame(Object request) {
+		StartGameService.onGameStarted();
 	}
 	
 	public void updateGameList(Object gameList) {

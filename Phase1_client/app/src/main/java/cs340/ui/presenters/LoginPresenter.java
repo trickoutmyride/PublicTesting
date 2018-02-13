@@ -1,6 +1,7 @@
 package cs340.ui.presenters;
 
 import cs340.client.services.LoginService;
+import cs340.client.services.RegisterService;
 import cs340.shared.model.ClientModel;
 import cs340.shared.model.Player;
 import cs340.ui.activities.ILoginActivity;
@@ -20,7 +21,7 @@ public class LoginPresenter implements ILoginPresenter, ClientModel.CurrentPlaye
 
     @Override
     public void login(String username, String password) {
-        LoginService.getInstance().login(username, password);
+        LoginService.login(username, password);
     }
 
     @Override
@@ -33,18 +34,8 @@ public class LoginPresenter implements ILoginPresenter, ClientModel.CurrentPlaye
         activity.onError(message);
     }
 
-//    @Override
-//    public void onLoginSuccess(PlayerModel player) {
-//        activity.onLoginSuccess(player);
-//    }
-//
-//    @Override
-//    public void onRegistrationSuccess(PlayerModel player) {
-//        activity.onRegistrationSuccess(player);
-//    }
-
     @Override
     public void register(String username, String password) {
-        LoginService.getInstance().register(username, password);
+        RegisterService.register(username, password);
     }
 }
