@@ -1,8 +1,10 @@
 package cs340.client.services;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cs340.shared.interfaces.IClient;
 import cs340.shared.model.Game;
@@ -52,12 +54,12 @@ public class ClientFacade implements IClient {
 	
 	public void updateGameList(String gameListJson) {
 		System.out.println("ClientFacade: updateGameList()");
-		ArrayList<Game> gameList = gson.fromJson(gameListJson, ArrayList.class);
-		UpdateGameListService.onUpdateGameList((ArrayList<Game>) gameList);
+		ArrayList<Game> gameList = gson.fromJson(gameListJson, new TypeToken<List<Game>>(){}.getType());
+		UpdateGameListService.onUpdateGameList(gameList);
 	}
 
 	public void error(String error) {
-		System.out.println("ClientFacade: error()");
-		ErrorService.onError((String) error);
+		System.out.println("ClientFacade: error(): " + error);
+		ErrorService.onError(error);
 	}
 }
