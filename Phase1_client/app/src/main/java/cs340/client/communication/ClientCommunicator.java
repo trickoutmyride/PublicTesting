@@ -1,5 +1,7 @@
 package cs340.client.communication;
 
+import com.google.gson.Gson;
+
 import java.net.URI;
 
 import javax.websocket.ClientEndpoint;
@@ -12,7 +14,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
 
-import cs340.shared.command.ServerCommand;
+import cs340.client.command.CommandManager;
 import cs340.shared.message.Message;
 import cs340.shared.message.MessageDecoder;
 import cs340.shared.message.MessageEncoder;
@@ -25,7 +27,7 @@ import cs340.shared.requests.SignInRequest;
 public class ClientCommunicator {
 	//private static final String address = "wss://real.okcoin.cn:10440/websocket/okcoinapi";
 	//private static final String address = "ws://localhost:8080/ws/command";
-	private static final String address = "ws://10.0.2.2:8080/ws/command";
+	private static final String address = "ws://192.168.1.8:8080/ws/command";
 	private static ClientCommunicator singleton;
 	private Session userSession = null;
 	private MessageHandler messageHandler;
@@ -117,12 +119,8 @@ public class ClientCommunicator {
 	 */
 	public void sendMessage(Message message) {
 		//String send = encoder.encode(message);
-		System.out.println("Sending test message object...");
-		this.userSession.getAsyncRemote().sendObject(message);
-	}
-	public void sendInitialMessage(Message message) {
-		//String send = encoder.encode(message);
-		System.out.println("Sending test message object...");
+		System.out.println("Sending test message object..." + message.getId());
+		//Log.d("ClientCommunicator", "Sending test message object..." + message.getId() + "\n" + message.getContents());
 		this.userSession.getAsyncRemote().sendObject(message);
 	}
 
@@ -157,6 +155,7 @@ public class ClientCommunicator {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		Gson gson = new Gson();
 		try {
 			// open websocket
 			final ClientCommunicator clientEndPoint = ClientCommunicator.getInstance();
@@ -164,7 +163,9 @@ public class ClientCommunicator {
 			// add listener
 			System.out.println("Sending test message...");
 			// send message to websocket
-			clientEndPoint.sendMessage(new Message("user", new ServerCommand("register", new SignInRequest("user", "pass"))));
+			Message message = new Message("user", CommandManager.getInstance().makeCommand("register", new SignInRequest("user", "pass")));
+			clientEndPoint.sendMessage(message);
+			//clientEndPoint.sendMessage(new Message("user1", new ServerCommand("register", gson.toJson(new SignInRequest("user2", "pass2")))));
 			//clientEndPoint.sendMessage("String Stuff");
 			//clientEndPoint.sendMessage("{'event':'addChannel','channel':'ok_btccny_ticker'}");  // For testing, does work (fails authentication though)
 
