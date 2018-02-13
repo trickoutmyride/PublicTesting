@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class ClientModel {
     private Game currentGame = null;
     private Player currentPlayer = null;
-    private ArrayList<CurrentGameObserver> currentGameObservers = new ArrayList<>();
     private ArrayList<CurrentPlayerObserver> currentPlayerObservers = new ArrayList<>();
     private ArrayList<ErrorObserver> errorObservers = new ArrayList<>();
     private ArrayList<GameListObserver> gameListObservers = new ArrayList<>();
@@ -17,11 +16,6 @@ public class ClientModel {
 
     public void addErrorObserver(ErrorObserver observer) {
         errorObservers.add(observer);
-    }
-
-    public void addCurrentGameObserver(CurrentGameObserver observer) {
-        currentGameObservers.add(observer);
-        addErrorObserver(observer);
     }
 
     public void addCurrentPlayerObserver(CurrentPlayerObserver observer) {
@@ -59,11 +53,6 @@ public class ClientModel {
         errorObservers.remove(observer);
     }
 
-    public void removeCurrentGameObserver(CurrentGameObserver observer) {
-        currentGameObservers.remove(observer);
-        removeErrorObserver(observer);
-    }
-
     public void removeCurrentPlayerObserver(CurrentPlayerObserver observer) {
         currentPlayerObservers.remove(observer);
         removeErrorObserver(observer);
@@ -85,7 +74,7 @@ public class ClientModel {
 
     public void setCurrentGame(Game game) {
         currentGame = game;
-        for (CurrentGameObserver observer : currentGameObservers) observer.onCurrentGameSet(game);
+        for (GameListObserver observer : gameListObservers) observer.onCurrentGameSet(game);
         for (GameLobbyObserver observer : gameLobbyObservers) observer.onGameUpdated(game);
     }
 
@@ -108,15 +97,12 @@ public class ClientModel {
         void onError(String message);
     }
 
-    public interface CurrentGameObserver extends ErrorObserver {
-        void onCurrentGameSet(Game game);
-    }
-
     public interface CurrentPlayerObserver extends ErrorObserver {
         void onCurrentPlayerSet(Player player);
     }
 
     public interface GameListObserver extends ErrorObserver {
+        void onCurrentGameSet(Game game);
         void onGameListUpdated(ArrayList<Game> games);
     }
 
