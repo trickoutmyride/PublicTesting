@@ -159,7 +159,11 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
         System.out.println("OnGameListUpdated");
         //System.out.println(games.get(0).getGameName());
 
+        //If null then make an empty list
         currentGameList = games;
+        if (currentGameList == null) {
+            currentGameList = new ArrayList<>();
+        }
         gameListAdapter = new GameListAdapter(games, this);
         gameList.setAdapter(gameListAdapter);
     }
