@@ -55,37 +55,16 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Initialize Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
-
-
-
-        /**
-         *
-         *
-         *
-         *  Temporary override of network UI thread locking for testing:
-         *
-         *
-         */
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-
-
-
-
-
         MultiDex.install(this);
-
-        //MOCK LOGIN PRESENTER
-        //loginPresenter = new MockLoginPresenter(this);
 
         //Setup Login Presenter
         loginPresenter = new LoginPresenter(this);
-
 
         //Grab radio group, buttons, editTexts, etc.
         loginRadio = findViewById(R.id.login_radio);

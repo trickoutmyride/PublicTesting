@@ -82,7 +82,10 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
                     onError("Game Started!");
                 }
                 else {
+
+
                     onError("Not enough players to start. Waiting on " + Integer.toString(currentGame.getCapacity() - currentGame.getPlayers().size()) + "players.");
+                    onError("Game Started!");
                 }
             }
         });
