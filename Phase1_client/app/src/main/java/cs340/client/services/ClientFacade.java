@@ -6,6 +6,7 @@ import cs340.client.results.CreateGameResult;
 import cs340.client.results.JoinGameResult;
 import cs340.client.results.SignInResult;
 import cs340.shared.interfaces.IClient;
+import cs340.shared.model.GameList;
 
 /**
  * Executes functions based on ClientCommands processed by CommandProcessor coming from the server.
@@ -55,11 +56,11 @@ public class ClientFacade implements IClient {
 		StartGameService.onGameStarted();
 	}
 	
-	/*public void updateGameList(String gameListJson) {
+	public void updateGameList(String gameListJson) {
 		System.out.println("ClientFacade: updateGameList()" + gameListJson);
 		GameList gameList = gson.fromJson(gameListJson, GameList.class);
 		UpdateGameListService.onUpdateGameList(gameList.getGames());
-	}*/
+	}
 
 	public void error(String error) {
 		System.out.println("ClientFacade: error(): " + error);
