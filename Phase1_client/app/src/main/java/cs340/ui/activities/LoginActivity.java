@@ -275,6 +275,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
         System.out.println("LoginActivity: onLogin(" + currentPlayer.getUsername() + ")");
         intent.putExtra("currentPlayer", gson.toJson(currentPlayer));
         startActivity(intent);
+        loginPresenter.detach();
+        finish();
     }
 
     /**

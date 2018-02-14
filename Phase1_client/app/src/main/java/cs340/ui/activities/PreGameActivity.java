@@ -133,6 +133,8 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
         intent.putExtra("currentGame", gson.toJson(game));
         intent.putExtra("currentPlayer", gson.toJson(currentPlayer));
         startActivity(intent);
+        preGamePresenter.detach();
+        finish();
     }
 
     public Game getJoinGame(){
