@@ -73,10 +73,23 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
         playerListAdapter = new PlayerListAdapter(currentGame.getPlayers(), this, currentPlayer, currentGame.getColors());
         playerList.setAdapter(playerListAdapter);
 
+        if (currentPlayer.getUsername().equals(currentGame.getPlayers().get(0).getUsername())){
+            startButton.setEnabled(true);
+        }
+        else {
+            startButton.setEnabled(false);
+            startButton.setAlpha((float)0.5);
+        }
+
         //Listener for the start button
         startButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
+                lobbyPresenter.startGame();
+                onError("Game Started!");
+
+                /*
+                //Eventually implement capacity check
                 if (currentGame.getCapacity() == currentGame.getPlayers().size()){
                     lobbyPresenter.startGame();
                     onError("Game Started!");
@@ -85,6 +98,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
                     //onError("Not enough players to start. Waiting on " + Integer.toString(currentGame.getCapacity() - currentGame.getPlayers().size()) + "players.");
                     onError("Game Started!");
                 }
+                */
             }
         });
     }
