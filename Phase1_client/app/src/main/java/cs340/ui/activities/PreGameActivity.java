@@ -41,6 +41,12 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre_game);
 
+        //Initialize gameList view
+        gameList = findViewById(R.id.games_list);
+        gameList.setHasFixedSize(true);
+        gameListLayoutManager = new LinearLayoutManager(this);
+        gameList.setLayoutManager(gameListLayoutManager);
+
         //Get current player from LoginActivity
         Bundle bundle = getIntent().getExtras();
         Gson gson = new Gson();
@@ -52,15 +58,10 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
         //Default capacity is 2
         newGameCapacity = 2;
 
-        //Initialize gameList view
-        gameList = findViewById(R.id.games_list);
-        gameList.setHasFixedSize(true);
-        gameListLayoutManager = new LinearLayoutManager(this);
-        gameList.setLayoutManager(gameListLayoutManager);
         createGameButton = findViewById(R.id.createGameButton);
 
         //Initialize adapter for RecyclerView
-        gameList.setAdapter(gameListAdapter);
+        //gameList.setAdapter(gameListAdapter);
 
         //OnClickListener for Create Game button
         createGameButton.setOnClickListener(new Button.OnClickListener(){
@@ -112,11 +113,9 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
     public void onGameListUpdated(ArrayList<Game> games) {
 
         System.out.println("OnGameListUpdated Activity");
-        //System.out.println(games.get(0).getGameName());
 
         if (games != null && games.size() != 0){
-            currentGameList = games;
-            gameListAdapter = new GameListAdapter(currentGameList, this);
+            gameListAdapter = new GameListAdapter(games, this);
             gameList.setAdapter(gameListAdapter);
         }
         else {

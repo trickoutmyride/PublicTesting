@@ -2,6 +2,7 @@ package cs340.ui.activities;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,9 +68,14 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Vi
         if (_currentPlayer.getUsername().equals(player.getUsername())) {
             playerNameText = playerNameText + " (you)";
         }
-        holder.playerName.setText(player.getUsername());
+        holder.playerName.setText(playerNameText);
+
+        System.out.println("playerNameText: " + playerNameText);
         //Set player color
-        holder.playerName.setTextColor(colorToID(_playerColors.get(player.getUsername())));
+        System.out.println(Integer.toString(colorToID(_playerColors.get(player.getUsername()))));
+        System.out.println(_playerColors.get(player.getUsername()));
+        //holder.playerName.setTextColor(colorToID(_playerColors.get(player.getUsername())));
+        //holder.playerName.setTextColor(().getResources().getColor(android.R.color.black));
     }
 
     //Return size of dataset

@@ -50,6 +50,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
         Gson gson = new Gson();
         currentPlayer = gson.fromJson(getIntent().getStringExtra("currentPlayer"), Player.class);
         currentGame = gson.fromJson(getIntent().getStringExtra("currentGame"), Game.class);
+
         System.out.println("Current Player: " + currentPlayer.getUsername());
         System.out.println("Current Game: " + currentGame.getGameName());
 

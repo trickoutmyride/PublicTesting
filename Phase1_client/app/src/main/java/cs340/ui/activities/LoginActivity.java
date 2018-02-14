@@ -272,6 +272,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
     public void onLogin(Player currentPlayer) {
         Intent intent = new Intent(this, PreGameActivity.class);
         Gson gson = new Gson();
+        System.out.println("LoginActivity: onLogin(" + currentPlayer.getUsername() + ")");
         intent.putExtra("currentPlayer", gson.toJson(currentPlayer));
         startActivity(intent);
     }
