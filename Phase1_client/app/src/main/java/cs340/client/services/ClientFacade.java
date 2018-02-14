@@ -51,7 +51,7 @@ public class ClientFacade implements IClient {
 		UpdateGameListService.onUpdateGameList(result.getGamelist());
 	}
 
-	public void startGame() {
+	public void startGame(String s) {
 		System.out.println("ClientFacade: startGame()");
 		StartGameService.onGameStarted();
 	}

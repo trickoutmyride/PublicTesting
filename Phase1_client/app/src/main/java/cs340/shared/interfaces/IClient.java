@@ -5,6 +5,6 @@ public interface IClient {
 	public void joinGame(String request);
 	public void login(String request);
 	public void register(String request);
-	public void startGame();
+	public void startGame(String request);
 	public void error(String request);
 }

@@ -45,7 +45,7 @@ public class ServerProxy implements IServer{
 	@Override
 	public void startGame(Object request) {
 		StartGameRequest startRequest = (StartGameRequest) request;
-		ServerCommand command = CommandManager.getInstance().makeCommand("joinGame", request);
+		ServerCommand command = CommandManager.getInstance().makeCommand("startGame", request);
 		ServerMessage message = new ServerMessage(startRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
 	}

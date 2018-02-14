@@ -57,18 +57,6 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
         lobbyPresenter = new LobbyPresenter(this);
         startButton = findViewById(R.id.start_game_button);
 
-        //Only enable the Create Game button if the current player is the owner of the game
-
-        /*
-        if (currentGame.getOwner().equals(currentPlayer.getUsername())) {
-            startButton.setEnabled(true);
-        }
-        else {
-            startButton.setEnabled(false);
-
-        }
-        */
-
         HashMap<String, String> hm =  currentGame.getColors();
 
         //Set currentGameName textView
@@ -90,8 +78,8 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
             @Override
             public void onClick(View view) {
                 if (currentGame.getCapacity() == currentGame.getPlayers().size()){
-                    Toast toast = Toast.makeText(getApplicationContext(), "Start Game!", Toast.LENGTH_SHORT);
-                    toast.show();
+                    lobbyPresenter.startGame();
+                    onError("Game Started!");
                 }
                 else {
                     onError("Not enough players to start. Waiting on " + Integer.toString(currentGame.getCapacity() - currentGame.getPlayers().size()) + "players.");
@@ -106,7 +94,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
      */
     @Override
     public void onError(String message) {
-        Toast toast = Toast.makeText(getApplicationContext(), "message", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
         toast.show();
     }
 
@@ -115,7 +103,9 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
      */
     @Override
     public void onGameStarted() {
-        lobbyPresenter.startGame();
+        Toast toast = Toast.makeText(getApplicationContext(), "Start Game!", Toast.LENGTH_SHORT);
+        toast.show();
+        //lobbyPresenter.startGame();
     }
 
     /**
