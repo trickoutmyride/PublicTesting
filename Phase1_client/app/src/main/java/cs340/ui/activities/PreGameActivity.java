@@ -52,9 +52,6 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
         Gson gson = new Gson();
         currentPlayer = gson.fromJson(bundle.getString("currentPlayer"), Player.class);
 
-        //Initialize preGamePresenter
-        preGamePresenter = new PregamePresenter(this);
-
         //Default capacity is 2
         newGameCapacity = 2;
 
@@ -72,6 +69,9 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
                 createGameFragment.show(fm, "creategame");
             }
         });
+
+        //Initialize preGamePresenter
+        preGamePresenter = new PregamePresenter(this);
     }
 
     protected void joinGame(Game game) {
