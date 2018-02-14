@@ -72,8 +72,8 @@ public class PlayerListAdapter extends RecyclerView.Adapter<PlayerListAdapter.Vi
 
         System.out.println("playerNameText: " + playerNameText);
         //Set player color
-        System.out.println(Integer.toString(colorToID(_playerColors.get(player.getUsername()))));
-        System.out.println(_playerColors.get(player.getUsername()));
+        //System.out.println(Integer.toString(colorToID(_playerColors.get(player.getUsername()))));
+        //System.out.println(_playerColors.get(player.getUsername()));
         //holder.playerName.setTextColor(colorToID(_playerColors.get(player.getUsername())));
         //holder.playerName.setTextColor(().getResources().getColor(android.R.color.black));
     }

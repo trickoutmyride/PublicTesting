@@ -17,10 +17,10 @@
     <string name="create_game_button_label">Create Game</string>
 
     <string-array name="colors_array">
-        <item>Blue</item>
-        <item>Red</item>
-        <item>Green</item>
-        <item>Yellow</item>
-        <item>Orange</item>
+        <item>blue</item>
+        <item>red</item>
+        <item>green</item>
+        <item>yellow</item>
+        <item>orange</item>
     </string-array>
 </resources>

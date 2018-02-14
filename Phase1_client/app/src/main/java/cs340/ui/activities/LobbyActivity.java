@@ -115,8 +115,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
      */
     @Override
     public void onGameStarted() {
-        Toast toast = Toast.makeText(getApplicationContext(), "Game Started!", Toast.LENGTH_SHORT);
-        toast.show();
+        lobbyPresenter.startGame();
     }
 
     /**
