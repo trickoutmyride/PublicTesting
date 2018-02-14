@@ -99,7 +99,12 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
         }
         //If called by JoinGameDialogFragment
         else if (dialog.getClass() == JoinGameDialogFragment.class) {
-            preGamePresenter.joinGame(joinGame.getGameID(), currentPlayer, ((JoinGameDialogFragment) dialog).getPlayerColor());
+            if (joinGame.getCapacity() == joinGame.getPlayers().size()){
+                onError("Error- Game full");
+            }
+            else {
+                preGamePresenter.joinGame(joinGame.getGameID(), currentPlayer, ((JoinGameDialogFragment) dialog).getPlayerColor());
+            }
         }
     }
 
