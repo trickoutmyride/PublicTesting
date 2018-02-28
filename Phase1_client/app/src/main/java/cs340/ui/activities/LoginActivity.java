@@ -184,21 +184,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
                     else {
                         //Pass username and password to the Presenter for Register
                         loginPresenter.register(username, password);
-
-                        /*
-                        new AsyncTask<Void, Void, Void>() {
-                            protected void onPreExecute() {
-                                // Pre Code
-                            }
-                            protected Void doInBackground(Void... unused) {
-                                loginPresenter.register(username, password);
-                                return null;
-                            }
-                            protected void onPostExecute(Void unused) {
-                                // Post Code
-                            }
-                        }.execute();
-                        */
                     }
                 }
                 //User is attempting to login
@@ -214,21 +199,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
                     else {
                         //Pass username and password to the Presenter for Login
                         loginPresenter.login(username,password);
-
-                        /*
-                        new AsyncTask<Void, Void, Void>() {
-                            protected void onPreExecute() {
-                                // Pre Code
-                            }
-                            protected Void doInBackground(Void... unused) {
-                                loginPresenter.login(username, password);
-                                return null;
-                            }
-                            protected void onPostExecute(Void unused) {
-                                // Post Code
-                            }
-                        }.execute();
-                        */
                     }
                 }
             }

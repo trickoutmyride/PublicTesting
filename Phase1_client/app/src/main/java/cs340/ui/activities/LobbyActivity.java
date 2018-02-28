@@ -85,8 +85,13 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
         startButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lobbyPresenter.startGame();
-                onError("Game Started!");
+                if (currentGame.getPlayers().size() == 1) {
+                    onError("Cannot start game with one player.");
+                }
+                else {
+                    lobbyPresenter.startGame();
+                    onError("Game Started!");
+                }
 
                 /*
                 //Eventually implement capacity check

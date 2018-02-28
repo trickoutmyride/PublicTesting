@@ -21,6 +21,7 @@ public class ServerProxy implements IServer{
 		ServerMessage message = new ServerMessage(createRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
 	}
+
 	@Override
 	public void joinGame(Object request) {
 		JoinGameRequest joinRequest = (JoinGameRequest) request;
