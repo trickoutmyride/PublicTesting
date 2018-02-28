@@ -1,5 +1,6 @@
 package cs340.ui.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,8 +24,7 @@ import cs340.ui.presenters.LobbyPresenter;
 public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
 
 
-    //TODO: Display the current player somewhere
-    //maybe "(you)" after the current player on the list?
+    //TODO: Implement capacity check
 
     private Player currentPlayer;
     private Game currentGame;
@@ -42,6 +42,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
      *      Initialize LobbyPresenter
      *      Setup buttons, playerList RecyclerView, etc.
      */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +91,6 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
                 }
                 else {
                     lobbyPresenter.startGame();
-                    onError("Game Started!");
                 }
 
                 /*
@@ -123,10 +123,18 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
      */
     @Override
     public void onGameStarted() {
-        Toast toast = Toast.makeText(getApplicationContext(), "Start Game!", Toast.LENGTH_SHORT);
-        toast.show();
-        //lobbyPresenter.startGame();
+        //Go to game activity
+        Intent intent = new Intent(this, GameActivity.class);
+        Gson gson = new Gson();
+        //Pass game and current player to the lobby activity
+        intent.putExtra("currentGame", gson.toJson(currentGame));
+        intent.putExtra("currentPlayer", gson.toJson(currentPlayer));
+        startActivity(intent);
+        lobbyPresenter.detach();
+        finish();
     }
+
+
 
     /**
      * Update the game list by resetting the list adapter for the playerList RecyclerView
