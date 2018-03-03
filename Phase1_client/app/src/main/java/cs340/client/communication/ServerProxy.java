@@ -6,7 +6,10 @@ import cs340.client.command.CommandManager;
 import cs340.shared.command.ServerCommand;
 import cs340.shared.interfaces.IServer;
 import cs340.shared.message.ServerMessage;
+import cs340.shared.requests.ClaimRouteRequest;
 import cs340.shared.requests.CreateGameRequest;
+import cs340.shared.requests.DrawDestinationRequest;
+import cs340.shared.requests.DrawTrainCardRequest;
 import cs340.shared.requests.JoinGameRequest;
 import cs340.shared.requests.SignInRequest;
 import cs340.shared.requests.StartGameRequest;
@@ -48,6 +51,34 @@ public class ServerProxy implements IServer{
 		StartGameRequest startRequest = (StartGameRequest) request;
 		ServerCommand command = CommandManager.getInstance().makeCommand("startGame", request);
 		ServerMessage message = new ServerMessage(startRequest.getPlayer().getAuthToken(), command);
+		ClientCommunicator.getInstance().sendMessage(message);
+	}
+
+	public void claimRoute(Object request) {
+		ClaimRouteRequest claimRequest = (ClaimRouteRequest) request;
+		ServerCommand command = CommandManager.getInstance().makeCommand("claimRoute", request);
+		ServerMessage message = new ServerMessage(claimRequest.getPlayer().getAuthToken(), command);
+		ClientCommunicator.getInstance().sendMessage(message);
+	}
+
+	public void drawDestination(Object request) {
+		DrawDestinationRequest drawRequest = (DrawDestinationRequest) request;
+		ServerCommand command = CommandManager.getInstance().makeCommand("drawDestination", request);
+		ServerMessage message = new ServerMessage(drawRequest.getPlayer().getAuthToken(), command);
+		ClientCommunicator.getInstance().sendMessage(message);
+	}
+
+	public void discardDestination(Object request) {
+		DrawDestinationRequest drawRequest = (DrawDestinationRequest) request;
+		ServerCommand command = CommandManager.getInstance().makeCommand("drawDestination", request);
+		ServerMessage message = new ServerMessage(drawRequest.getPlayer().getAuthToken(), command);
+		ClientCommunicator.getInstance().sendMessage(message);
+	}
+
+	public void drawTrainCard (Object request) {
+		DrawTrainCardRequest drawRequest = (DrawTrainCardRequest) request;
+		ServerCommand command = CommandManager.getInstance().makeCommand("drawTrain", request);
+		ServerMessage message = new ServerMessage(drawRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
 	}
 }

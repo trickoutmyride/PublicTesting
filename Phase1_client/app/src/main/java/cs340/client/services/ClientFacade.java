@@ -2,7 +2,9 @@ package cs340.client.services;
 
 import com.google.gson.Gson;
 
+import cs340.client.results.ChatResult;
 import cs340.client.results.CreateGameResult;
+import cs340.client.results.DrawDestinationResult;
 import cs340.client.results.JoinGameResult;
 import cs340.client.results.SignInResult;
 import cs340.shared.interfaces.IClient;
@@ -16,7 +18,7 @@ public class ClientFacade implements IClient {
 	private static Gson gson = new Gson();
 	private static ClientFacade singleton;
 
-	public static ClientFacade getInstance(){
+	public static ClientFacade getInstance() {
 		if (singleton == null) singleton = new ClientFacade();
 		return singleton;
 	}
@@ -55,12 +57,39 @@ public class ClientFacade implements IClient {
 		System.out.println("ClientFacade: startGame()");
 		StartGameService.onGameStarted();
 	}
-	
+
 	public void updateGameList(String gameListJson) {
 		System.out.println("ClientFacade: updateGameList()" + gameListJson);
 		GameList gameList = gson.fromJson(gameListJson, GameList.class);
 		UpdateGameListService.onUpdateGameList(gameList.getGames());
 	}
+
+	public void drawDestination(String destinationJson) {
+		System.out.println("ClientFacade: drawDestination()" + destinationJson);
+		DrawDestinationResult result = gson.fromJson(destinationJson, DrawDestinationResult.class);
+		// needs DestinationCardFragment presenter info
+		// TODO
+		// something something
+		// update DestinationCardFragment stuff.
+	}
+
+	public void drawTrain(String trainJson) {
+		System.out.println("ClientFacade: drawTrain()" + trainJson);
+		//DrawTrainResult result = gson.fromJson(trainJson, DrawTrainResult.class);
+		// needs result class from Server.
+		// TODO
+		// something something
+		// DeckService.onTrainCardsUpdated(...);
+	}
+
+	public void chat (String chatJson) {
+		System.out.println("ClientFacade: chat()" + chatJson);
+		ChatResult result = gson.fromJson(chatJson, ChatResult.class);
+		// needs somewhere to put the chat
+		// TODO
+		// something something.
+	}
+
 
 	public void error(String error) {
 		System.out.println("ClientFacade: error(): " + error);

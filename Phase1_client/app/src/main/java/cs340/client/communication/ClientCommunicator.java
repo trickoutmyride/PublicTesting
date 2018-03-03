@@ -1,7 +1,5 @@
 package cs340.client.communication;
 
-import android.os.Handler;
-
 import com.google.gson.Gson;
 
 import java.net.URI;
@@ -31,14 +29,11 @@ import cs340.shared.requests.SignInRequest;
 public class ClientCommunicator {
 	//private static final String address = "wss://real.okcoin.cn:10440/websocket/okcoinapi";
 	//private static final String address = "ws://localhost:8080/ws/command";
-	private static final String address = "ws://192.168.254.249:8080/ws/command";
+	private static final String address = "ws://192.168.1.8:8080/ws/command";
 	private static ClientCommunicator singleton;
 	private Session userSession = null;
 	private MessageHandler messageHandler;
-	private MessageEncoder encoder;
-	private MessageDecoder decoder;
 	private Gson gson = new Gson();
-	public Handler mHandler;
 
 
 	public static ClientCommunicator getInstance() {
@@ -63,8 +58,6 @@ public class ClientCommunicator {
 		} catch (Exception e) {
 			System.out.println("Error during Connection: " + e.getLocalizedMessage());
 		}
-		encoder = new MessageEncoder();
-		decoder = new MessageDecoder();
 	}
 
 	/**
@@ -105,19 +98,7 @@ public class ClientCommunicator {
 			}
 		}
 	}
-	/*
-	@OnMessage
-	public void onMessage(Message message) {
-		if (this.messageHandler != null) {
-			System.out.println("Receiving Message Object: " + message);
-			try {
-				//this.messageHandler.handleMessage(message);
-			} catch (Exception e) {
-				System.out.println("Error handling message");
-			}
-		}
-	}
-	*/
+
 	/**
 	 * register message handler
 	 *
@@ -133,23 +114,12 @@ public class ClientCommunicator {
 	}
 
 	/**
-	 * Sends a message containing ONLY A STRING to the server's websocket handler. For testing.
-	 *
-	 * @param message
-	 */
-
-	public void sendMessage(String message) {
-		System.out.println("Sending test message string...");
-		this.userSession.getAsyncRemote().sendObject(message);
-	}
-
-	/**
 	 * Message handler.
 	 */
 	private class MessageHandler {
 		public void handleMessage(String msg) throws DecodeException {
 			System.out.println(msg);
-			Message message = decoder.decode(msg);
+			Message message = gson.fromJson(msg, Message.class);
 			CommandProcessor.handle(message);
 		}
 	}
@@ -181,10 +151,4 @@ public class ClientCommunicator {
 			System.err.println("Error in main(): " + e.getLocalizedMessage());
 		}
 	}
-	/*
-	public static void main(String args[]) {
-		System.out.println("Opening connection with server...");
-		ClientCommunicator.getInstance().sendMessage(new Message("test", new ServerCommand("test", "test")));
-	}
-	*/
 }
