@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import cs340.shared.model.Game;
 import cs340.shared.model.Player;
 import cs340.ui.R;
+import cs340.ui.mock.MockPhase1Presenter;
 import cs340.ui.presenters.IPregamePresenter;
 import cs340.ui.presenters.PregamePresenter;
 
@@ -71,7 +72,8 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
         });
 
         //Initialize preGamePresenter
-        preGamePresenter = new PregamePresenter(this);
+        //preGamePresenter = new PregamePresenter(this);
+        preGamePresenter = new MockPhase1Presenter(this);
     }
 
     protected void joinGame(Game game) {
