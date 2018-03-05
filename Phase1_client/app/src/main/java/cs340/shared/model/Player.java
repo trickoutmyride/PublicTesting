@@ -1,24 +1,32 @@
 package cs340.shared.model;
 
+import java.util.ArrayList;
+
 public class Player {
 	/* Fields */
 	private String username;
 	private String password;
 	private String authToken;
-
-	public Player(String u, String p, String a) {
+	private ArrayList<TrainCard> cards;
+	private ArrayList<DestinationCard> destinations;
+	private ArrayList<Route> claimedRoutes;
+	
+	public Player(String u, String p, String a){
 		this.username = u;
 		this.password = p;
 		this.authToken = a;
+		this.cards = new ArrayList<TrainCard>();
+		this.destinations = new ArrayList<DestinationCard>();
+		this.claimedRoutes = new ArrayList<Route>();
 	}
-
+	
 	/* Everything below here are "maybe" fields; we might use these as is for later phases, or we might not  */
 	//private int points;
 	//private int trainCars;
 	//private ArrayList<TrainCard> cards;
 	//private ArrayList<DestinationTicket> destinations;
 	//private ArrayList<City> routes;
-
+	
 	/* Methods */
 	public String getUsername() {
 		return username;
@@ -39,4 +47,28 @@ public class Player {
 		this.authToken = authToken;
 	}
 
+	public ArrayList<TrainCard> getCards() {
+		return cards;
+	}
+
+	public void setCards(ArrayList<TrainCard> cards) {
+		this.cards = cards;
+	}
+
+	public ArrayList<DestinationCard> getDestinations() {
+		return destinations;
+	}
+
+	public void setDestinations(ArrayList<DestinationCard> destinations) {
+		this.destinations = destinations;
+	}
+
+	public ArrayList<Route> getClaimedRoutes() {
+		return claimedRoutes;
+	}
+
+	public void setClaimedRoutes(ArrayList<Route> claimedRoutes) {
+		this.claimedRoutes = claimedRoutes;
+	}
+	
 }

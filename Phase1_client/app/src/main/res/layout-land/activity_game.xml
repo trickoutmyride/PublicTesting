@@ -11,8 +11,8 @@
         android:id="@+id/testButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/deckFragment"
+        android:layout_alignBottom="@+id/historyButton"
+        android:layout_alignStart="@+id/mapFragment"
         android:background="@drawable/card_count_border"
         android:text="add cards"
         android:textColor="@android:color/white" />
@@ -22,7 +22,7 @@
         android:layout_width="70dp"
         android:layout_height="90dp"
         android:layout_alignTop="@+id/handFragment"
-        android:layout_toStartOf="@+id/deckFragment"
+        android:layout_toEndOf="@+id/handFragment"
         android:padding="0dp"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/destination_button" />
@@ -31,55 +31,38 @@
         android:id="@+id/historyButton"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="485dp"
         android:contentDescription="historyButton"
         android:padding="0dp"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/chatButton"
-        app:layout_constraintEnd_toEndOf="@+id/chatButton"
-        app:layout_constraintEnd_toStartOf="@+id/mapFragment"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/history_button" />
 
     <ImageButton
         android:id="@+id/chatButton"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/historyButton"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
         android:contentDescription="chatButton"
         android:padding="0dp"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/historyButton"
         app:srcCompat="@drawable/chat_button" />
 
     <fragment
         android:id="@+id/deckFragment"
         android:name="cs340.ui.fragments.DeckFragment"
         android:layout_width="100dp"
-        android:layout_height="300dp"
+        android:layout_height="335dp"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/historyButton"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_below="@+id/chatButton"
         tools:layout="@layout/fragment_deck" />
 
     <fragment
         android:id="@+id/mapFragment"
         android:name="cs340.ui.fragments.MapFragment"
-        android:layout_width="390dp"
+        android:layout_width="485dp"
         android:layout_height="300dp"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/chatButton"
-        android:layout_toStartOf="@+id/deckFragment"
-        app:layout_constraintBottom_toBottomOf="@+id/deckFragment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/historyButton"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_centerHorizontal="true"
         tools:layout="@layout/fragment_map" />
 
     <fragment
@@ -87,17 +70,17 @@
         android:name="cs340.ui.fragments.HandFragment"
         android:layout_width="wrap_content"
         android:layout_height="90dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/otherPlayersFragment"
+        android:layout_below="@+id/mapFragment"
+        android:layout_toEndOf="@+id/playersFragment"
         tools:layout="@layout/fragment_hand" />
 
     <fragment
-        android:id="@+id/otherPlayersFragment"
-        android:name="cs340.ui.fragments.OtherPlayersFragment"
+        android:id="@+id/playersFragment"
+        android:name="cs340.ui.fragments.PlayersFragment"
         android:layout_width="100dp"
-        android:layout_height="290dp"
-        android:layout_alignBottom="@+id/handFragment"
+        android:layout_height="335dp"
         android:layout_alignParentStart="true"
-        tools:layout="@layout/fragment_other_players" />
+        android:layout_below="@+id/testButton"
+        tools:layout="@layout/fragment_players" />
 
 </android.widget.RelativeLayout>

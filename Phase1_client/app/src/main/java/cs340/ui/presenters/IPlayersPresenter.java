@@ -1,5 +1,5 @@
 package cs340.ui.presenters;
 
-public interface IOtherPlayersPresenter {
+public interface IPlayersPresenter {
     //stub
 }

@@ -23,7 +23,7 @@
             android:src="@drawable/traincard_black_portrait" />
 
         <TextView
-            android:id="@+id/hand_black_count"
+            android:id="@+id/hand_black_label"
             android:layout_width="46dp"
             android:layout_height="20dp"
             android:layout_alignParentBottom="true"
@@ -47,7 +47,7 @@
             android:src="@drawable/traincard_blue_portrait" />
 
         <TextView
-            android:id="@+id/hand_blue_count"
+            android:id="@+id/hand_blue_label"
             android:layout_width="46dp"
             android:layout_height="20dp"
             android:layout_alignParentBottom="true"
@@ -71,7 +71,7 @@
             android:src="@drawable/traincard_green_portrait" />
 
         <TextView
-            android:id="@+id/hand_green_count"
+            android:id="@+id/hand_green_label"
             android:layout_width="46dp"
             android:layout_height="20dp"
             android:layout_alignParentBottom="true"
@@ -95,7 +95,7 @@
             android:src="@drawable/traincard_orange_portrait" />
 
         <TextView
-            android:id="@+id/hand_orange_count"
+            android:id="@+id/hand_orange_label"
             android:layout_width="46dp"
             android:layout_height="20dp"
             android:layout_alignParentBottom="true"
@@ -119,7 +119,7 @@
             android:src="@drawable/traincard_purple_portrait" />
 
         <TextView
-            android:id="@+id/hand_purple_count"
+            android:id="@+id/hand_purple_label"
             android:layout_width="46dp"
             android:layout_height="20dp"
             android:layout_alignParentBottom="true"
@@ -143,7 +143,7 @@
             android:src="@drawable/traincard_red_portrait" />
 
         <TextView
-            android:id="@+id/hand_red_count"
+            android:id="@+id/hand_red_label"
             android:layout_width="46dp"
             android:layout_height="20dp"
             android:layout_alignParentBottom="true"
@@ -167,7 +167,7 @@
             android:src="@drawable/traincard_white_portrait" />
 
         <TextView
-            android:id="@+id/hand_white_count"
+            android:id="@+id/hand_white_label"
             android:layout_width="46dp"
             android:layout_height="20dp"
             android:layout_alignParentBottom="true"
@@ -191,7 +191,7 @@
             android:src="@drawable/traincard_yellow_portrait" />
 
         <TextView
-            android:id="@+id/hand_yellow_count"
+            android:id="@+id/hand_yellow_label"
             android:layout_width="46dp"
             android:layout_height="20dp"
             android:layout_alignParentBottom="true"
@@ -215,7 +215,7 @@
             android:src="@drawable/traincard_wild_portrait" />
 
         <TextView
-            android:id="@+id/hand_wild_count"
+            android:id="@+id/hand_wild_label"
             android:layout_width="46dp"
             android:layout_height="20dp"
             android:layout_alignParentBottom="true"

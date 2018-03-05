@@ -8,6 +8,6 @@
     <Button
         android:id="@+id/button2"
         android:layout_width="100dp"
-        android:layout_height="300dp"
+        android:layout_height="335dp"
         android:text="Deck Stub" />
 </RelativeLayout>
