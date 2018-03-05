@@ -12,6 +12,9 @@ public class ClientModel {
     private ArrayList<Game> games = new ArrayList<>();
     private static ClientModel instance = new ClientModel();
 
+    //Phase 2
+    private ArrayList<HandObserver> handObservers = new ArrayList<>();
+
     private ClientModel() {}
 
     public void addErrorObserver(ErrorObserver observer) {
@@ -109,5 +112,31 @@ public class ClientModel {
     public interface GameLobbyObserver extends ErrorObserver {
         void onGameStarted();
         void onGameUpdated(Game game);
+    }
+
+
+    //Phase 2
+
+    //Hand Classes
+    public interface HandObserver extends ErrorObserver {
+        void onHandUpdated();
+    }
+
+    public void addHandObserver(HandObserver observer) {
+        handObservers.add(observer);
+        addErrorObserver(observer);
+    }
+
+    public void removeHandObserver(HandObserver observer){
+        handObservers.remove(observer);
+        removeErrorObserver(observer);
+    }
+
+    public void updateHand() {
+        for (HandObserver observer : handObservers) { observer.onHandUpdated(); }
+    }
+
+    public void updateCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 }

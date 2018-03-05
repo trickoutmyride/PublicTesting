@@ -10,7 +10,9 @@ public class Player {
 	private ArrayList<TrainCard> cards;
 	private ArrayList<DestinationCard> destinations;
 	private ArrayList<Route> claimedRoutes;
-	
+	private int points;
+	private int trainCars;
+
 	public Player(String u, String p, String a){
 		this.username = u;
 		this.password = p;
@@ -19,13 +21,6 @@ public class Player {
 		this.destinations = new ArrayList<DestinationCard>();
 		this.claimedRoutes = new ArrayList<Route>();
 	}
-	
-	/* Everything below here are "maybe" fields; we might use these as is for later phases, or we might not  */
-	//private int points;
-	//private int trainCars;
-	//private ArrayList<TrainCard> cards;
-	//private ArrayList<DestinationTicket> destinations;
-	//private ArrayList<City> routes;
 	
 	/* Methods */
 	public String getUsername() {
@@ -70,5 +65,20 @@ public class Player {
 	public void setClaimedRoutes(ArrayList<Route> claimedRoutes) {
 		this.claimedRoutes = claimedRoutes;
 	}
-	
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
+	public int getTrainCars() {
+		return trainCars;
+	}
+
+	public void setTrainCars(int trainCars) {
+		this.trainCars = trainCars;
+	}
 }
