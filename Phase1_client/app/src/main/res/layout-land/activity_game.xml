@@ -14,7 +14,7 @@
         android:layout_alignBottom="@+id/historyButton"
         android:layout_alignStart="@+id/mapFragment"
         android:background="@drawable/card_count_border"
-        android:text="add cards"
+        android:text="add data"
         android:textColor="@android:color/white" />
 
     <ImageButton

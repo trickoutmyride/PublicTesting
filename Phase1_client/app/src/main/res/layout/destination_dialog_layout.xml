@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="275dp"
+    android:layout_height="wrap_content"
+    android:background="@color/colorAccent"
+    tools:context="cs340.ui.fragments.HistoryFragment">
+
+    <TextView
+        android:id="@+id/destination_cards_title"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="Destination Cards"
+        android:textAlignment="center"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="250dp"
+        android:layout_below="@+id/destination_cards_title"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/destination_cards_list"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/destination_cards_title"
+            android:layout_centerInParent="true"
+            android:background="@color/colorAccent"
+            android:scrollbarThumbVertical="@drawable/scrollbar"
+            android:scrollbars="vertical" />
+    </LinearLayout>
+
+</RelativeLayout>

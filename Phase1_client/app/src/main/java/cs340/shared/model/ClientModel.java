@@ -14,6 +14,8 @@ public class ClientModel {
 
     //Phase 2
     private ArrayList<HandObserver> handObservers = new ArrayList<>();
+    private ArrayList<HistoryObserver> historyObservers = new ArrayList<>();
+    private ArrayList<PlayersObserver> playersObservers = new ArrayList<>();
 
     private ClientModel() {}
 
@@ -115,11 +117,17 @@ public class ClientModel {
     }
 
 
+
     //Phase 2
+
+    public void updateCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
 
     //Hand Classes
     public interface HandObserver extends ErrorObserver {
-        void onHandUpdated();
+        void onTrainCardsUpdated(ArrayList<TrainCard> cards);
+        void onDestinationCardsUpdated(ArrayList<DestinationCard> cards);
     }
 
     public void addHandObserver(HandObserver observer) {
@@ -132,11 +140,67 @@ public class ClientModel {
         removeErrorObserver(observer);
     }
 
-    public void updateHand() {
-        for (HandObserver observer : handObservers) { observer.onHandUpdated(); }
+    //Update train cards in the current player's hand
+    //@param cards contains ALL of the train cards in the player's hand
+    public void updateHandTrainCards(ArrayList<TrainCard> cards) {
+        for (HandObserver observer : handObservers) { observer.onTrainCardsUpdated(cards); }
     }
 
-    public void updateCurrentPlayer(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
+    //Update destination cards in the current player's hand
+    //@param cards contains ALL of the destination cards in the player's hand
+    public void updateHandDestinationCards(ArrayList<DestinationCard> cards) {
+        for (HandObserver observer : handObservers) { observer.onDestinationCardsUpdated(cards); }
     }
+
+
+    //History Classes
+    public interface HistoryObserver extends ErrorObserver {
+        void onHistoryUpdated(ArrayList<String> history);
+    }
+
+    public void addHistoryObserver(HistoryObserver observer){
+        historyObservers.add(observer);
+        addErrorObserver(observer);
+    }
+
+    public void removeHistoryObserver(HistoryObserver observer){
+        historyObservers.remove(observer);
+        removeErrorObserver(observer);
+    }
+
+    //Update the game history
+    //@param history should contain a list of all history messages
+    public void updateHistory(ArrayList<String> history){
+        for (HistoryObserver observer : historyObservers) { observer.onHistoryUpdated(history); }
+    }
+
+
+    //Player Info Classes
+
+    public interface PlayersObserver extends ErrorObserver {
+        void onPlayerUpdated(Player player);
+        void onPlayersUpdated(ArrayList<Player> players);
+    }
+
+    public void addPlayersObserver(PlayersObserver observer) {
+        playersObservers.add(observer);
+        addErrorObserver(observer);
+    }
+
+    public void removePlayersObserver(PlayersObserver observer) {
+        playersObservers.remove(observer);
+        removeErrorObserver(observer);
+    }
+
+    //Update a single player's information
+    public void updatePlayer(Player player){
+        for (PlayersObserver observer : playersObservers) { observer.onPlayerUpdated(player); }
+    }
+
+    //Update all players
+    public void updatePlayers(ArrayList<Player> players){
+        for (PlayersObserver observer : playersObservers) { observer.onPlayersUpdated(players); }
+    }
+
+
 }

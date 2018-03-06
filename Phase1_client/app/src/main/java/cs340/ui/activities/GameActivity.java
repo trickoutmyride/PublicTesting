@@ -1,5 +1,6 @@
 package cs340.ui.activities;
 
+import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,25 +15,31 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import cs340.shared.model.DestinationCard;
 import cs340.shared.model.Game;
 import cs340.shared.model.Player;
 import cs340.shared.model.TrainCard;
 import cs340.ui.R;
+import cs340.ui.fragments.DestinationCardFragment;
+import cs340.ui.fragments.DestinationCardSelectionAdapter;
 import cs340.ui.fragments.HistoryFragment;
 import cs340.ui.fragments.IHandFragment;
 import cs340.ui.fragments.IPlayersFragment;
 import cs340.ui.presenters.GamePresenter;
 import cs340.ui.presenters.IGamePresenter;
 
-public class GameActivity extends AppCompatActivity implements IGameActivity {
+public class GameActivity extends AppCompatActivity implements IGameActivity, DestinationCardFragment.DestinationCardDialogListener {
 
     //TODO: fix action bar behavior
+    //TODO: Do something with selected destination cards
+    //TODO: Display points on Destination Card
 
     private IGamePresenter gamePresenter;
     private ImageButton chatButton, historyButton, destinationCardButton;
     private IHandFragment handFragment;
     private IPlayersFragment playersFragment;
     private HistoryFragment historyFragment;
+    private DestinationCardFragment destinationCardFragment;
     private Player currentPlayer;
     private Game currentGame;
     private ArrayList<String> currentHistory;
@@ -90,9 +97,18 @@ public class GameActivity extends AppCompatActivity implements IGameActivity {
         destinationCardButton.setOnClickListener(new ImageButton.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Pop up Destination Card fragment
+                //Pop up Destination Card dialog
+                Bundle bundle = new Bundle();
+                Gson gson = new Gson();
+                bundle.putString("player", gson.toJson(currentPlayer));
+                bundle.putBoolean("selection", false);
+                destinationCardFragment = new DestinationCardFragment();
+                FragmentManager fm = getFragmentManager();
+                destinationCardFragment.setArguments(bundle);
+                destinationCardFragment.show(fm, "destinationfragment");
             }
         });
+
 
         //  Fake data button
         //  (currently train cards, history)
@@ -102,6 +118,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity {
             public void onClick(View view) {
                 createFakeHand();
                 createFakeHistory();
+                createFakeDestinationCards();
             }
         });
 
@@ -200,6 +217,19 @@ public class GameActivity extends AppCompatActivity implements IGameActivity {
         }
     }
 
+    private void createFakeDestinationCards(){
+        ArrayList<DestinationCard> cards = new ArrayList<>();
+        DestinationCard card = new DestinationCard("SLC", "Vegas", 10);
+        cards.add(card);
+        card = new DestinationCard("NYC", "Boston", 15);
+        cards.add(card);
+        card = new DestinationCard("Miami", "Jacksonville", 8);
+        cards.add(card);
+        card = new DestinationCard("Pittsburgh", "Chicago", 12);
+        cards.add(card);
+        currentPlayer.setDestinations(cards);
+    }
+
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
@@ -213,4 +243,15 @@ public class GameActivity extends AppCompatActivity implements IGameActivity {
         currentHistory = history;
     }
 
+    //Destination Card Selection Confirmed
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        DestinationCardFragment dcf = (DestinationCardFragment)dialog;
+
+        DestinationCardSelectionAdapter dcsa = dcf.getDestinationCardSelectionAdapter();
+        ArrayList<DestinationCard> selectedCards = dcsa.getSelectedCards();
+
+        //Do something with selected cards
+
+    }
 }
