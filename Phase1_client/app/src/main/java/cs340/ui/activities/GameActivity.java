@@ -20,6 +20,7 @@ import cs340.shared.model.Game;
 import cs340.shared.model.Player;
 import cs340.shared.model.TrainCard;
 import cs340.ui.R;
+import cs340.ui.fragments.DeckFragment;
 import cs340.ui.fragments.DestinationCardFragment;
 import cs340.ui.fragments.DestinationCardSelectionAdapter;
 import cs340.ui.fragments.HistoryFragment;
@@ -28,21 +29,26 @@ import cs340.ui.fragments.IPlayersFragment;
 import cs340.ui.presenters.GamePresenter;
 import cs340.ui.presenters.IGamePresenter;
 
-public class GameActivity extends AppCompatActivity implements IGameActivity, DestinationCardFragment.DestinationCardDialogListener {
+public class GameActivity extends AppCompatActivity implements IGameActivity, DestinationCardFragment.DestinationCardDialogListener, DeckFragment.DeckFragmentListener {
 
     //TODO: fix action bar behavior
     //TODO: Do something with selected destination cards
     //TODO: Display points on Destination Card
+    //TODO: Implement cardSelected
+    //TODO: Implement presenter functionality
+    //TODO: Implement chat functionality
 
     private IGamePresenter gamePresenter;
     private ImageButton chatButton, historyButton, destinationCardButton;
     private IHandFragment handFragment;
     private IPlayersFragment playersFragment;
     private HistoryFragment historyFragment;
+    private DeckFragment deckFragment;
     private DestinationCardFragment destinationCardFragment;
     private Player currentPlayer;
     private Game currentGame;
     private ArrayList<String> currentHistory;
+    private ArrayList<TrainCard> currentFaceUpCards;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +67,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         handFragment = (IHandFragment)getFragmentManager().findFragmentById(R.id.handFragment);
         playersFragment = (IPlayersFragment)getFragmentManager().findFragmentById(R.id.playersFragment);
         playersFragment.initiatePlayers(currentGame.getPlayers());
+        deckFragment = (DeckFragment)getFragmentManager().findFragmentById(R.id.deckFragment);
 
 
         //Hide status bar
@@ -119,6 +126,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
                 createFakeHand();
                 createFakeHistory();
                 createFakeDestinationCards();
+                createFakeDeckCards();
             }
         });
 
@@ -230,6 +238,36 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         currentPlayer.setDestinations(cards);
     }
 
+    private void createFakeDeckCards(){
+        ArrayList<TrainCard> deckCards = new ArrayList<>();
+        TrainCard blueCard = new TrainCard("blue");
+        deckCards.add(blueCard);
+        TrainCard purpleCard = new TrainCard("purple");
+        deckCards.add(purpleCard);
+        TrainCard whiteCard = new TrainCard("white");
+        deckCards.add(whiteCard);
+        TrainCard yellowCard = new TrainCard("yellow");
+        deckCards.add(yellowCard);
+        TrainCard orangeCard = new TrainCard("orange");
+        deckCards.add(orangeCard);
+        TrainCard blackCard = new TrainCard("black");
+        deckCards.add(blackCard);
+        TrainCard redCard = new TrainCard("red");
+        deckCards.add(redCard);
+        TrainCard greenCard= new TrainCard("green");
+        deckCards.add(greenCard);
+        TrainCard wildCard = new TrainCard("wild");
+        deckCards.add(wildCard);
+
+        Collections.shuffle(deckCards, new Random());
+        ArrayList<TrainCard> fakeCards = new ArrayList<>();
+        for (int i = 0; i < 5; i++){
+            fakeCards.add(deckCards.get(i));
+        }
+        currentFaceUpCards = fakeCards;
+        onDeckUpdated(fakeCards);
+    }
+
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
@@ -253,5 +291,16 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
 
         //Do something with selected cards
 
+    }
+
+    //Tell the server that we selected a card, add to deck
+    @Override
+    public void cardSelected(TrainCard card) {
+
+    }
+
+    public void onDeckUpdated(ArrayList<TrainCard> cards){
+        currentFaceUpCards = cards;
+        deckFragment.onFaceUpCardsUpdated(cards);
     }
 }

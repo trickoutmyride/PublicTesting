@@ -1,8 +1,10 @@
 package cs340.ui.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -100,4 +102,16 @@ public class DestinationCardFragment extends DialogFragment {
         }
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        //Attach activity as a listener (for dialog confirm button)
+        Activity activity = getActivity();
+        try {
+            listener = (DestinationCardDialogListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement DestinationCardDialogListener");
+        }
+    }
 }

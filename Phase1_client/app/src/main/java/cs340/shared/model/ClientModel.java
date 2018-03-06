@@ -16,6 +16,7 @@ public class ClientModel {
     private ArrayList<HandObserver> handObservers = new ArrayList<>();
     private ArrayList<HistoryObserver> historyObservers = new ArrayList<>();
     private ArrayList<PlayersObserver> playersObservers = new ArrayList<>();
+    private ArrayList<DeckObserver> deckObservers = new ArrayList<>();
 
     private ClientModel() {}
 
@@ -200,6 +201,26 @@ public class ClientModel {
     //Update all players
     public void updatePlayers(ArrayList<Player> players){
         for (PlayersObserver observer : playersObservers) { observer.onPlayersUpdated(players); }
+    }
+
+    //Deck Classes
+    public interface DeckObserver extends ErrorObserver {
+        void onDeckUpdated(ArrayList<TrainCard> cards);
+    }
+
+    public void addDeckObserver(DeckObserver observer){
+        deckObservers.add(observer);
+        addErrorObserver(observer);
+    }
+
+    public void removeDeckObserver(DeckObserver observer){
+        deckObservers.remove(observer);
+        removeErrorObserver(observer);
+    }
+
+    //Update cards in the deck
+    public void updateDeck(ArrayList<TrainCard> cards){
+        for (DeckObserver observer : deckObservers){ observer.onDeckUpdated(cards); }
     }
 
 
