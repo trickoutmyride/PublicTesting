@@ -405,8 +405,8 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
     }
 
     @Override
-    public void updateHistory(ArrayList<String> history){
-        this.currentHistory = currentHistory;
+    public void updateHistory(String historyItem){
+        this.currentHistory.add(historyItem);
     }
 
     public void setCurrentChat(ArrayList<String> currentChat){

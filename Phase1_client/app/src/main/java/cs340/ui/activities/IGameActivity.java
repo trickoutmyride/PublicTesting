@@ -6,6 +6,6 @@ import cs340.shared.model.DestinationCard;
 
 public interface IGameActivity {
     //stub
-    void updateHistory(ArrayList<String> history);
+    void updateHistory(String historyItem);
     void onDrawnDestinationCards(ArrayList<DestinationCard> cards);
 }

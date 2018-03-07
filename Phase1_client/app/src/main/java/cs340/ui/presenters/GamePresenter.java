@@ -22,13 +22,12 @@ public class GamePresenter implements IGamePresenter, ClientModel.HistoryObserve
     }
 
     @Override
-    public void onHistoryUpdated(ArrayList<String> history) {
-        gameActivity.updateHistory(history);
+    public void onHistoryUpdated(String historyItem) {
+        gameActivity.updateHistory(historyItem);
     }
 
     @Override
     public void onDrawnDestinationCards(ArrayList<DestinationCard> cards){
         gameActivity.onDrawnDestinationCards(cards);
     }
-
 }
