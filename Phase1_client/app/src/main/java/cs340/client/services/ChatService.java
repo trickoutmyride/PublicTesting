@@ -1,6 +1,7 @@
 package cs340.client.services;
 
 import cs340.client.communication.ServerProxy;
+import cs340.shared.model.ClientModel;
 import cs340.shared.model.Player;
 import cs340.shared.requests.ChatRequest;
 
@@ -16,6 +17,6 @@ public class ChatService {
 	}
 
 	public static void onChat(String message) {
-		// Stubby, TODO
+		ClientModel.getInstance().newMessage(message);
 	}
 }

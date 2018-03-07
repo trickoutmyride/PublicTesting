@@ -84,7 +84,7 @@ public class ClientFacade implements IClient {
 	public void chat (String chatJson) {
 		System.out.println("ClientFacade: chat()" + chatJson);
 		ChatResult result = gson.fromJson(chatJson, ChatResult.class);
-		
+		ChatService.onChat(result.getChat());
 	}
 
 	public void gameHistory(String gameHistoryJson) {
