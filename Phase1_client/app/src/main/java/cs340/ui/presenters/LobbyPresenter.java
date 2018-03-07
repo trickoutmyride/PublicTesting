@@ -34,11 +34,11 @@ public class LobbyPresenter implements ILobbyPresenter {
     }
 
     @Override
-    public void onGameStarted() {
+    public void onGameStarted(final Game game) {
         ((Activity)activity).runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                activity.onGameStarted();
+                activity.onGameStarted(game);
             }
         });
     }

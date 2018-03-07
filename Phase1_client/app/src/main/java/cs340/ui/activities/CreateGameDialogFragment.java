@@ -114,8 +114,6 @@ public class CreateGameDialogFragment extends DialogFragment {
     public void onStart() {
         super.onStart();
 
-
-
         AlertDialog d = (AlertDialog)getDialog();
         if (d != null) {
             d.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));

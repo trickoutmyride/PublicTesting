@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="500dp"
+    android:layout_height="wrap_content"
+    tools:context="cs340.ui.fragments.HistoryFragment"
+    android:background="@drawable/simple_border_black">
+
+
+    <TextView
+        android:id="@+id/chat_title"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="Chat"
+        android:textAlignment="center"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/chat_list"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/chat_title"
+        android:background="@color/colorAccent"
+        android:scrollbarThumbVertical="@drawable/scrollbar"
+        android:scrollbars="vertical">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/chat_submit"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/chat_list"
+        android:background="@color/colorPrimaryDark"
+        android:text="Submit"
+        android:textColor="@android:color/white"
+        android:visibility="visible" />
+
+    <EditText
+        android:id="@+id/chat_input"
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/chat_list"
+        android:ems="10"
+        android:hint="Message"
+        android:inputType="text"
+        android:visibility="visible" />
+</RelativeLayout>

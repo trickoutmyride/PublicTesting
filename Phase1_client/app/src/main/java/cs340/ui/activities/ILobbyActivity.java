@@ -7,6 +7,6 @@ import cs340.shared.model.Game;
 
 public interface ILobbyActivity {
     void onError(String message);
-    void onGameStarted();
+    void onGameStarted(Game game);
     void onGameUpdated(Game game);
 }

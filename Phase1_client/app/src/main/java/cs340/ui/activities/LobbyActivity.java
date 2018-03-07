@@ -18,6 +18,7 @@ import java.util.HashMap;
 import cs340.shared.model.Game;
 import cs340.shared.model.Player;
 import cs340.ui.R;
+import cs340.ui.mock.MockPhase1Presenter;
 import cs340.ui.presenters.ILobbyPresenter;
 import cs340.ui.presenters.LobbyPresenter;
 
@@ -55,7 +56,11 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
         System.out.println("Current Player: " + currentPlayer.getUsername());
         System.out.println("Current Game: " + currentGame.getGameName());
 
+
         lobbyPresenter = new LobbyPresenter(this);
+        //lobbyPresenter = new MockPhase1Presenter(this);
+
+
         startButton = findViewById(R.id.start_game_button);
 
         HashMap<String, String> hm =  currentGame.getColors();
@@ -78,8 +83,9 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
             startButton.setEnabled(true);
         }
         else {
-            startButton.setEnabled(false);
-            startButton.setAlpha((float)0.5);
+            //startButton.setEnabled(false);
+            //startButton.setAlpha((float)0.5);
+            startButton.setEnabled(true);
         }
 
         //Listener for the start button
@@ -122,12 +128,20 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
      * Tell the user that another player has started the game
      */
     @Override
-    public void onGameStarted() {
+    public void onGameStarted(Game game) {
         //Go to game activity
         Intent intent = new Intent(this, GameActivity.class);
         Gson gson = new Gson();
+
+        //update player
+        for (Player p : game.getPlayers()){
+            if (p.getUsername().equals(currentPlayer.getUsername())){
+                currentPlayer = p;
+            }
+        }
+
         //Pass game and current player to the lobby activity
-        intent.putExtra("currentGame", gson.toJson(currentGame));
+        intent.putExtra("currentGame", gson.toJson(game));
         intent.putExtra("currentPlayer", gson.toJson(currentPlayer));
         startActivity(intent);
         lobbyPresenter.detach();
@@ -145,4 +159,5 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
         playerList.setAdapter(playerListAdapter);
 
     }
+
 }
