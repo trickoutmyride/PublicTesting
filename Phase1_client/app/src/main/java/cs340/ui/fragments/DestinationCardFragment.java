@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -60,7 +61,15 @@ public class DestinationCardFragment extends DialogFragment {
             builder.setView(inflater.inflate(R.layout.destination_dialog_layout, null)).setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    listener.onDialogPositiveClick(DestinationCardFragment.this);
+                    //If two cards are not selected
+                    if (destinationCardSelectionAdapter.getSelectedCards().size() != 2){
+                        Toast toast = Toast.makeText(getContext(), "Please select at least two cards", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                    else {
+                        listener.onDialogPositiveClick(DestinationCardFragment.this);
+                        DestinationCardFragment.this.getDialog().dismiss();
+                    }
                 }
             }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
@@ -95,7 +104,8 @@ public class DestinationCardFragment extends DialogFragment {
         destinationCardList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         if (selection) {
-
+            destinationCardSelectionAdapter = new DestinationCardSelectionAdapter(player, getContext());
+            destinationCardList.setAdapter(destinationCardSelectionAdapter);
         }else{
             destinationCardDisplayAdapter = new DestinationCardDisplayAdapter(player, getContext());
             destinationCardList.setAdapter(destinationCardDisplayAdapter);

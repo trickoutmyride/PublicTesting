@@ -95,8 +95,8 @@ public class ClientModel {
         for (GameListObserver observer : gameListObservers) observer.onGameListUpdated(games);
     }
 
-    public void startGame() {
-        for (GameLobbyObserver observer : gameLobbyObservers) observer.onGameStarted();
+    public void startGame(Game game) {
+        for (GameLobbyObserver observer : gameLobbyObservers) observer.onGameStarted(game);
     }
 
     public interface ErrorObserver {
@@ -113,7 +113,7 @@ public class ClientModel {
     }
 
     public interface GameLobbyObserver extends ErrorObserver {
-        void onGameStarted();
+        void onGameStarted(Game game);
         void onGameUpdated(Game game);
     }
 
@@ -227,5 +227,7 @@ public class ClientModel {
     public void updateFaceUpDeck(ArrayList<TrainCard> cards){
         for (DeckObserver observer : deckObservers){ observer.updateFaceUpDeck(cards); }
     }
+
+
 
 }

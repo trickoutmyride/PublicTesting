@@ -29,6 +29,19 @@ public class DestinationCardSelectionAdapter extends RecyclerView.Adapter<Destin
         return _selectedCards;
     }
 
+    public ArrayList<DestinationCard> getUnselectedCards(){
+        ArrayList<DestinationCard> unSelectedCards = new ArrayList<>();
+        //Loop through cards
+        for (DestinationCard card : _cards){
+            //If card hasn't been selected, add it to the array
+            if (!(_selectedCards.contains(card))){
+                unSelectedCards.add(card);
+            }
+        }
+
+        return unSelectedCards;
+    }
+
     // Provide a reference to the views for each data item
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public View layout;

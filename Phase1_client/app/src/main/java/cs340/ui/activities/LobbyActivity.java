@@ -57,8 +57,8 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
         System.out.println("Current Game: " + currentGame.getGameName());
 
 
-        //lobbyPresenter = new LobbyPresenter(this);
-        lobbyPresenter = new MockPhase1Presenter(this);
+        lobbyPresenter = new LobbyPresenter(this);
+        //lobbyPresenter = new MockPhase1Presenter(this);
 
 
         startButton = findViewById(R.id.start_game_button);
@@ -128,12 +128,20 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
      * Tell the user that another player has started the game
      */
     @Override
-    public void onGameStarted() {
+    public void onGameStarted(Game game) {
         //Go to game activity
         Intent intent = new Intent(this, GameActivity.class);
         Gson gson = new Gson();
+
+        //update player
+        for (Player p : game.getPlayers()){
+            if (p.getUsername().equals(currentPlayer.getUsername())){
+                currentPlayer = p;
+            }
+        }
+
         //Pass game and current player to the lobby activity
-        intent.putExtra("currentGame", gson.toJson(currentGame));
+        intent.putExtra("currentGame", gson.toJson(game));
         intent.putExtra("currentPlayer", gson.toJson(currentPlayer));
         startActivity(intent);
         lobbyPresenter.detach();

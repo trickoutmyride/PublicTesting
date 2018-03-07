@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import cs340.client.services.DeckService;
+import cs340.shared.model.ClientModel;
 import cs340.shared.model.DestinationCard;
 import cs340.shared.model.Game;
 import cs340.shared.model.Player;
@@ -379,9 +381,12 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         DestinationCardFragment dcf = (DestinationCardFragment)dialog;
 
         DestinationCardSelectionAdapter dcsa = dcf.getDestinationCardSelectionAdapter();
-        ArrayList<DestinationCard> selectedCards = dcsa.getSelectedCards();
+        ArrayList<DestinationCard> unselected = dcsa.getUnselectedCards();
 
-        //TODO: Do something with selected cards
+        //If a card was discarded, send it to the server
+        if (unselected.size() != 0) {
+            DeckService.discardDestination(currentGame.getGameID(), unselected, currentPlayer);
+        }
     }
 
     public void onDeckUpdated(ArrayList<TrainCard> cards){
@@ -394,6 +399,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
     public void sendMessage(String message) {
         Toast toast = Toast.makeText(getApplicationContext(), "Message sent", Toast.LENGTH_SHORT);
         toast.show();
+        //ChatService.chat(message);
     }
 
     @Override

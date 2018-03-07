@@ -65,8 +65,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
         MultiDex.install(this);
 
         //Setup Login Presenter
-        //loginPresenter = new LoginPresenter(this);
-        loginPresenter = new MockPhase1Presenter(this);
+        loginPresenter = new LoginPresenter(this);
+        //loginPresenter = new MockPhase1Presenter(this);
 
         //Grab radio group, buttons, editTexts, etc.
         loginRadio = findViewById(R.id.login_radio);
