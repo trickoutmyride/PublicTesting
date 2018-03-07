@@ -133,12 +133,18 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
         Intent intent = new Intent(this, GameActivity.class);
         Gson gson = new Gson();
 
+        if (game == null){
+            System.out.println("LobbyActivity.onGameStarted(): Current Game is null");
+        }
+
         //update player
         for (Player p : game.getPlayers()){
             if (p.getUsername().equals(currentPlayer.getUsername())){
                 currentPlayer = p;
             }
         }
+
+
 
         //Pass game and current player to the lobby activity
         intent.putExtra("currentGame", gson.toJson(game));

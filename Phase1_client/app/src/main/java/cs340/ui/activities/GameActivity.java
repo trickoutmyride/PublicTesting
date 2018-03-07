@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import cs340.client.services.ChatService;
 import cs340.client.services.DeckService;
 import cs340.shared.model.ClientModel;
 import cs340.shared.model.DestinationCard;
@@ -84,6 +85,10 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         Gson gson = new Gson();
         currentPlayer = gson.fromJson(getIntent().getStringExtra("currentPlayer"), Player.class);
         currentGame = gson.fromJson(getIntent().getStringExtra("currentGame"), Game.class);
+
+        if (currentGame == null){
+            System.out.println("GameActivity.onCreate(): Current Game is null");
+        }
 
         //Set up presenters and get fragments
         gamePresenter = new GamePresenter(this);
@@ -394,12 +399,9 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         deckFragment.onFaceUpCardsUpdated(cards);
     }
 
-    //TODO: Send a new chat to the server
     @Override
     public void sendMessage(String message) {
-        Toast toast = Toast.makeText(getApplicationContext(), "Message sent", Toast.LENGTH_SHORT);
-        toast.show();
-        //ChatService.chat(message);
+        ChatService.chat(currentPlayer, message);
     }
 
     @Override
@@ -411,6 +413,11 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         this.currentChat = currentChat;
     }
 
+    //TODO: Do something with new drawn destination cards
+    @Override
+    public void onDrawnDestinationCards(ArrayList<DestinationCard> cards){
+
+    }
 
 }
 
