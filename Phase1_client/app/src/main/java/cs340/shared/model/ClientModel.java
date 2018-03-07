@@ -203,7 +203,10 @@ public class ClientModel {
         for (PlayersObserver observer : playersObservers) { observer.onPlayersUpdated(players); }
     }
 
+
+
     //Deck Classes
+
     public interface DeckObserver extends ErrorObserver {
         void onDeckUpdated(ArrayList<TrainCard> cards);
     }
