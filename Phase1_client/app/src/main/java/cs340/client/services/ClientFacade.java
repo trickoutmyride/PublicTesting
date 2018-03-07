@@ -88,6 +88,7 @@ public class ClientFacade implements IClient {
 		// needs somewhere to put the chat
 		// TODO
 		// something something.
+		// ChatService.onChat(message)
 	}
 
 

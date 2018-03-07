@@ -6,6 +6,7 @@ import cs340.client.command.CommandManager;
 import cs340.shared.command.ServerCommand;
 import cs340.shared.interfaces.IServer;
 import cs340.shared.message.ServerMessage;
+import cs340.shared.requests.ChatRequest;
 import cs340.shared.requests.ClaimRouteRequest;
 import cs340.shared.requests.CreateGameRequest;
 import cs340.shared.requests.DrawDestinationRequest;
@@ -79,6 +80,13 @@ public class ServerProxy implements IServer{
 		DrawTrainCardRequest drawRequest = (DrawTrainCardRequest) request;
 		ServerCommand command = CommandManager.getInstance().makeCommand("drawTrain", request);
 		ServerMessage message = new ServerMessage(drawRequest.getPlayer().getAuthToken(), command);
+		ClientCommunicator.getInstance().sendMessage(message);
+	}
+
+	public void chat(Object request) {
+		ChatRequest chatRequest = (ChatRequest) request;
+		ServerCommand command = CommandManager.getInstance().makeCommand("chat", request);
+		ServerMessage message = new ServerMessage(chatRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
 	}
 }
