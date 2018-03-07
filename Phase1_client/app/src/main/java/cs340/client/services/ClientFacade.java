@@ -5,10 +5,13 @@ import com.google.gson.Gson;
 import cs340.client.results.ChatResult;
 import cs340.client.results.CreateGameResult;
 import cs340.client.results.DrawDestinationResult;
+import cs340.client.results.DrawTrainCardResult;
+import cs340.client.results.GameHistoryResult;
+import cs340.client.results.GameResult;
 import cs340.client.results.JoinGameResult;
 import cs340.client.results.SignInResult;
-import cs340.client.results.StartGameResult;
 import cs340.shared.interfaces.IClient;
+import cs340.shared.model.ClientModel;
 import cs340.shared.model.GameList;
 
 /**
@@ -55,9 +58,9 @@ public class ClientFacade implements IClient {
 	}
 
 	public void startGame(String startGameJson) {
-		System.out.println("ClientFacade: startGame()");
-		StartGameResult result = gson.fromJson(startGameJson, StartGameResult.class);
-		StartGameService.onGameStarted(result.getStartedGame());
+		System.out.println("ClientFacade: startGame() + startGameJson");
+		GameResult result = gson.fromJson(startGameJson, GameResult.class);
+		StartGameService.onGameStarted(result.getGame());
 	}
 
 	public void updateGameList(String gameListJson) {
@@ -69,30 +72,26 @@ public class ClientFacade implements IClient {
 	public void drawDestination(String destinationJson) {
 		System.out.println("ClientFacade: drawDestination()" + destinationJson);
 		DrawDestinationResult result = gson.fromJson(destinationJson, DrawDestinationResult.class);
-		// needs DestinationCardFragment presenter info
-		// TODO
-		// something something
-		// update DestinationCardFragment stuff.
+		DeckService.onDrawDestinationCards(result.getCards());
 	}
 
 	public void drawTrain(String trainJson) {
 		System.out.println("ClientFacade: drawTrain()" + trainJson);
-		//DrawTrainResult result = gson.fromJson(trainJson, DrawTrainResult.class);
-		// needs result class from Server.
-		// TODO
-		// something something
-		// DeckService.onTrainCardsUpdated(...);
+		DrawTrainCardResult result = gson.fromJson(trainJson, DrawTrainCardResult.class);
+		DeckService.onDrawTrainCards(result.getPlayer().getCards());
 	}
 
 	public void chat (String chatJson) {
 		System.out.println("ClientFacade: chat()" + chatJson);
 		ChatResult result = gson.fromJson(chatJson, ChatResult.class);
-		// needs somewhere to put the chat
-		// TODO
-		// something something.
-		// ChatService.onChat(message)
+		
 	}
 
+	public void gameHistory(String gameHistoryJson) {
+		System.out.println("ClientFacade: chat()" + gameHistoryJson);
+		GameHistoryResult result = gson.fromJson(gameHistoryJson, GameHistoryResult.class);
+		ClientModel.getInstance().updateHistory(result.getType() + ": " + result.getContents());
+	}
 
 	public void error(String error) {
 		System.out.println("ClientFacade: error(): " + error);
