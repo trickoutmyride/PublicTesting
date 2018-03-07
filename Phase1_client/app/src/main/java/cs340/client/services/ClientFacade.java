@@ -7,6 +7,7 @@ import cs340.client.results.CreateGameResult;
 import cs340.client.results.DrawDestinationResult;
 import cs340.client.results.JoinGameResult;
 import cs340.client.results.SignInResult;
+import cs340.client.results.StartGameResult;
 import cs340.shared.interfaces.IClient;
 import cs340.shared.model.GameList;
 
@@ -53,9 +54,10 @@ public class ClientFacade implements IClient {
 		UpdateGameListService.onUpdateGameList(result.getGamelist());
 	}
 
-	public void startGame(String s) {
+	public void startGame(String startGameJson) {
 		System.out.println("ClientFacade: startGame()");
-		StartGameService.onGameStarted();
+		StartGameResult result = gson.fromJson(startGameJson, StartGameResult.class);
+		StartGameService.onGameStarted(result.getStartedGame());
 	}
 
 	public void updateGameList(String gameListJson) {
