@@ -133,7 +133,7 @@ public class MockPhase1Presenter implements IPregamePresenter, ILoginPresenter, 
     //Start the game
     @Override
     public void startGame() {
-        lobbyActivity.onGameStarted();
+
     }
 
 
@@ -159,7 +159,9 @@ public class MockPhase1Presenter implements IPregamePresenter, ILoginPresenter, 
     public void onError(String message) {}
 
     @Override
-    public void onGameStarted() {}
+    public void onGameStarted(Game game) {
+
+    }
 
     @Override
     public void onGameUpdated(Game game) {}

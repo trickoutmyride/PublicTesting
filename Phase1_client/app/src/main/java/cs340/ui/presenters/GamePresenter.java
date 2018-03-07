@@ -24,4 +24,6 @@ public class GamePresenter implements IGamePresenter, ClientModel.HistoryObserve
     public void onHistoryUpdated(ArrayList<String> history) {
         gameActivity.updateHistory(history);
     }
+
+
 }
