@@ -8,7 +8,7 @@ import cs340.ui.activities.IGameActivity;
 
 //GamePresenter implements HistoryObserver to update the history in the Activity when the dialog is not currently shown
 
-public class GamePresenter implements IGamePresenter, ClientModel.HistoryObserver {
+public class GamePresenter implements IGamePresenter, ClientModel.HistoryObserver, ClientModel.ChatObserver {
     private IGameActivity gameActivity;
 
     public GamePresenter(IGameActivity gameActivity){
@@ -29,5 +29,10 @@ public class GamePresenter implements IGamePresenter, ClientModel.HistoryObserve
     @Override
     public void onDrawnDestinationCards(ArrayList<DestinationCard> cards){
         gameActivity.onDrawnDestinationCards(cards);
+    }
+
+    @Override
+    public void onMessageUpdated(String message) {
+        gameActivity.onChatUpdated(message);
     }
 }

@@ -18,6 +18,7 @@ public class ClientModel {
     private ArrayList<PlayersObserver> playersObservers = new ArrayList<>();
     private ArrayList<DeckObserver> deckObservers = new ArrayList<>();
     private ArrayList<GameObserver> gameObservers = new ArrayList<>();
+    private ArrayList<ChatObserver> chatObservers = new ArrayList<>();
 
     private ClientModel() {}
 
@@ -250,6 +251,25 @@ public class ClientModel {
         for (DeckObserver observer : deckObservers){ observer.updateFaceUpDeck(cards); }
     }
 
+
+    //Chat Functions
+    public interface ChatObserver extends ErrorObserver{
+        void onMessageUpdated(String message);
+    }
+
+    public void addChatObserver(ChatObserver observer){
+        chatObservers.add(observer);
+        addErrorObserver(observer);
+    }
+
+    public void removeChatObserver(ChatObserver observer){
+        chatObservers.remove(observer);
+        removeErrorObserver(observer);
+    }
+
+    public void newMessage(String message){
+        for (ChatObserver observer : chatObservers){ observer.onMessageUpdated(message); }
+    }
 
 
 }

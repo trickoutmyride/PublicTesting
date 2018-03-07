@@ -109,8 +109,8 @@ public class ChatFragment extends DialogFragment {
     }
 
     //Update chat list
-    public void onChatUpdated(ArrayList<String> currentChat){
-        this.currentChat = currentChat;
+    public void onChatUpdated(String newMessage){
+        this.currentChat.add(newMessage);
         chatListAdapter = new ChatListAdapter(currentChat, getContext());
         chatList.setAdapter(chatListAdapter);
     }

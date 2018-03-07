@@ -413,6 +413,15 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         this.currentChat = currentChat;
     }
 
+
+    public void onChatUpdated(String message){
+        currentChat.add(message);
+        if (chatFragment != null)
+        {
+            chatFragment.onChatUpdated(message);
+        }
+    }
+
     //TODO: Do something with new drawn destination cards
     @Override
     public void onDrawnDestinationCards(ArrayList<DestinationCard> cards){
