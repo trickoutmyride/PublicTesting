@@ -3,6 +3,7 @@ package cs340.client.services;
 import java.util.ArrayList;
 
 import cs340.client.communication.ServerProxy;
+import cs340.shared.model.ClientModel;
 import cs340.shared.model.DestinationCard;
 import cs340.shared.model.Player;
 import cs340.shared.model.TrainCard;
@@ -25,7 +26,11 @@ public class DeckService {
 		proxy.drawTrainCard(new DrawTrainCardRequest(gameID, card, player));
 	}
 
-	public static void onTrainCardsUpdated(ArrayList<TrainCard> cardList){
-		// needs on method from presenter!
+	public static void onDrawTrainCards(ArrayList<TrainCard> cards){
+		//TODO
+	}
+
+	public static void onDrawDestinationCards(ArrayList<DestinationCard> cards) {
+		ClientModel.getInstance().newDestinationCards(cards);
 	}
 }
