@@ -50,13 +50,14 @@ import cs340.ui.presenters.IGamePresenter;
  *
  */
 public class GameActivity extends AppCompatActivity implements IGameActivity, DestinationCardFragment.DestinationCardDialogListener,
-        DeckFragment.DeckFragmentListener, ChatFragment.ChatFragmentListener {
+        ChatFragment.ChatFragmentListener {
 
     //TODO: Do something with selected destination cards
     //TODO: Display points on Destination Card
     //TODO: Implement cardSelected for face up train cards
     //TODO: Implement presenters
     //TODO: Send chat to server
+    //TODO: Detach presenters
 
     private IGamePresenter gamePresenter;
     private ImageButton chatButton, historyButton, destinationCardButton;
@@ -86,6 +87,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         gamePresenter = new GamePresenter(this);
         handFragment = (IHandFragment)getFragmentManager().findFragmentById(R.id.handFragment);
         playersFragment = (IPlayersFragment)getFragmentManager().findFragmentById(R.id.playersFragment);
+        addFakePlayerData();
         playersFragment.initiatePlayers(currentGame.getPlayers());
         deckFragment = (DeckFragment)getFragmentManager().findFragmentById(R.id.deckFragment);
 
@@ -150,13 +152,26 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
                 createFakeDestinationCards();
                 createFakeDeckCards();
                 createFakeChat();
+                addFakePlayerData();
+                for (Player player : currentGame.getPlayers()) {
+                    playersFragment.onPlayerUpdated(player);
+                }
             }
         });
     }
 
+    private void addFakePlayerData(){
+        Random rand = new Random();
+        for (Player player : currentGame.getPlayers()){
+            player.setPoints(rand.nextInt(20));
+            player.setTrainCars(rand.nextInt(50));
+            player.setDestinations(fakeDestCards(rand.nextInt(3) + 1));
+            player.setCards(makeFakeTrainCards());
+        }
+    }
 
-    //Create fake train card data
-    private void createFakeHand(){
+    private ArrayList<TrainCard> makeFakeTrainCards(){
+
         //Create a bunch of fake train cards
         TrainCard tcblack, tcblue, tcgreen, tcorange, tcpurple, tcred, tcwhite, tcwild, tcyellow;
 
@@ -210,8 +225,12 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         for (int i = 0; i < rand.nextInt(10); i++){
             trainCards.add(tcwild);
         }
+        return trainCards;
+    }
 
-        handFragment.onHandUpdated(trainCards);
+    //Create fake train card data
+    private void createFakeHand(){
+        handFragment.onTrainCardsUpdated(makeFakeTrainCards());
     }
 
     //Create fake history data
@@ -259,6 +278,35 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         card = new DestinationCard("Pittsburgh", "Chicago", 12);
         cards.add(card);
         currentPlayer.setDestinations(cards);
+    }
+
+    private ArrayList<DestinationCard> fakeDestCards(int num){
+        ArrayList<DestinationCard> cards = new ArrayList<>();
+        DestinationCard card;
+        switch (num) {
+            case 1:
+                card = new DestinationCard("SLC", "Vegas", 10);
+                cards.add(card);
+                break;
+            case 2:
+                card = new DestinationCard("NYC", "Boston", 15);
+                cards.add(card);
+                card = new DestinationCard("Miami", "Jacksonville", 8);
+                cards.add(card);
+                break;
+            case 3:
+                card = new DestinationCard("Pittsburgh", "Chicago", 12);
+                cards.add(card);
+                card = new DestinationCard("Austin", "Dallas", 2);
+                cards.add(card);
+                card = new DestinationCard("Seattle", "Portland", 5);
+                cards.add(card);
+                break;
+            default:
+                card = new DestinationCard("Anywhere", "Somewhere", 1);
+                cards.add(card);
+        }
+        return cards;
     }
 
     //Create fake face up deck cards
@@ -336,12 +384,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         //TODO: Do something with selected cards
     }
 
-    //TODO: Tell the server that we selected a card from the deck
-    @Override
-    public void cardSelected(TrainCard card) {
-
-    }
-
     public void onDeckUpdated(ArrayList<TrainCard> cards){
         currentFaceUpCards = cards;
         deckFragment.onFaceUpCardsUpdated(cards);
@@ -354,13 +396,15 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         toast.show();
     }
 
-
-
-    public void setCurrentHistory(ArrayList<String> currentHistory){
+    @Override
+    public void updateHistory(ArrayList<String> history){
         this.currentHistory = currentHistory;
     }
 
     public void setCurrentChat(ArrayList<String> currentChat){
         this.currentChat = currentChat;
     }
+
+
 }
+

@@ -118,14 +118,15 @@ public class ClientModel {
     }
 
 
-
     //Phase 2
 
     public void updateCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
 
+
     //Hand Classes
+    //TODO: Implement draw destination card, etc
     public interface HandObserver extends ErrorObserver {
         void onTrainCardsUpdated(ArrayList<TrainCard> cards);
         void onDestinationCardsUpdated(ArrayList<DestinationCard> cards);
@@ -155,6 +156,7 @@ public class ClientModel {
 
 
     //History Classes
+    //done
     public interface HistoryObserver extends ErrorObserver {
         void onHistoryUpdated(ArrayList<String> history);
     }
@@ -177,7 +179,7 @@ public class ClientModel {
 
 
     //Player Info Classes
-
+    //Done
     public interface PlayersObserver extends ErrorObserver {
         void onPlayerUpdated(Player player);
         void onPlayersUpdated(ArrayList<Player> players);
@@ -204,11 +206,11 @@ public class ClientModel {
     }
 
 
-
     //Deck Classes
+    //Done
 
     public interface DeckObserver extends ErrorObserver {
-        void onDeckUpdated(ArrayList<TrainCard> cards);
+        void updateFaceUpDeck(ArrayList<TrainCard> cards);
     }
 
     public void addDeckObserver(DeckObserver observer){
@@ -221,10 +223,9 @@ public class ClientModel {
         removeErrorObserver(observer);
     }
 
-    //Update cards in the deck
-    public void updateDeck(ArrayList<TrainCard> cards){
-        for (DeckObserver observer : deckObservers){ observer.onDeckUpdated(cards); }
+    //Update cards in the face up deck
+    public void updateFaceUpDeck(ArrayList<TrainCard> cards){
+        for (DeckObserver observer : deckObservers){ observer.updateFaceUpDeck(cards); }
     }
-
 
 }

@@ -2,6 +2,8 @@ package cs340.ui.fragments;
 
 import cs340.ui.R;
 import cs340.ui.activities.CreateGameDialogFragment;
+import cs340.ui.presenters.HistoryPresenter;
+import cs340.ui.presenters.IHistoryPresenter;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -16,16 +18,18 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class HistoryFragment extends DialogFragment {
+public class HistoryFragment extends DialogFragment implements IHistoryFragment {
 
     private HistoryListAdapter historyListAdapter;
     private RecyclerView historyList;
     private ArrayList<String> currentHistory;
+    private IHistoryPresenter historyPresenter;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         currentHistory = this.getArguments().getStringArrayList("history");
+        historyPresenter = new HistoryPresenter(this);
         //Get layout inflater:
         LayoutInflater inflater = getActivity().getLayoutInflater();
         //Inflate and set layout for dialog
@@ -50,10 +54,22 @@ public class HistoryFragment extends DialogFragment {
 
         historyList = d.findViewById(R.id.historyList);
         historyList.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        historyListAdapter = new HistoryListAdapter(currentHistory, getContext());
-        historyList.setAdapter(historyListAdapter);
-
+        if (currentHistory != null) {
+            historyListAdapter = new HistoryListAdapter(currentHistory, getContext());
+            historyList.setAdapter(historyListAdapter);
+        }
     }
 
+    @Override
+    public void updateHistory(ArrayList<String> history){
+        currentHistory = history;
+        historyListAdapter = new HistoryListAdapter(currentHistory, getContext());
+        historyList.setAdapter(historyListAdapter);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        historyPresenter.detach();
+    }
 }

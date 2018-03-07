@@ -5,5 +5,5 @@ import java.util.ArrayList;
 import cs340.shared.model.TrainCard;
 
 public interface IHandFragment {
-    void onHandUpdated(ArrayList<TrainCard> cards);
+    void onTrainCardsUpdated(ArrayList<TrainCard> cards);
 }

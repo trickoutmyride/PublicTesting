@@ -15,14 +15,15 @@ import android.widget.ImageButton;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import cs340.shared.model.Game;
+import cs340.shared.model.Player;
 import cs340.shared.model.TrainCard;
 import cs340.ui.R;
+import cs340.ui.activities.GameActivity;
 import cs340.ui.presenters.DeckPresenter;
 import cs340.ui.presenters.IDeckPresenter;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class DeckFragment extends Fragment implements IDeckFragment {
 
     private IDeckPresenter deckPresenter;
@@ -30,8 +31,6 @@ public class DeckFragment extends Fragment implements IDeckFragment {
     private ImageButton deckButton;
     private DeckCardAdapter deckCardAdapter;
     private ArrayList<TrainCard> currentFaceUpCards;
-
-    private DeckFragmentListener listener;
 
 
     public DeckFragment() {
@@ -58,29 +57,27 @@ public class DeckFragment extends Fragment implements IDeckFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        //Attach activity as a listener
-        Activity activity = getActivity();
-        try {
-            listener = (DeckFragmentListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement DeckFragmentListener");
-        }
+    }
+
+    @Override
+    public Player getCurrentPlayer() {
+        return ((GameActivity)getActivity()).getCurrentPlayer();
+    }
+
+    @Override
+    public Game getCurrentGame(){
+        return ((GameActivity)getActivity()).getCurrentGame();
     }
 
     public void onFaceUpCardsUpdated(ArrayList<TrainCard> cards){
         currentFaceUpCards = cards;
-
         //Replace cards
         deckCardAdapter = new DeckCardAdapter(cards, getContext());
         faceUpCardsView.setAdapter(deckCardAdapter);
     }
 
     public void cardSelected(TrainCard card){
-        listener.cardSelected(card);
-    }
-
-    public interface DeckFragmentListener {
-        void cardSelected(TrainCard card);
+        deckPresenter.cardSelected(card);
     }
 
 

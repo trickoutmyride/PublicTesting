@@ -63,7 +63,7 @@ public class HandFragment extends Fragment implements IHandFragment {
     }
 
     //Hand updated, redraw hand
-    public void onHandUpdated(ArrayList<TrainCard> cards){
+    public void onTrainCardsUpdated(ArrayList<TrainCard> cards){
 
         //Initialize card counts
         int blackCount = 0, bluecount = 0, greenCount = 0, orangeCount = 0,

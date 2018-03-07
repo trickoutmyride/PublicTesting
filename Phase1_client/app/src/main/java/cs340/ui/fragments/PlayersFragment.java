@@ -26,8 +26,6 @@ import cs340.ui.presenters.PlayersPresenter;
  */
 public class PlayersFragment extends Fragment implements IPlayersFragment {
 
-    //TODO: Train car counts, player points
-
     private int playerCount;
 
     //Player names, counts
@@ -42,7 +40,7 @@ public class PlayersFragment extends Fragment implements IPlayersFragment {
     private ImageView pointsIcon1, pointsIcon2, pointsIcon3, pointsIcon4, pointsIcon5;
 
     //RelativeLayouts for disabling unused players
-    private RelativeLayout player1Info, player2Info, player3Info, player4Info, player5Info;
+    private RelativeLayout player3Info, player4Info, player5Info;
 
     private IPlayersPresenter playersPresenter;
     private Player currentPlayer;
@@ -113,8 +111,6 @@ public class PlayersFragment extends Fragment implements IPlayersFragment {
         pointsIcon5 = v.findViewById(R.id.points_icon_5);
 
         //Get RelativeLayouts
-        player1Info = v.findViewById(R.id.player_1_info);
-        player2Info = v.findViewById(R.id.player_2_info);
         player3Info = v.findViewById(R.id.player_3_info);
         player4Info = v.findViewById(R.id.player_4_info);
         player5Info = v.findViewById(R.id.player_5_info);
@@ -136,24 +132,34 @@ public class PlayersFragment extends Fragment implements IPlayersFragment {
 
         switch(playerNumber) {
             case 0:
-                destCardCount1.setText(player.getDestinations().size());
-                trainCardCount1.setText(player.getCards().size());
+                destCardCount1.setText(Integer.toString(player.getDestinations().size()));
+                trainCardCount1.setText(Integer.toString(player.getCards().size()));
+                points1.setText(Integer.toString(player.getPoints()));
+                carCount1.setText(Integer.toString(player.getTrainCars()));
                 break;
             case 1:
-                destCardCount2.setText(player.getDestinations().size());
-                trainCardCount2.setText(player.getCards().size());
+                destCardCount2.setText(Integer.toString(player.getDestinations().size()));
+                trainCardCount2.setText(Integer.toString(player.getCards().size()));
+                points2.setText(Integer.toString(player.getPoints()));
+                carCount2.setText(Integer.toString(player.getTrainCars()));
                 break;
             case 2:
-                destCardCount3.setText(player.getDestinations().size());
-                trainCardCount3.setText(player.getCards().size());
+                destCardCount3.setText(Integer.toString(player.getDestinations().size()));
+                trainCardCount3.setText(Integer.toString(player.getCards().size()));
+                points3.setText(Integer.toString(player.getPoints()));
+                carCount3.setText(Integer.toString(player.getTrainCars()));
                 break;
             case 3:
-                destCardCount4.setText(player.getDestinations().size());
-                trainCardCount4.setText(player.getCards().size());
+                destCardCount4.setText(Integer.toString(player.getDestinations().size()));
+                trainCardCount4.setText(Integer.toString(player.getCards().size()));
+                points4.setText(Integer.toString(player.getPoints()));
+                carCount4.setText(Integer.toString(player.getTrainCars()));
                 break;
             case 4:
-                destCardCount5.setText(player.getDestinations().size());
-                trainCardCount5.setText(player.getCards().size());
+                destCardCount5.setText(Integer.toString(player.getDestinations().size()));
+                trainCardCount5.setText(Integer.toString(player.getCards().size()));
+                points5.setText(Integer.toString(player.getPoints()));
+                carCount5.setText(Integer.toString(player.getTrainCars()));
                 break;
         }
     }
@@ -185,6 +191,12 @@ public class PlayersFragment extends Fragment implements IPlayersFragment {
                     }
                     playerName1.setText(players.get(i).getUsername());
                     player1Title.setBackgroundColor(colorStringtoInt(currentGame.getColors().get(players.get(i).getUsername())));
+                    if (destCardCount1 == null){ System.out.println("Dest Card Count is null"); }
+                    if (players.get(i).getDestinations() == null){ System.out.println("getDestinations is null"); }
+                    destCardCount1.setText(Integer.toString(players.get(i).getDestinations().size()));
+                    trainCardCount1.setText(Integer.toString(players.get(i).getCards().size()));
+                    points1.setText(Integer.toString(players.get(i).getPoints()));
+                    carCount1.setText(Integer.toString(players.get(i).getTrainCars()));
                     break;
                 case 1:
                     if (onCurrentPlayer){
@@ -196,6 +208,10 @@ public class PlayersFragment extends Fragment implements IPlayersFragment {
                     }
                     playerName2.setText(players.get(i).getUsername());
                     player2Title.setBackgroundColor(colorStringtoInt(currentGame.getColors().get(players.get(i).getUsername())));
+                    destCardCount2.setText(Integer.toString(players.get(i).getDestinations().size()));
+                    trainCardCount2.setText(Integer.toString(players.get(i).getCards().size()));
+                    points2.setText(Integer.toString(players.get(i).getPoints()));
+                    carCount2.setText(Integer.toString(players.get(i).getTrainCars()));
                     break;
                 case 2:
                     if (onCurrentPlayer){
@@ -207,6 +223,10 @@ public class PlayersFragment extends Fragment implements IPlayersFragment {
                     }
                     playerName3.setText(players.get(i).getUsername());
                     player3Title.setBackgroundColor(colorStringtoInt(currentGame.getColors().get(players.get(i).getUsername())));
+                    destCardCount3.setText(Integer.toString(players.get(i).getDestinations().size()));
+                    trainCardCount3.setText(Integer.toString(players.get(i).getCards().size()));
+                    points3.setText(Integer.toString(players.get(i).getPoints()));
+                    carCount3.setText(Integer.toString(players.get(i).getTrainCars()));
                     break;
                 case 3:
                     if (onCurrentPlayer){
@@ -218,6 +238,10 @@ public class PlayersFragment extends Fragment implements IPlayersFragment {
                     }
                     playerName4.setText(players.get(i).getUsername());
                     player4Title.setBackgroundColor(colorStringtoInt(currentGame.getColors().get(players.get(i).getUsername())));
+                    destCardCount4.setText(Integer.toString(players.get(i).getDestinations().size()));
+                    trainCardCount4.setText(Integer.toString(players.get(i).getCards().size()));
+                    points4.setText(Integer.toString(players.get(i).getPoints()));
+                    carCount4.setText(Integer.toString(players.get(i).getTrainCars()));
                     break;
                 case 4:
                     if (onCurrentPlayer){
@@ -229,6 +253,10 @@ public class PlayersFragment extends Fragment implements IPlayersFragment {
                     }
                     playerName5.setText(players.get(i).getUsername());
                     player5Title.setBackgroundColor(colorStringtoInt(currentGame.getColors().get(players.get(i).getUsername())));
+                    destCardCount5.setText(Integer.toString(players.get(i).getDestinations().size()));
+                    trainCardCount5.setText(Integer.toString(players.get(i).getCards().size()));
+                    points5.setText(Integer.toString(players.get(i).getPoints()));
+                    carCount5.setText(Integer.toString(players.get(i).getTrainCars()));
                     break;
             }
         }
@@ -270,6 +298,8 @@ public class PlayersFragment extends Fragment implements IPlayersFragment {
                 return Color.YELLOW;
             case "orange":
                 return Color.rgb(100, 73, 20);
+            case "black":
+                return Color.rgb(0, 0, 0);
             default:
                 return Color.rgb(0, 0, 0);
         }
