@@ -17,6 +17,7 @@ public class ClientModel {
     private ArrayList<HistoryObserver> historyObservers = new ArrayList<>();
     private ArrayList<PlayersObserver> playersObservers = new ArrayList<>();
     private ArrayList<DeckObserver> deckObservers = new ArrayList<>();
+    private ArrayList<GameObserver> gameObservers = new ArrayList<>();
 
     private ClientModel() {}
 
@@ -152,6 +153,27 @@ public class ClientModel {
     //@param cards contains ALL of the destination cards in the player's hand
     public void updateHandDestinationCards(ArrayList<DestinationCard> cards) {
         for (HandObserver observer : handObservers) { observer.onDestinationCardsUpdated(cards); }
+    }
+
+
+    //GameActivity/GamePresenter classes
+
+    public interface GameObserver extends ErrorObserver {
+        void onDrawnDestinationCards(ArrayList<DestinationCard> cards);
+    }
+
+    public void addGameObserver(GameObserver observer){
+        gameObservers.add(observer);
+        addErrorObserver(observer);
+    }
+
+    public void removeGameObserver(GameObserver observer){
+        gameObservers.remove(observer);
+        removeErrorObserver(observer);
+    }
+
+    public void newDestinationCards(ArrayList<DestinationCard> cards){
+        for (GameObserver observer : gameObservers){ observer.onDrawnDestinationCards(cards); }
     }
 
 
