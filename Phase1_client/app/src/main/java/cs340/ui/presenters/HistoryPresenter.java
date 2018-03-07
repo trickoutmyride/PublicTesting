@@ -30,7 +30,7 @@ public class HistoryPresenter implements IHistoryPresenter, ClientModel.HistoryO
     }
 
     @Override
-    public void onHistoryUpdated(ArrayList<String> history) {
-        historyFragment.updateHistory(history);
+    public void onHistoryUpdated(String historyItem) {
+        historyFragment.updateHistory(historyItem);
     }
 }

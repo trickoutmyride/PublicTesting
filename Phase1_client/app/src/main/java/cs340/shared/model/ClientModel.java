@@ -180,7 +180,7 @@ public class ClientModel {
     //History Classes
     //done
     public interface HistoryObserver extends ErrorObserver {
-        void onHistoryUpdated(ArrayList<String> history);
+        void onHistoryUpdated(String history);
     }
 
     public void addHistoryObserver(HistoryObserver observer){
@@ -195,7 +195,7 @@ public class ClientModel {
 
     //Update the game history
     //@param history should contain a list of all history messages
-    public void updateHistory(ArrayList<String> history){
+    public void updateHistory(String history){
         for (HistoryObserver observer : historyObservers) { observer.onHistoryUpdated(history); }
     }
 

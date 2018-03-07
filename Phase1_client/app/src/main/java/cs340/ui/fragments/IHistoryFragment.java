@@ -8,5 +8,5 @@ import java.util.ArrayList;
 
 public interface IHistoryFragment {
 
-    public void updateHistory(ArrayList<String> history);
+    public void updateHistory(String historyItem);
 }
