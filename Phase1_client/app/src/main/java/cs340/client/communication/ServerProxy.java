@@ -72,14 +72,14 @@ public class ServerProxy implements IServer{
 
 	public void discardDestination(Object request) {
 		DiscardDestinationRequest discardRequest = (DiscardDestinationRequest) request;
-		ServerCommand command = CommandManager.getInstance().makeCommand("drawDestination", request);
+		ServerCommand command = CommandManager.getInstance().makeCommand("discardDestination", request);
 		ServerMessage message = new ServerMessage(discardRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
 	}
 
 	public void drawTrainCard (Object request) {
 		DrawTrainCardRequest drawRequest = (DrawTrainCardRequest) request;
-		ServerCommand command = CommandManager.getInstance().makeCommand("drawTrain", request);
+		ServerCommand command = CommandManager.getInstance().makeCommand("drawTrainCard", request);
 		ServerMessage message = new ServerMessage(drawRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
 	}
