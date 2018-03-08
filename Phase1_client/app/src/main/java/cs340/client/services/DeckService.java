@@ -22,8 +22,8 @@ public class DeckService {
 		proxy.discardDestination(new DiscardDestinationRequest(gameID, cards, player));
 	}
 
-	public static void drawTrainCard(int gameID, TrainCard card, Player player) {
-		proxy.drawTrainCard(new DrawTrainCardRequest(gameID, card, player));
+	public static void drawTrainCard(Player player) {
+		proxy.drawTrainCard(new DrawTrainCardRequest(player));
 	}
 
 	public static void onDrawTrainCards(int index, TrainCard drawnCard, ArrayList<TrainCard> cards){

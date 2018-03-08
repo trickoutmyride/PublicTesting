@@ -1,28 +1,19 @@
 package cs340.shared.requests;
 
 import cs340.shared.model.Player;
-import cs340.shared.model.TrainCard;
 
 public class DrawTrainCardRequest {
-	private int gameID;
-	private TrainCard card;
-	private Player player;
+	private Player p;
 
-	public DrawTrainCardRequest (int gameID, TrainCard card, Player player) {
-		this.gameID = gameID;
-		this.card = card;
-		this.player = player;
-	}
-
-	public int getGameID() {
-		return gameID;
+	public DrawTrainCardRequest(Player p) {
+		this.p = p;
 	}
 
 	public Player getPlayer() {
-		return player;
+		return p;
 	}
 
-	public TrainCard getCard() {
-		return card;
+	public void setPlayer(Player p) {
+		this.p = p;
 	}
 }

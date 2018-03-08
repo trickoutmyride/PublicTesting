@@ -93,7 +93,7 @@ public class ClientFacade implements IClient {
 	}
 
 	public void gameHistory(String gameHistoryJson) {
-		System.out.println("ClientFacade: chat()" + gameHistoryJson);
+		System.out.println("ClientFacade: gameHistory()" + gameHistoryJson);
 		GameHistoryResult result = gson.fromJson(gameHistoryJson, GameHistoryResult.class);
 		ClientModel.getInstance().updateHistory(result.getType() + ": " + result.getContents());
 	}
