@@ -9,6 +9,7 @@ import cs340.shared.model.Player;
 import cs340.shared.model.TrainCard;
 import cs340.shared.requests.DiscardDestinationRequest;
 import cs340.shared.requests.DrawDestinationRequest;
+import cs340.shared.requests.DrawFaceupRequest;
 import cs340.shared.requests.DrawTrainCardRequest;
 
 public class DeckService {
@@ -24,6 +25,10 @@ public class DeckService {
 
 	public static void drawTrainCard(Player player) {
 		proxy.drawTrainCard(new DrawTrainCardRequest(player));
+	}
+
+	public static void drawFaceup(Player player, int index) {
+		proxy.drawTrainCard(new DrawFaceupRequest(player, index));
 	}
 
 	public static void onDrawTrainCards(int index, TrainCard drawnCard, ArrayList<TrainCard> cards){
