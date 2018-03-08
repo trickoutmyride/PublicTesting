@@ -15,6 +15,34 @@
     <string name="game_players_label">Players</string>
     <string name="game_capacity_label">Capacity</string>
     <string name="create_game_button_label">Create Game</string>
+    <string name="chat_label">Chat</string>
+    <string name="message_hint">Message</string>
+    <string name="new_game_label">Name:</string>
+    <string name="capacity_picker_label">   Players</string>
+    <string name="player_color_label">Color</string>
+    <string name="destination_cards_title">Destination Cards</string>
+    <string name="destcard_background">Destination Card Background</string>
+    <string name="destination_item_middle">to</string>
+    <string name="destcard_check">check</string>
+    <string name="face_up_card">face up card</string>
+    <string name="traincard_back">traincard back</string>
+    <string name="player_number_1">1:</string>
+    <string name="player_number_2">2:</string>
+    <string name="player_number_3">3:</string>
+    <string name="player_number_4">4:</string>
+    <string name="player_number_5">5:</string>
+    <string name="player_name_placeholder">playerName</string>
+    <string name="zero">0</string>
+    <string name="game_history_label">Game History</string>
+    <string name="color_selection_label">Choose a Color</string>
+    <string name="fake_data_button">add data</string>
+    <string name="history_button_desc">history button</string>
+    <string name="chat_button_desc">chat button</string>
+    <string name="start_game_label">Start Game</string>
+    <string name="logout_button_label">Logout</string>
+    <string name="game_lobby_label">Game Lobby</string>
+
+
 
     <string-array name="colors_array">
         <item>blue</item>

@@ -15,10 +15,11 @@
         android:layout_marginStart="450dp"
         android:layout_marginTop="100dp"
         android:background="@drawable/dark_background"
-        android:text="Start Game"
+        android:text="@string/start_game_label"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <Button
         android:id="@+id/logout_button"
@@ -26,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="450dp"
         android:layout_marginTop="200dp"
-        android:text="Logout"
+        android:text="@string/logout_button_label"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -47,7 +48,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/dark_background"
             android:fontFamily="sans-serif"
-            android:text="Game Lobby"
+            android:text="@string/game_lobby_label"
             android:textAlignment="center"
             android:textAppearance="@android:style/TextAppearance.Material.Large"
             android:textColor="@android:color/white" />

@@ -159,6 +159,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
      */
     @Override
     public void onGameUpdated(Game game) {
+        currentGame = game;
         playerListAdapter = new PlayerListAdapter(game.getPlayers(), this, currentPlayer, currentGame.getColors());
         playerList.setAdapter(playerListAdapter);
 

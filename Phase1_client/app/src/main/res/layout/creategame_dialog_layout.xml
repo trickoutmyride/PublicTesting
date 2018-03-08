@@ -16,7 +16,7 @@
             android:layout_height="40dp"
             android:background="@drawable/dark_background"
             android:ems="10"
-            android:text="Create Game"
+            android:text="@string/create_game_button_label"
             android:textAlignment="center"
             android:textAppearance="@android:style/TextAppearance.Material.Large"
             android:textColor="@android:color/white" />
@@ -33,13 +33,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="45dp"
                 android:layout_marginEnd="10dp"
-                android:text="Name:"
+                android:text="@string/new_game_label"
                 android:textColor="@android:color/white"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:labelFor="@id/new_game_name"/>
 
             <EditText
                 android:id="@+id/new_game_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="40dp"
                 android:layout_weight="1"
@@ -68,9 +69,9 @@
                     android:id="@+id/capacity_picker_label"
                     android:layout_width="150dp"
                     android:layout_height="25dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:gravity="center"
-                    android:text="   Players"
+                    android:text="@string/capacity_picker_label"
                     android:textAlignment="center"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
@@ -95,8 +96,8 @@
                     android:id="@+id/player_color_label"
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
-                    android:layout_marginRight="10dp"
-                    android:text="Color"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/player_color_label"
                     android:textAlignment="center"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
@@ -104,7 +105,7 @@
 
                 <Spinner
                     android:id="@+id/player_color_spinner"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/white" />

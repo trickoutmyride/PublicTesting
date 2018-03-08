@@ -14,7 +14,7 @@
         android:layout_alignBottom="@+id/historyButton"
         android:layout_alignStart="@+id/mapFragment"
         android:background="@drawable/card_count_border"
-        android:text="add data"
+        android:text="@string/fake_data_button"
         android:textColor="@android:color/white" />
 
     <ImageButton
@@ -31,7 +31,7 @@
         android:id="@+id/historyButton"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:contentDescription="historyButton"
+        android:contentDescription="@string/history_button_desc"
         android:padding="0dp"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/history_button" />
@@ -42,7 +42,7 @@
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:contentDescription="chatButton"
+        android:contentDescription="@string/chat_button_desc"
         android:padding="0dp"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/chat_button" />

@@ -9,6 +9,7 @@
 
     <ImageView
         android:id="@+id/destcard_background"
+        android:contentDescription="@string/destcard_background"
         android:layout_width="200dp"
         android:layout_height="125dp"
         android:layout_alignParentStart="true"
@@ -29,7 +30,6 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:gravity="center"
-        android:text="city1"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
@@ -41,7 +41,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/destination_list_item_from"
         android:gravity="center"
-        android:text="to"
+        android:text="@string/destination_item_middle"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="15sp" />
@@ -53,13 +53,13 @@
         android:layout_alignBottom="@+id/destcard_background"
         android:layout_alignParentStart="true"
         android:gravity="center"
-        android:text="city2"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
 
     <ImageView
         android:id="@+id/destcard_check"
+        android:contentDescription="@string/destcard_check"
         android:layout_width="200dp"
         android:layout_height="125dp"
         android:scaleType="fitCenter"

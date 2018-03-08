@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:background="@color/colorPrimaryDark"
-        android:text="Chat"
+        android:text="@string/chat_label"
         android:textAlignment="center"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         android:textColor="@android:color/white"
@@ -36,7 +36,7 @@
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/chat_list"
         android:background="@color/colorPrimaryDark"
-        android:text="Submit"
+        android:text="@string/submit_button_label"
         android:textColor="@android:color/white"
         android:visibility="visible" />
 
@@ -47,7 +47,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/chat_list"
         android:ems="10"
-        android:hint="Message"
+        android:hint="@string/message_hint"
         android:inputType="text"
         android:visibility="visible" />
 </RelativeLayout>

@@ -13,6 +13,7 @@
 
     <ImageButton
         android:id="@+id/face_down_deck"
+        android:contentDescription="@string/traincard_back"
         android:layout_width="81dp"
         android:layout_height="50dp"
         android:padding="0dp"

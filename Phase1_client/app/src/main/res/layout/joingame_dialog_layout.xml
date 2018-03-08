@@ -15,7 +15,7 @@
             android:layout_height="40dp"
             android:background="@drawable/dark_background"
             android:ems="10"
-            android:text="Choose a Color"
+            android:text="@string/color_selection_label"
             android:textAlignment="center"
             android:textAppearance="@android:style/TextAppearance.Material.Large"
             android:textColor="@android:color/white" />
@@ -30,8 +30,8 @@
                 android:id="@+id/player_color_label_2"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
-                android:layout_marginRight="10dp"
-                android:text="Color"
+                android:layout_marginEnd="10dp"
+                android:text="@string/player_color_label"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
@@ -41,7 +41,7 @@
                 android:id="@+id/player_color_spinner_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
+                android:layout_marginEnd="15dp"
                 android:background="@android:color/white" />
 
         </LinearLayout>

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:background="@color/colorPrimaryDark"
-        android:text="Game History"
+        android:text="@string/game_history_label"
         android:textAlignment="center"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         android:textColor="@android:color/white"

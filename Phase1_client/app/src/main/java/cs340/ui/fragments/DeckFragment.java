@@ -50,6 +50,16 @@ public class DeckFragment extends Fragment implements IDeckFragment {
         faceUpCardsView = v.findViewById(R.id.face_up_deck_list);
         faceUpCardsView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        //Deck button to get a random card from the top of the deck
+        deckButton = v.findViewById(R.id.face_down_deck);
+
+        deckButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         return v;
     }
 
