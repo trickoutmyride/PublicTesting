@@ -16,7 +16,7 @@ import cs340.shared.requests.JoinGameRequest;
 import cs340.shared.requests.SignInRequest;
 import cs340.shared.requests.StartGameRequest;
 
-public class ServerProxy implements IServer{
+public class ServerProxy implements IServer {
 	private static Gson gson = new Gson();
 
 	@Override

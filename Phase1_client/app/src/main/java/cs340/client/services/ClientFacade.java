@@ -2,7 +2,6 @@ package cs340.client.services;
 
 import com.google.gson.Gson;
 
-import cs340.client.results.ChatResult;
 import cs340.client.results.CreateGameResult;
 import cs340.client.results.DrawDestinationResult;
 import cs340.client.results.DrawFaceupResult;
@@ -88,10 +87,9 @@ public class ClientFacade implements IClient {
 		DeckService.onDrawDeckCard(result.getPlayer().getCards());
 	}
 
-	public void chat (String chatJson) {
-		System.out.println("ClientFacade: chat()" + chatJson);
-		ChatResult result = gson.fromJson(chatJson, ChatResult.class);
-		ChatService.onChat(result.getChat());
+	public void chat (String chat) {
+		System.out.println("ClientFacade: chat()" + chat);
+		ChatService.onChat(chat);
 	}
 
 	public void gameHistory(String gameHistoryJson) {
