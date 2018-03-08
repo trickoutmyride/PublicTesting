@@ -86,15 +86,25 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         currentPlayer = gson.fromJson(getIntent().getStringExtra("currentPlayer"), Player.class);
         currentGame = gson.fromJson(getIntent().getStringExtra("currentGame"), Game.class);
 
-        if (currentGame == null){
-            System.out.println("GameActivity.onCreate(): Current Game is null");
-        }
 
         //Set up presenters and get fragments
         gamePresenter = new GamePresenter(this);
+
+
+        //Pop up Destination Card dialog for initial destination card selection
+        Bundle bundle = new Bundle();
+        Gson g = new Gson();
+        bundle.putString("player", gson.toJson(currentPlayer));
+        bundle.putBoolean("selection", true);
+        destinationCardFragment = new DestinationCardFragment();
+        FragmentManager fm = getFragmentManager();
+        destinationCardFragment.setArguments(bundle);
+        destinationCardFragment.show(fm, "destinationfragment");
+
+
+        //Initialize the rest of the fragments
         handFragment = (IHandFragment)getFragmentManager().findFragmentById(R.id.handFragment);
         playersFragment = (IPlayersFragment)getFragmentManager().findFragmentById(R.id.playersFragment);
-        addFakePlayerData();
         playersFragment.initiatePlayers(currentGame.getPlayers());
         deckFragment = (DeckFragment)getFragmentManager().findFragmentById(R.id.deckFragment);
 
