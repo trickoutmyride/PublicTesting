@@ -1,4 +1,4 @@
-package cs340.ui.activities;
+package cs340.ui.activities.interfaces;
 
 import java.util.ArrayList;
 

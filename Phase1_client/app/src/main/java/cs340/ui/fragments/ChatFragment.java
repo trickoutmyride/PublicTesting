@@ -16,11 +16,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import cs340.ui.R;
+import cs340.ui.fragments.adapters.ChatListAdapter;
 
 public class ChatFragment extends DialogFragment {
 

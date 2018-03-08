@@ -1,4 +1,4 @@
-package cs340.ui.fragments;
+package cs340.ui.fragments.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

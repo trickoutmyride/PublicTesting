@@ -1,9 +1,10 @@
 package cs340.ui.fragments;
 
 import cs340.ui.R;
-import cs340.ui.activities.CreateGameDialogFragment;
+import cs340.ui.fragments.adapters.HistoryListAdapter;
+import cs340.ui.fragments.interfaces.IHistoryFragment;
 import cs340.ui.presenters.HistoryPresenter;
-import cs340.ui.presenters.IHistoryPresenter;
+import cs340.ui.presenters.interfaces.IHistoryPresenter;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -14,7 +15,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 

@@ -2,13 +2,11 @@ package cs340.ui.presenters;
 
 import android.app.Activity;
 
-import java.util.ArrayList;
-
 import cs340.client.services.StartGameService;
 import cs340.shared.model.ClientModel;
 import cs340.shared.model.Game;
-import cs340.shared.model.Player;
-import cs340.ui.activities.ILobbyActivity;
+import cs340.ui.activities.interfaces.ILobbyActivity;
+import cs340.ui.presenters.interfaces.ILobbyPresenter;
 
 public class LobbyPresenter implements ILobbyPresenter {
     private ILobbyActivity activity;

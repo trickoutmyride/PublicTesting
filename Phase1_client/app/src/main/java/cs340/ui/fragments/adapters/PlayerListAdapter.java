@@ -1,8 +1,7 @@
-package cs340.ui.activities;
+package cs340.ui.fragments.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;

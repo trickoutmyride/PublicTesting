@@ -8,7 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import cs340.ui.R;
-import cs340.ui.presenters.IMapPresenter;
+import cs340.ui.fragments.interfaces.IMapFragment;
+import cs340.ui.presenters.interfaces.IMapPresenter;
 import cs340.ui.presenters.MapPresenter;
 
 /**

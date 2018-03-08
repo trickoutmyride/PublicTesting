@@ -1,15 +1,13 @@
 package cs340.ui.presenters;
 
 import android.app.Activity;
-import android.os.Handler;
-import android.os.Looper;
 
 import cs340.client.services.LoginService;
 import cs340.client.services.RegisterService;
-import cs340.shared.message.Message;
 import cs340.shared.model.ClientModel;
 import cs340.shared.model.Player;
-import cs340.ui.activities.ILoginActivity;
+import cs340.ui.activities.interfaces.ILoginActivity;
+import cs340.ui.presenters.interfaces.ILoginPresenter;
 
 public class LoginPresenter implements ILoginPresenter, ClientModel.CurrentPlayerObserver, ClientModel.ErrorObserver {
     private ILoginActivity activity;

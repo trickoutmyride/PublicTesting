@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 import cs340.shared.model.ClientModel;
 import cs340.shared.model.DestinationCard;
-import cs340.ui.activities.IGameActivity;
+import cs340.ui.activities.interfaces.IGameActivity;
+import cs340.ui.presenters.interfaces.IGamePresenter;
 
 //GamePresenter implements HistoryObserver to update the history in the Activity when the dialog is not currently shown
 

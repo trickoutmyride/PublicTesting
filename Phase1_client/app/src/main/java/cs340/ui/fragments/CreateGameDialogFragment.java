@@ -1,4 +1,4 @@
-package cs340.ui.activities;
+package cs340.ui.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;

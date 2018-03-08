@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -17,21 +16,21 @@ import java.util.Random;
 
 import cs340.client.services.ChatService;
 import cs340.client.services.DeckService;
-import cs340.shared.model.ClientModel;
 import cs340.shared.model.DestinationCard;
 import cs340.shared.model.Game;
 import cs340.shared.model.Player;
 import cs340.shared.model.TrainCard;
 import cs340.ui.R;
+import cs340.ui.activities.interfaces.IGameActivity;
 import cs340.ui.fragments.ChatFragment;
 import cs340.ui.fragments.DeckFragment;
 import cs340.ui.fragments.DestinationCardFragment;
-import cs340.ui.fragments.DestinationCardSelectionAdapter;
+import cs340.ui.fragments.adapters.DestinationCardSelectionAdapter;
 import cs340.ui.fragments.HistoryFragment;
-import cs340.ui.fragments.IHandFragment;
-import cs340.ui.fragments.IPlayersFragment;
+import cs340.ui.fragments.interfaces.IHandFragment;
+import cs340.ui.fragments.interfaces.IPlayersFragment;
 import cs340.ui.presenters.GamePresenter;
-import cs340.ui.presenters.IGamePresenter;
+import cs340.ui.presenters.interfaces.IGamePresenter;
 
 /**
  * GameActivity
@@ -56,15 +55,28 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         ChatFragment.ChatFragmentListener {
 
 
+    //Phase 2 to dos
+    //TODO: Test Button - only the current turn can press it
+    //TODO: Turns - index of turn, get current turn by indexing the ArrayList of players
+        //waiting for jking's end turn function
+
+    //TODO: Draw face down deck card
+
     //TODO: Display points on Destination Card
+
     //TODO: Detach presenters
-    //TODO: Change the AWFUL green and yellow colors
-    //TODO: Why can't the person who created the game start it
+
     //TODO: Implement draw destination card functionality (phase 3?)
+
     //TODO: Change hardcoded strings to resource values
+
     //TODO: Presenter onError methods
+
+    //Phase 1 to dos
     //TODO: Implement capacity check (LobbyActivity)
     //Todo: Disable join full game "feature" (PreGameActivity)
+    //TODO: Why can't the person who created the game start it? (LobbyActivity)
+
 
 
     private IGamePresenter gamePresenter;

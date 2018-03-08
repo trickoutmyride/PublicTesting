@@ -1,9 +1,8 @@
 package cs340.ui.presenters;
 
-import java.util.ArrayList;
-
 import cs340.shared.model.ClientModel;
-import cs340.ui.fragments.IHistoryFragment;
+import cs340.ui.fragments.interfaces.IHistoryFragment;
+import cs340.ui.presenters.interfaces.IHistoryPresenter;
 
 /**
  * Created by sam on 3/7/18.
