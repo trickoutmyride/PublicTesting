@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ public class DestinationCardSelectionAdapter extends RecyclerView.Adapter<Destin
         public TextView destinationFrom;
         public TextView destinationTo;
         public ImageView check;
+        public RelativeLayout relativeLayout;
 
         public ViewHolder(View v) {
             super(v);
@@ -57,14 +59,17 @@ public class DestinationCardSelectionAdapter extends RecyclerView.Adapter<Destin
             destinationFrom = v.findViewById(R.id.destination_list_item_from);
             destinationTo = v.findViewById(R.id.destination_list_item_to);
             check = v.findViewById(R.id.destcard_check);
+            relativeLayout = v.findViewById(R.id.destcard_relativelayout);
         }
     }
 
-    public DestinationCardSelectionAdapter(Player currentPlayer, Context context) {
+
+    public DestinationCardSelectionAdapter(Player currentPlayer, CardSelectionListener listener, Context context) {
         _currentPlayer = currentPlayer;
         _context = context;
         _cards = currentPlayer.getDestinations();
         _selectedCards = new ArrayList<>();
+        _listener = listener;
     }
 
     //Create new views
@@ -77,6 +82,12 @@ public class DestinationCardSelectionAdapter extends RecyclerView.Adapter<Destin
         return vh;
     }
 
+    private CardSelectionListener _listener;
+    public interface CardSelectionListener{
+        void onCardSelected();
+        void onCardDeselected();
+    }
+
     //Replace contents of a view
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
@@ -87,15 +98,19 @@ public class DestinationCardSelectionAdapter extends RecyclerView.Adapter<Destin
 
         holder.destinationTo.setText(card.getEndPoint());
         holder.destinationFrom.setText(card.getStartPoint());
+        holder.check.setVisibility(View.INVISIBLE);
 
-        holder.check.setOnClickListener(new View.OnClickListener() {
+        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                System.out.println("Selected: " + finalHolder.destinationFrom + " " + finalHolder.destinationTo);
                 //Was it previously selected?
                 if (finalHolder.check.getVisibility() == View.VISIBLE){
                     _selectedCards.remove(card);
+                    _listener.onCardDeselected();
                     finalHolder.check.setVisibility(View.INVISIBLE);
                 } else {
+                    _listener.onCardSelected();
                     _selectedCards.add(card);
                     finalHolder.check.setVisibility(View.VISIBLE);
                 }

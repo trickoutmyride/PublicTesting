@@ -20,11 +20,12 @@ import java.util.ArrayList;
 import cs340.shared.model.Player;
 import cs340.ui.R;
 
-public class DestinationCardFragment extends DialogFragment {
+public class DestinationCardFragment extends DialogFragment implements DestinationCardSelectionAdapter.CardSelectionListener {
 
     private DestinationCardDisplayAdapter destinationCardDisplayAdapter;
     private DestinationCardSelectionAdapter destinationCardSelectionAdapter;
     private RecyclerView destinationCardList;
+    private int checked;
 
     //If this is true, we are in selection mode. Else, we are in display mode.
     private boolean selection;
@@ -47,6 +48,8 @@ public class DestinationCardFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+        checked = 0;
+
         //Get current player, selection
         Gson gson = new Gson();
         player = gson.fromJson(this.getArguments().getString("player"), Player.class);
@@ -57,19 +60,16 @@ public class DestinationCardFragment extends DialogFragment {
 
         //Selection Mode: Set up Submit and Cancel buttons
         //Display Mode: Set up Close button
+
+        //TODO: Enable dialog if two cards are selected
+
+        Dialog alertDialog;
         if (selection) {
             builder.setView(inflater.inflate(R.layout.destination_dialog_layout, null)).setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    //If two cards are not selected
-                    if (destinationCardSelectionAdapter.getSelectedCards().size() != 2){
-                        Toast toast = Toast.makeText(getContext(), "Please select at least two cards", Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-                    else {
-                        listener.onDialogPositiveClick(DestinationCardFragment.this);
-                        DestinationCardFragment.this.getDialog().dismiss();
-                    }
+                    listener.onDialogPositiveClick(DestinationCardFragment.this);
+                    DestinationCardFragment.this.getDialog().dismiss();
                 }
             }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
@@ -98,13 +98,18 @@ public class DestinationCardFragment extends DialogFragment {
         d.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
         if (selection) {
             d.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+            ((AlertDialog)d).getButton(AlertDialog.BUTTON_NEGATIVE).setEnabled(false);
+            ((AlertDialog)d).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+        }else {
+            ((AlertDialog)d).getButton(AlertDialog.BUTTON_NEGATIVE).setEnabled(false);
+            ((AlertDialog)d).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
         }
 
         destinationCardList = d.findViewById(R.id.destination_cards_list);
         destinationCardList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         if (selection) {
-            destinationCardSelectionAdapter = new DestinationCardSelectionAdapter(player, getContext());
+            destinationCardSelectionAdapter = new DestinationCardSelectionAdapter(player, this, getContext());
             destinationCardList.setAdapter(destinationCardSelectionAdapter);
         }else{
             destinationCardDisplayAdapter = new DestinationCardDisplayAdapter(player, getContext());
@@ -122,6 +127,28 @@ public class DestinationCardFragment extends DialogFragment {
             listener = (DestinationCardDialogListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement DestinationCardDialogListener");
+        }
+    }
+
+    @Override
+    public void onCardSelected(){
+        System.out.println("onCardSelected!");
+        checked++;
+        //Enable confirm button
+        if (checked >= 2){
+            AlertDialog d = (AlertDialog)getDialog();
+            d.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+        }
+    }
+
+    @Override
+    public void onCardDeselected(){
+        System.out.println("onCardDeselected!");
+        checked--;
+        //Disable confirm button
+        if (checked < 2) {
+            AlertDialog d = (AlertDialog)getDialog();
+            d.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
         }
     }
 }
