@@ -14,10 +14,10 @@ public class DiscardDestinationResult {
 		this.discarded = discarded;
 		this.auths = auths;
 	}
-	public Player getP() {
+	public Player getPlayer() {
 		return p;
 	}
-	public void setP(Player p) {
+	public void setPlayer(Player p) {
 		this.p = p;
 	}
 	public ArrayList<String> getAuths() {

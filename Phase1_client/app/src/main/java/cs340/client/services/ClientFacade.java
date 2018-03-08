@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import cs340.client.results.ChatResult;
 import cs340.client.results.CreateGameResult;
 import cs340.client.results.DrawDestinationResult;
+import cs340.client.results.DrawFaceupResult;
 import cs340.client.results.DrawTrainCardResult;
 import cs340.client.results.GameHistoryResult;
 import cs340.client.results.GameResult;
@@ -72,10 +73,16 @@ public class ClientFacade implements IClient {
 	public void drawDestination(String destinationJson) {
 		System.out.println("ClientFacade: drawDestination()" + destinationJson);
 		DrawDestinationResult result = gson.fromJson(destinationJson, DrawDestinationResult.class);
-		DeckService.onDrawDestinationCards(result.getCards());
+		DeckService.onDrawDestinationCards(result.getPlayer().getDestinations());
 	}
 
-	public void drawTrain(String trainJson) {
+	public void drawFaceup(String trainJson) {
+		System.out.println("ClientFacade: drawTrain()" + trainJson);
+		DrawFaceupResult result = gson.fromJson(trainJson, DrawFaceupResult.class);
+		DeckService.onDrawTrainCards(result.getIndex(), result.getDrawnCard(), result.getPlayer().getCards());
+	}
+
+	public void drawTrainCard(String trainJson) {
 		System.out.println("ClientFacade: drawTrain()" + trainJson);
 		DrawTrainCardResult result = gson.fromJson(trainJson, DrawTrainCardResult.class);
 		DeckService.onDrawTrainCards(result.getPlayer().getCards());

@@ -9,6 +9,7 @@ import cs340.shared.message.ServerMessage;
 import cs340.shared.requests.ChatRequest;
 import cs340.shared.requests.ClaimRouteRequest;
 import cs340.shared.requests.CreateGameRequest;
+import cs340.shared.requests.DiscardDestinationRequest;
 import cs340.shared.requests.DrawDestinationRequest;
 import cs340.shared.requests.DrawTrainCardRequest;
 import cs340.shared.requests.JoinGameRequest;
@@ -70,9 +71,9 @@ public class ServerProxy implements IServer{
 	}
 
 	public void discardDestination(Object request) {
-		DrawDestinationRequest drawRequest = (DrawDestinationRequest) request;
+		DiscardDestinationRequest discardRequest = (DiscardDestinationRequest) request;
 		ServerCommand command = CommandManager.getInstance().makeCommand("drawDestination", request);
-		ServerMessage message = new ServerMessage(drawRequest.getPlayer().getAuthToken(), command);
+		ServerMessage message = new ServerMessage(discardRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
 	}
 

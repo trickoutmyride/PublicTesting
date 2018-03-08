@@ -26,8 +26,8 @@ public class DeckService {
 		proxy.drawTrainCard(new DrawTrainCardRequest(gameID, card, player));
 	}
 
-	public static void onDrawTrainCards(ArrayList<TrainCard> cards){
-		//TODO
+	public static void onDrawTrainCards(int index, TrainCard drawnCard, ArrayList<TrainCard> cards){
+		ClientModel.getInstance().updateHandTrainCards(index, drawnCard, cards);
 	}
 
 	public static void onDrawDestinationCards(ArrayList<DestinationCard> cards) {

@@ -27,10 +27,10 @@ public class DiscardDestinationRequest {
 	public void setCards(ArrayList<DestinationCard> cards) {
 		this.cards = cards;
 	}
-	public Player getP() {
+	public Player getPlayer() {
 		return p;
 	}
-	public void setP(Player p) {
+	public void setPlayer(Player p) {
 		this.p = p;
 	}
 }
