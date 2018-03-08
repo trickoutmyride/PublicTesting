@@ -81,13 +81,10 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        //Get current player, game from previous activity
+        //Get current player, game from previous activity, initialize presenter
         Gson gson = new Gson();
         currentPlayer = gson.fromJson(getIntent().getStringExtra("currentPlayer"), Player.class);
         currentGame = gson.fromJson(getIntent().getStringExtra("currentGame"), Game.class);
-
-
-        //Set up presenters and get fragments
         gamePresenter = new GamePresenter(this);
 
 
@@ -103,10 +100,18 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
 
 
         //Initialize the rest of the fragments
+
+        //Populate the player's hand
         handFragment = (IHandFragment)getFragmentManager().findFragmentById(R.id.handFragment);
+        handFragment.onTrainCardsUpdated(currentPlayer.getCards());
+
+        //Populate the other player's stuff
         playersFragment = (IPlayersFragment)getFragmentManager().findFragmentById(R.id.playersFragment);
         playersFragment.initiatePlayers(currentGame.getPlayers());
+
+        //Populate the face up cards
         deckFragment = (DeckFragment)getFragmentManager().findFragmentById(R.id.deckFragment);
+        deckFragment.initializeFaceUpCards(currentGame.getTrainFaceup());
 
         //Get chat, history, destination card buttons
         chatButton = findViewById(R.id.chatButton);
@@ -167,7 +172,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
                 createFakeHand();
                 createFakeHistory();
                 createFakeDestinationCards();
-                createFakeDeckCards();
+                //createFakeDeckCards();
                 createFakeChat();
                 addFakePlayerData();
                 for (Player player : currentGame.getPlayers()) {
@@ -326,36 +331,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         return cards;
     }
 
-    //Create fake face up deck cards
-    private void createFakeDeckCards(){
-        ArrayList<TrainCard> deckCards = new ArrayList<>();
-        TrainCard blueCard = new TrainCard("blue");
-        deckCards.add(blueCard);
-        TrainCard purpleCard = new TrainCard("purple");
-        deckCards.add(purpleCard);
-        TrainCard whiteCard = new TrainCard("white");
-        deckCards.add(whiteCard);
-        TrainCard yellowCard = new TrainCard("yellow");
-        deckCards.add(yellowCard);
-        TrainCard orangeCard = new TrainCard("orange");
-        deckCards.add(orangeCard);
-        TrainCard blackCard = new TrainCard("black");
-        deckCards.add(blackCard);
-        TrainCard redCard = new TrainCard("red");
-        deckCards.add(redCard);
-        TrainCard greenCard= new TrainCard("green");
-        deckCards.add(greenCard);
-        TrainCard wildCard = new TrainCard("wild");
-        deckCards.add(wildCard);
 
-        Collections.shuffle(deckCards, new Random());
-        ArrayList<TrainCard> fakeCards = new ArrayList<>();
-        for (int i = 0; i < 5; i++){
-            fakeCards.add(deckCards.get(i));
-        }
-        currentFaceUpCards = fakeCards;
-        onDeckUpdated(fakeCards);
-    }
 
     private void createFakeChat(){
 
@@ -404,11 +380,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         }
     }
 
-    public void onDeckUpdated(ArrayList<TrainCard> cards){
-        currentFaceUpCards = cards;
-        deckFragment.onFaceUpCardsUpdated(cards);
-    }
-
     @Override
     public void sendMessage(String message) {
         ChatService.chat(currentPlayer, message);
@@ -438,5 +409,45 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
 
     }
 
+    @Override
+    public void onPlayerCardsUpdated(ArrayList<TrainCard> newCards){
+        currentPlayer.setCards(newCards);
+        handFragment.onTrainCardsUpdated(newCards);
+    }
+
+
+
+        /*
+    //Create fake face up deck cards
+    private void createFakeDeckCards(){
+        ArrayList<TrainCard> deckCards = new ArrayList<>();
+        TrainCard blueCard = new TrainCard("blue");
+        deckCards.add(blueCard);
+        TrainCard purpleCard = new TrainCard("purple");
+        deckCards.add(purpleCard);
+        TrainCard whiteCard = new TrainCard("white");
+        deckCards.add(whiteCard);
+        TrainCard yellowCard = new TrainCard("yellow");
+        deckCards.add(yellowCard);
+        TrainCard orangeCard = new TrainCard("orange");
+        deckCards.add(orangeCard);
+        TrainCard blackCard = new TrainCard("black");
+        deckCards.add(blackCard);
+        TrainCard redCard = new TrainCard("red");
+        deckCards.add(redCard);
+        TrainCard greenCard= new TrainCard("green");
+        deckCards.add(greenCard);
+        TrainCard wildCard = new TrainCard("wild");
+        deckCards.add(wildCard);
+
+        Collections.shuffle(deckCards, new Random());
+        ArrayList<TrainCard> fakeCards = new ArrayList<>();
+        for (int i = 0; i < 5; i++){
+            fakeCards.add(deckCards.get(i));
+        }
+        currentFaceUpCards = fakeCards;
+        onDeckUpdated(fakeCards);
+    }
+    */
 }
 

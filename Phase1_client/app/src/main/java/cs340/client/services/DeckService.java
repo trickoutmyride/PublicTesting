@@ -27,7 +27,11 @@ public class DeckService {
 	}
 
 	public static void onDrawTrainCards(int index, TrainCard drawnCard, ArrayList<TrainCard> cards){
-		ClientModel.getInstance().updateHandTrainCards(index, drawnCard, cards);
+		ClientModel.getInstance().updateFaceUpDeck(index, drawnCard, cards);
+	}
+
+	public static void onDrawDeckCard(ArrayList<TrainCard> playerCards){
+		ClientModel.getInstance().updateHandTrainCards(playerCards);
 	}
 
 	public static void onDrawDestinationCards(ArrayList<DestinationCard> cards) {

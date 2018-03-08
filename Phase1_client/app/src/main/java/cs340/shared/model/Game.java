@@ -1,6 +1,7 @@
 package cs340.shared.model;
 
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashMap;
 
 public class Game {
@@ -14,6 +15,12 @@ public class Game {
 	private ArrayList<LobbyObserver> lobbyObservers = new ArrayList<>();
 	private HashMap<String,String> colors;
 	private int playerCount;
+	private boolean started;
+	private int turn; //Index of player who is currently taking a turn
+	private ArrayList<Route> unclaimedRoutes;
+	private ArrayList<TrainCard> trainDeck;
+	private ArrayList<TrainCard> trainFaceup;
+	private Map gameMap;
 
 	/* "Maybe Later" Fields */
 	//private Map gameMap;
@@ -127,5 +134,9 @@ public class Game {
 		if(!black) remainingColors.add("black");
 
 		return remainingColors;
+	}
+
+	public ArrayList<TrainCard> getTrainFaceup() {
+		return trainFaceup;
 	}
 }

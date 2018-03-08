@@ -69,10 +69,21 @@ public class DeckFragment extends Fragment implements IDeckFragment {
         return ((GameActivity)getActivity()).getCurrentGame();
     }
 
-    public void onFaceUpCardsUpdated(ArrayList<TrainCard> cards){
-        currentFaceUpCards = cards;
+    @Override
+    public void onFaceUpCardUpdated(TrainCard card, int index){
+
+        //REPLACE SINGLE CARD IN ARRAY
+        currentFaceUpCards.add(index, card);
+
         //Replace cards
-        deckCardAdapter = new DeckCardAdapter(cards, getContext());
+        deckCardAdapter = new DeckCardAdapter(currentFaceUpCards, getContext());
+        faceUpCardsView.setAdapter(deckCardAdapter);
+    }
+
+    @Override
+    public void initializeFaceUpCards(ArrayList<TrainCard> cards){
+        currentFaceUpCards = cards;
+        deckCardAdapter = new DeckCardAdapter(currentFaceUpCards, getContext());
         faceUpCardsView.setAdapter(deckCardAdapter);
     }
 
@@ -80,5 +91,7 @@ public class DeckFragment extends Fragment implements IDeckFragment {
         deckPresenter.cardSelected(card);
     }
 
-
+    public GameActivity getGameActivity(){
+        return (GameActivity)getActivity();
+    }
 }

@@ -27,8 +27,9 @@ public class DeckPresenter implements IDeckPresenter, ClientModel.DeckObserver {
 
 
     @Override
-    public void updateFaceUpDeck(ArrayList<TrainCard> cards) {
-        deckFragment.onFaceUpCardsUpdated(cards);
+    public void updateFaceUpDeck(int index, TrainCard card, ArrayList<TrainCard> newCards) {
+        deckFragment.getGameActivity().onPlayerCardsUpdated(newCards);
+        deckFragment.onFaceUpCardUpdated(card, index);
     }
 
     @Override
