@@ -30,6 +30,7 @@ public class HandPresenter implements IHandPresenter, ClientModel.HandObserver {
 
     @Override
     public void onTrainCardsUpdated(ArrayList<TrainCard> cards) {
+        System.out.println("HandPresenter: onTrainCardsUpdated!");
         handFragment.onTrainCardsUpdated(cards);
     }
 

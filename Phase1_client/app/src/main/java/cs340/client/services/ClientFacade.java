@@ -76,13 +76,13 @@ public class ClientFacade implements IClient {
 	}
 
 	public void drawFaceup(String trainJson) {
-		System.out.println("ClientFacade: drawTrain()" + trainJson);
+		System.out.println("ClientFacade: drawFaceUp()" + trainJson);
 		DrawFaceupResult result = gson.fromJson(trainJson, DrawFaceupResult.class);
 		DeckService.onDrawTrainCards(result.getIndex(), result.getDrawnCard(), result.getPlayer().getCards());
 	}
 
 	public void drawTrainCard(String trainJson) {
-		System.out.println("ClientFacade: drawFaceup()" + trainJson);
+		System.out.println("ClientFacade: drawTrainCard()" + trainJson);
 		DrawTrainCardResult result = gson.fromJson(trainJson, DrawTrainCardResult.class);
 		DeckService.onDrawDeckCard(result.getPlayer().getCards());
 	}

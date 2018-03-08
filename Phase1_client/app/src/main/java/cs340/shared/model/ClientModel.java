@@ -146,6 +146,11 @@ public class ClientModel {
     //Update train cards in the current player's hand
     //@param cards contains ALL of the train cards in the player's hand
     public void updateHandTrainCards(ArrayList<TrainCard> cards) {
+        System.out.println("\n\nClientModel: updateHandTrainCards - ");
+        for (TrainCard c : cards){
+            System.out.print(c.getColor() + ", ");
+        }
+        System.out.println("\n\n");
         for (HandObserver observer : handObservers) { observer.onTrainCardsUpdated(cards); }
     }
 
@@ -194,7 +199,6 @@ public class ClientModel {
     }
 
     //Update the game history
-    //@param history should contain a list of all history messages
     public void updateHistory(String history){
         for (HistoryObserver observer : historyObservers) { observer.onHistoryUpdated(history); }
     }

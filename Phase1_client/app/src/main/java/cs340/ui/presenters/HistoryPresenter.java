@@ -8,8 +8,9 @@ import cs340.ui.presenters.interfaces.IHistoryPresenter;
  * Created by sam on 3/7/18.
  */
 
+/*
 //HistoryPresenter just updates the history, no need to call any Services
-public class HistoryPresenter implements IHistoryPresenter, ClientModel.HistoryObserver {
+public class HistoryPresenter implements IHistoryPresenter {
 
     private IHistoryFragment historyFragment;
 
@@ -21,14 +22,6 @@ public class HistoryPresenter implements IHistoryPresenter, ClientModel.HistoryO
     public void detach(){
         ClientModel.getInstance().removeHistoryObserver(this);
     }
-
-    @Override
-    public void onError(String message) {
-
-    }
-
-    @Override
-    public void onHistoryUpdated(String historyItem) {
-        historyFragment.updateHistory(historyItem);
-    }
 }
+
+*/

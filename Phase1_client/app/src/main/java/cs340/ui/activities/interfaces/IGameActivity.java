@@ -8,7 +8,7 @@ import cs340.shared.model.TrainCard;
 
 public interface IGameActivity {
     //stub
-    void updateHistory(String historyItem);
+    void onHistoryItemUpdated(String historyItem);
     void onDrawnDestinationCards(ArrayList<DestinationCard> cards);
     void onChatUpdated(String message);
     void onPlayerCardsUpdated(ArrayList<TrainCard> newCards);

@@ -56,7 +56,7 @@ public class DeckFragment extends Fragment implements IDeckFragment {
         deckButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                deckPresenter.drawFromDeck();
             }
         });
 
@@ -97,8 +97,8 @@ public class DeckFragment extends Fragment implements IDeckFragment {
         faceUpCardsView.setAdapter(deckCardAdapter);
     }
 
-    public void cardSelected(TrainCard card){
-        deckPresenter.cardSelected(card);
+    public void cardSelected(int index){
+        deckPresenter.cardSelected(index);
     }
 
     public GameActivity getGameActivity(){

@@ -132,7 +132,6 @@ public class DestinationCardFragment extends DialogFragment implements Destinati
 
     @Override
     public void onCardSelected(){
-        System.out.println("onCardSelected!");
         checked++;
         //Enable confirm button
         if (checked >= 2){
@@ -143,7 +142,6 @@ public class DestinationCardFragment extends DialogFragment implements Destinati
 
     @Override
     public void onCardDeselected(){
-        System.out.println("onCardDeselected!");
         checked--;
         //Disable confirm button
         if (checked < 2) {

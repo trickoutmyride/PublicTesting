@@ -64,7 +64,7 @@ public class DeckCardAdapter extends RecyclerView.Adapter<DeckCardAdapter.ViewHo
             @Override
             public void onClick(View view) {
                 DeckFragment df = (DeckFragment)((GameActivity)_context).getFragmentManager().findFragmentById(R.id.deckFragment);
-                df.cardSelected(card);
+                df.cardSelected(pos);
                 removeAt(pos);
             }
         });

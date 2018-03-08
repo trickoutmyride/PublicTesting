@@ -30,6 +30,8 @@ public class HandFragment extends Fragment implements IHandFragment {
     private Animation fadeOut;
     private Animation fadeIn;
 
+    private ArrayList<TrainCard> currentCards;
+
 
     public HandFragment() {
         // Required empty public constructor
@@ -65,6 +67,11 @@ public class HandFragment extends Fragment implements IHandFragment {
 
     //Hand updated, redraw hand
     public void onTrainCardsUpdated(ArrayList<TrainCard> cards){
+
+        if (currentCards != null && currentCards.equals(cards)){
+            System.out.println("HandFragment.onTrainCardsUpdated(): hand did not change");
+        }
+        currentCards = cards;
 
         //Initialize card counts
         int blackCount = 0, bluecount = 0, greenCount = 0, orangeCount = 0,

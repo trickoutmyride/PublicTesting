@@ -1,10 +1,13 @@
 package cs340.ui.presenters;
 
+import android.app.Activity;
+
 import java.util.ArrayList;
 
 import cs340.client.services.ChatService;
 import cs340.shared.model.ClientModel;
 import cs340.shared.model.DestinationCard;
+import cs340.ui.activities.GameActivity;
 import cs340.ui.activities.interfaces.IGameActivity;
 import cs340.ui.fragments.ChatFragment;
 import cs340.ui.presenters.interfaces.IGamePresenter;
@@ -16,7 +19,13 @@ public class GamePresenter implements IGamePresenter, ClientModel.HistoryObserve
 
     public GamePresenter(IGameActivity gameActivity){
         this.gameActivity = gameActivity;
+        ClientModel.getInstance().addChatObserver(this);
         ClientModel.getInstance().addHistoryObserver(this);
+    }
+
+    public void detach(){
+        ClientModel.getInstance().removeChatObserver(this);
+        ClientModel.getInstance().removeHistoryObserver(this);
     }
 
     @Override
@@ -26,7 +35,7 @@ public class GamePresenter implements IGamePresenter, ClientModel.HistoryObserve
 
     @Override
     public void onHistoryUpdated(String historyItem) {
-        gameActivity.updateHistory(historyItem);
+        gameActivity.onHistoryItemUpdated(historyItem);
     }
 
     @Override
@@ -35,7 +44,7 @@ public class GamePresenter implements IGamePresenter, ClientModel.HistoryObserve
     }
 
     @Override
-    public void onMessageUpdated(String message) {
+    public void onMessageUpdated(final String message) {
         gameActivity.onChatUpdated(message);
     }
 

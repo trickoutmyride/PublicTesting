@@ -61,11 +61,10 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         //waiting for jking's end turn function
         //wait in-between fake data additions
 
-    //TODO: Draw face down deck card
-        //need DeckService function
-
     //TODO: Display points on Destination Card?
         //neccesary for Phase 2?
+
+    //TODO: Add toasts to tests
 
     //Not as important:
     //TODO: Detach presenters
@@ -105,6 +104,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         gamePresenter = new GamePresenter(this);
 
         currentHistory = new ArrayList<>();
+        currentChat = new ArrayList<>();
 
         //Pop up Destination Card dialog for initial destination card selection
         Bundle bundle = new Bundle();
@@ -360,8 +360,17 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
      */
 
     @Override
-    public void updateHistory(String historyItem){
-        this.currentHistory.add(historyItem);
+    public void onHistoryItemUpdated(final String item){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                currentHistory.add(item);
+                if (historyFragment != null)
+                {
+                    historyFragment.updateHistory(item);
+                }
+            }
+        });
     }
 
     @Override
@@ -377,12 +386,18 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         }
     }
 
-    public void onChatUpdated(String message){
-        currentChat.add(message);
-        if (chatFragment != null)
-        {
-            chatFragment.onChatUpdated(message);
-        }
+    public void onChatUpdated(final String message){
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                currentChat.add(message);
+                if (chatFragment != null)
+                {
+                    chatFragment.onChatUpdated(message);
+                }
+            }
+        });
     }
 
     @Override

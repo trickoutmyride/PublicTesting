@@ -111,11 +111,10 @@ public class ChatFragment extends DialogFragment {
 
     //Update chat list
     public void onChatUpdated(String newMessage){
-        this.currentChat.add(newMessage);
+        //this.currentChat.add(newMessage);
         chatListAdapter = new ChatListAdapter(currentChat, getContext());
         chatList.setAdapter(chatListAdapter);
     }
-
 
     public interface ChatFragmentListener {
         void sendMessage(String message);
