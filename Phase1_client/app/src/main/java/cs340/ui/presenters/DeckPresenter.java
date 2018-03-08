@@ -21,7 +21,6 @@ public class DeckPresenter implements IDeckPresenter, ClientModel.DeckObserver {
         ClientModel.getInstance().removeDeckObserver(this);
     }
 
-    //TODO: DeckPresenter onError
     @Override
     public void onError(String message) {}
 

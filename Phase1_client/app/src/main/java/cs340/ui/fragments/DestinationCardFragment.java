@@ -61,8 +61,6 @@ public class DestinationCardFragment extends DialogFragment implements Destinati
         //Selection Mode: Set up Submit and Cancel buttons
         //Display Mode: Set up Close button
 
-        //TODO: Enable dialog if two cards are selected
-
         Dialog alertDialog;
         if (selection) {
             builder.setView(inflater.inflate(R.layout.destination_dialog_layout, null)).setPositiveButton("Submit", new DialogInterface.OnClickListener() {

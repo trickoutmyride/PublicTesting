@@ -128,7 +128,6 @@ public class ClientModel {
 
 
     //Hand Classes
-    //TODO: Implement draw destination card, etc
     public interface HandObserver extends ErrorObserver {
         void onTrainCardsUpdated(ArrayList<TrainCard> cards);
         void onDestinationCardsUpdated(ArrayList<DestinationCard> cards);

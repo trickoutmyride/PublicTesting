@@ -6,8 +6,6 @@
     android:gravity="center_vertical"
     tools:context="cs340.ui.fragments.HandFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
 
     <RelativeLayout
         android:layout_width="46dp"

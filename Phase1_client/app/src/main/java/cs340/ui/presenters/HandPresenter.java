@@ -22,7 +22,6 @@ public class HandPresenter implements IHandPresenter, ClientModel.HandObserver {
         ClientModel.getInstance().removeHandObserver(this);
     }
 
-    //TODO: Presenter onError method?
     @Override
     public void onError(String message) {
 
@@ -33,7 +32,6 @@ public class HandPresenter implements IHandPresenter, ClientModel.HandObserver {
         handFragment.onTrainCardsUpdated(cards);
     }
 
-    //TODO: Add destination card hand presenter functionality
     @Override
     public void onDestinationCardsUpdated(ArrayList<DestinationCard> cards) {
 

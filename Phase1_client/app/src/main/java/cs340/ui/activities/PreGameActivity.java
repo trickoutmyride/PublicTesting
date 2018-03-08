@@ -24,8 +24,6 @@ import cs340.ui.presenters.PregamePresenter;
 
 public class PreGameActivity extends AppCompatActivity implements CreateGameDialogFragment.CreateGameDialogListener, IPreGameActivity, JoinGameDialogFragment.JoinGameDialogListener {
 
-    //TODO: Can't join a game if it's full
-
     private RecyclerView gameList;
     private RecyclerView.Adapter gameListAdapter;
     private RecyclerView.LayoutManager gameListLayoutManager;

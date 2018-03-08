@@ -20,7 +20,6 @@ public class PlayersPresenter implements IPlayersPresenter, ClientModel.PlayersO
         ClientModel.getInstance().removePlayersObserver(this);
     }
 
-    //TODO: Implement PlayersPresenter onError
     @Override
     public void onError(String message) {
 

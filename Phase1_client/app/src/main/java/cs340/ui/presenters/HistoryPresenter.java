@@ -23,7 +23,6 @@ public class HistoryPresenter implements IHistoryPresenter, ClientModel.HistoryO
         ClientModel.getInstance().removeHistoryObserver(this);
     }
 
-    //TODO: Implement HistoryPresenter onError
     @Override
     public void onError(String message) {
 

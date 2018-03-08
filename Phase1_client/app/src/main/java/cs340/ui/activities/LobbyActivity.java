@@ -25,8 +25,6 @@ import cs340.ui.presenters.LobbyPresenter;
 public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
 
 
-    //TODO: Implement capacity check
-
     private Player currentPlayer;
     private Game currentGame;
     private Button startButton;

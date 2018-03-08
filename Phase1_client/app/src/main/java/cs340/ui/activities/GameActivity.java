@@ -55,12 +55,17 @@ import cs340.ui.presenters.IGamePresenter;
 public class GameActivity extends AppCompatActivity implements IGameActivity, DestinationCardFragment.DestinationCardDialogListener,
         ChatFragment.ChatFragmentListener {
 
-    //TODO: Do something with selected destination cards
+
     //TODO: Display points on Destination Card
-    //TODO: Implement cardSelected for face up train cards
-    //TODO: Implement presenters
-    //TODO: Send chat to server
     //TODO: Detach presenters
+    //TODO: Change the AWFUL green and yellow colors
+    //TODO: Why can't the person who created the game start it
+    //TODO: Implement draw destination card functionality (phase 3?)
+    //TODO: Change hardcoded strings to resource values
+    //TODO: Presenter onError methods
+    //TODO: Implement capacity check (LobbyActivity)
+    //Todo: Disable join full game "feature" (PreGameActivity)
+
 
     private IGamePresenter gamePresenter;
     private ImageButton chatButton, historyButton, destinationCardButton;
@@ -403,7 +408,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         }
     }
 
-    //TODO: Do something with new drawn destination cards
     @Override
     public void onDrawnDestinationCards(ArrayList<DestinationCard> cards){
 
