@@ -18,13 +18,14 @@ import java.util.ArrayList;
 import cs340.shared.model.Game;
 import cs340.shared.model.Player;
 import cs340.ui.R;
-import cs340.ui.mock.MockPhase1Presenter;
-import cs340.ui.presenters.IPregamePresenter;
+import cs340.ui.activities.interfaces.IPreGameActivity;
+import cs340.ui.fragments.CreateGameDialogFragment;
+import cs340.ui.fragments.JoinGameDialogFragment;
+import cs340.ui.fragments.adapters.GameListAdapter;
+import cs340.ui.presenters.interfaces.IPregamePresenter;
 import cs340.ui.presenters.PregamePresenter;
 
 public class PreGameActivity extends AppCompatActivity implements CreateGameDialogFragment.CreateGameDialogListener, IPreGameActivity, JoinGameDialogFragment.JoinGameDialogListener {
-
-    //TODO: Can't join a game if it's full
 
     private RecyclerView gameList;
     private RecyclerView.Adapter gameListAdapter;
@@ -76,7 +77,7 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
         //preGamePresenter = new MockPhase1Presenter(this);
     }
 
-    protected void joinGame(Game game) {
+    public void joinGame(Game game) {
         joinGame = game;
         //Send join game request to Presenter
         JoinGameDialogFragment joinGameFragment = new JoinGameDialogFragment();

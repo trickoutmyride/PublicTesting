@@ -1,4 +1,4 @@
-package cs340.ui.presenters;
+package cs340.ui.presenters.interfaces;
 
 public interface IHandPresenter {
     void detach();

@@ -6,12 +6,11 @@ import java.util.ArrayList;
 
 import cs340.client.services.CreateGameService;
 import cs340.client.services.JoinGameService;
-import cs340.client.services.PregameService;
 import cs340.shared.model.ClientModel;
 import cs340.shared.model.Game;
-import cs340.shared.model.GameList;
 import cs340.shared.model.Player;
-import cs340.ui.activities.IPreGameActivity;
+import cs340.ui.activities.interfaces.IPreGameActivity;
+import cs340.ui.presenters.interfaces.IPregamePresenter;
 
 public class PregamePresenter implements IPregamePresenter {
     private IPreGameActivity activity;

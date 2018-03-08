@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 import cs340.shared.model.ClientModel;
 import cs340.shared.model.Player;
-import cs340.ui.fragments.IPlayersFragment;
+import cs340.ui.fragments.interfaces.IPlayersFragment;
+import cs340.ui.presenters.interfaces.IPlayersPresenter;
 
 //PlayersPresenter only updates the player info, does not make calls to services
 public class PlayersPresenter implements IPlayersPresenter, ClientModel.PlayersObserver {
@@ -20,7 +21,6 @@ public class PlayersPresenter implements IPlayersPresenter, ClientModel.PlayersO
         ClientModel.getInstance().removePlayersObserver(this);
     }
 
-    //TODO: Implement PlayersPresenter onError
     @Override
     public void onError(String message) {
 

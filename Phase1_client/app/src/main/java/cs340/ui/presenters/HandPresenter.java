@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import cs340.shared.model.ClientModel;
 import cs340.shared.model.DestinationCard;
 import cs340.shared.model.TrainCard;
-import cs340.ui.fragments.IHandFragment;
+import cs340.ui.fragments.interfaces.IHandFragment;
+import cs340.ui.presenters.interfaces.IHandPresenter;
 
 //HandPresenter only needs to update the cards in the hand so it doesn't call any services
 public class HandPresenter implements IHandPresenter, ClientModel.HandObserver {
@@ -22,7 +23,6 @@ public class HandPresenter implements IHandPresenter, ClientModel.HandObserver {
         ClientModel.getInstance().removeHandObserver(this);
     }
 
-    //TODO: Presenter onError method?
     @Override
     public void onError(String message) {
 
@@ -33,7 +33,6 @@ public class HandPresenter implements IHandPresenter, ClientModel.HandObserver {
         handFragment.onTrainCardsUpdated(cards);
     }
 
-    //TODO: Add destination card hand presenter functionality
     @Override
     public void onDestinationCardsUpdated(ArrayList<DestinationCard> cards) {
 

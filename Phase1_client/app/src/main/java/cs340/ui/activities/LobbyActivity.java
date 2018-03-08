@@ -12,20 +12,18 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import cs340.shared.model.Game;
 import cs340.shared.model.Player;
 import cs340.ui.R;
-import cs340.ui.mock.MockPhase1Presenter;
-import cs340.ui.presenters.ILobbyPresenter;
+import cs340.ui.activities.interfaces.ILobbyActivity;
+import cs340.ui.fragments.adapters.PlayerListAdapter;
+import cs340.ui.presenters.interfaces.ILobbyPresenter;
 import cs340.ui.presenters.LobbyPresenter;
 
 public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
 
-
-    //TODO: Implement capacity check
 
     private Player currentPlayer;
     private Game currentGame;
@@ -161,6 +159,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
      */
     @Override
     public void onGameUpdated(Game game) {
+        currentGame = game;
         playerListAdapter = new PlayerListAdapter(game.getPlayers(), this, currentPlayer, currentGame.getColors());
         playerList.setAdapter(playerListAdapter);
 

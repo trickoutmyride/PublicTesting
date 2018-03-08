@@ -1,7 +1,6 @@
 package cs340.ui.fragments;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import cs340.shared.model.Game;
@@ -20,8 +18,10 @@ import cs340.shared.model.Player;
 import cs340.shared.model.TrainCard;
 import cs340.ui.R;
 import cs340.ui.activities.GameActivity;
+import cs340.ui.fragments.adapters.DeckCardAdapter;
+import cs340.ui.fragments.interfaces.IDeckFragment;
 import cs340.ui.presenters.DeckPresenter;
-import cs340.ui.presenters.IDeckPresenter;
+import cs340.ui.presenters.interfaces.IDeckPresenter;
 
 
 public class DeckFragment extends Fragment implements IDeckFragment {
@@ -49,6 +49,16 @@ public class DeckFragment extends Fragment implements IDeckFragment {
         //Set up RecyclerView, but don't put anything in it yet.
         faceUpCardsView = v.findViewById(R.id.face_up_deck_list);
         faceUpCardsView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        //Deck button to get a random card from the top of the deck
+        deckButton = v.findViewById(R.id.face_down_deck);
+
+        deckButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         return v;
     }

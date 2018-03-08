@@ -3,12 +3,12 @@ package cs340.ui.mock;
 import java.util.ArrayList;
 import cs340.shared.model.Game;
 import cs340.shared.model.Player;
-import cs340.ui.activities.ILobbyActivity;
-import cs340.ui.activities.ILoginActivity;
-import cs340.ui.activities.IPreGameActivity;
-import cs340.ui.presenters.ILobbyPresenter;
-import cs340.ui.presenters.ILoginPresenter;
-import cs340.ui.presenters.IPregamePresenter;
+import cs340.ui.activities.interfaces.ILobbyActivity;
+import cs340.ui.activities.interfaces.ILoginActivity;
+import cs340.ui.activities.interfaces.IPreGameActivity;
+import cs340.ui.presenters.interfaces.ILobbyPresenter;
+import cs340.ui.presenters.interfaces.ILoginPresenter;
+import cs340.ui.presenters.interfaces.IPregamePresenter;
 
 
 //Fake game data to speed past phase 1 functionality with no server

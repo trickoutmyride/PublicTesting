@@ -15,8 +15,9 @@ import java.util.ArrayList;
 
 import cs340.shared.model.TrainCard;
 import cs340.ui.R;
+import cs340.ui.fragments.interfaces.IHandFragment;
 import cs340.ui.presenters.HandPresenter;
-import cs340.ui.presenters.IHandPresenter;
+import cs340.ui.presenters.interfaces.IHandPresenter;
 
 
 public class HandFragment extends Fragment implements IHandFragment {

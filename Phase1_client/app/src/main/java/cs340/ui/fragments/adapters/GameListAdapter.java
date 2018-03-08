@@ -1,4 +1,4 @@
-package cs340.ui.activities;
+package cs340.ui.fragments.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,8 +10,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import cs340.shared.model.Game;
-import cs340.shared.model.GameList;
 import cs340.ui.R;
+import cs340.ui.activities.PreGameActivity;
 
 /**
  * Created by sam on 2/7/18.

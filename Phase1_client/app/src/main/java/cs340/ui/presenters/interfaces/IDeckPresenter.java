@@ -1,4 +1,4 @@
-package cs340.ui.presenters;
+package cs340.ui.presenters.interfaces;
 
 import cs340.shared.model.TrainCard;
 

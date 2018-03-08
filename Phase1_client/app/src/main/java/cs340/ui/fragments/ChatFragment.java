@@ -16,11 +16,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import cs340.ui.R;
+import cs340.ui.activities.GameActivity;
+import cs340.ui.fragments.adapters.ChatListAdapter;
 
 public class ChatFragment extends DialogFragment {
 
@@ -123,10 +124,11 @@ public class ChatFragment extends DialogFragment {
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
-        //Attach activity as a listener
-        Activity activity = getActivity();
+
+        //Attach GamePresenter as a listener
+        GameActivity activity = (GameActivity) getActivity();
         try {
-            listener = (ChatFragment.ChatFragmentListener) activity;
+            listener = (ChatFragment.ChatFragmentListener) activity.getGamePresenter();
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement ChatFragmentListener");
         }

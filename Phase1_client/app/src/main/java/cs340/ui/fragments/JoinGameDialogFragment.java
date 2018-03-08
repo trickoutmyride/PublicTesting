@@ -1,4 +1,4 @@
-package cs340.ui.activities;
+package cs340.ui.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -8,21 +8,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import cs340.shared.model.Game;
 import cs340.ui.R;
+import cs340.ui.activities.PreGameActivity;
 
 /**
  * Created by sam on 2/8/18.

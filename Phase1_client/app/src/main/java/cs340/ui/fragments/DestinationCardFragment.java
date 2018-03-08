@@ -11,7 +11,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -19,6 +18,9 @@ import java.util.ArrayList;
 
 import cs340.shared.model.Player;
 import cs340.ui.R;
+import cs340.ui.fragments.adapters.DestinationCardDisplayAdapter;
+import cs340.ui.fragments.adapters.DestinationCardSelectionAdapter;
+import cs340.ui.fragments.adapters.HistoryListAdapter;
 
 public class DestinationCardFragment extends DialogFragment implements DestinationCardSelectionAdapter.CardSelectionListener {
 
@@ -60,8 +62,6 @@ public class DestinationCardFragment extends DialogFragment implements Destinati
 
         //Selection Mode: Set up Submit and Cancel buttons
         //Display Mode: Set up Close button
-
-        //TODO: Enable dialog if two cards are selected
 
         Dialog alertDialog;
         if (selection) {

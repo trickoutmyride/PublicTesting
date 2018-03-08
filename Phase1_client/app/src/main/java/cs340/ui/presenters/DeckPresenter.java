@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import cs340.client.services.DeckService;
 import cs340.shared.model.ClientModel;
 import cs340.shared.model.TrainCard;
-import cs340.ui.fragments.IDeckFragment;
+import cs340.ui.fragments.interfaces.IDeckFragment;
+import cs340.ui.presenters.interfaces.IDeckPresenter;
 
 public class DeckPresenter implements IDeckPresenter, ClientModel.DeckObserver {
 
@@ -21,7 +22,6 @@ public class DeckPresenter implements IDeckPresenter, ClientModel.DeckObserver {
         ClientModel.getInstance().removeDeckObserver(this);
     }
 
-    //TODO: DeckPresenter onError
     @Override
     public void onError(String message) {}
 

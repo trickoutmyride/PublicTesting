@@ -1,4 +1,4 @@
-package cs340.ui.fragments;
+package cs340.ui.fragments.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,16 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import cs340.shared.model.DestinationCard;
-import cs340.shared.model.Player;
 import cs340.shared.model.TrainCard;
 import cs340.ui.R;
 import cs340.ui.activities.GameActivity;
+import cs340.ui.fragments.DeckFragment;
 
 /**
  * Created by sam on 2/7/18.

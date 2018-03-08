@@ -18,7 +18,8 @@ import cs340.shared.model.Game;
 import cs340.shared.model.Player;
 import cs340.ui.R;
 import cs340.ui.activities.GameActivity;
-import cs340.ui.presenters.IPlayersPresenter;
+import cs340.ui.fragments.interfaces.IPlayersFragment;
+import cs340.ui.presenters.interfaces.IPlayersPresenter;
 import cs340.ui.presenters.PlayersPresenter;
 
 /**
@@ -289,19 +290,19 @@ public class PlayersFragment extends Fragment implements IPlayersFragment {
     public int colorStringtoInt(String color){
         switch (color) {
             case "blue":
-                return Color.BLUE;
+                return Color.rgb(0,0,204);
             case "red":
-                return Color.RED;
+                return Color.rgb(179,0,0);
             case "green":
-                return Color.GREEN;
+                return Color.rgb(60, 132, 60);
             case "yellow":
-                return Color.YELLOW;
+                return Color.rgb(213, 173, 24);
             case "orange":
                 return Color.rgb(100, 73, 20);
             case "black":
-                return Color.rgb(0, 0, 0);
+                return Color.rgb(50, 50, 50);
             default:
-                return Color.rgb(0, 0, 0);
+                return Color.rgb(50, 50, 50);
         }
     }
 }
