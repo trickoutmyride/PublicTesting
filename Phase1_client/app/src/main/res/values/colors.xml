@@ -3,4 +3,20 @@
     <color name="colorPrimary">#546E7A</color>
     <color name="colorPrimaryDark">#29434E</color>
     <color name="colorAccent">#819CA9</color>
+
+    <color name="player_blue">#000080</color>
+    <color name="player_green">#008000</color>
+    <color name="player_purple">#8000ff</color>
+    <color name="player_red">#800000</color>
+    <color name="player_yellow">#808000</color>
+
+    <color name="train_black">#202020</color>
+    <color name="train_blue">#2040ff</color>
+    <color name="train_gray">#808080</color>
+    <color name="train_green">#60b060</color>
+    <color name="train_orange">#ff8000</color>
+    <color name="train_pink">#ff80a0</color>
+    <color name="train_red">#ff5050</color>
+    <color name="train_white">#ffffff</color>
+    <color name="train_yellow">#ffff40</color>
 </resources>

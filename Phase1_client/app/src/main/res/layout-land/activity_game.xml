@@ -58,7 +58,7 @@
 
     <fragment
         android:id="@+id/mapFragment"
-        android:name="cs340.ui.fragments.MapFragment"
+        android:name="cs340.ui.fragments.GameMapFragment"
         android:layout_width="485dp"
         android:layout_height="300dp"
         android:layout_alignParentTop="true"

@@ -1,16 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/map"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cs340.ui.fragments.MapFragment">
-
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="500dp"
-        android:layout_height="500dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="Map Stub" />
-</RelativeLayout>
+    tools:context="cs340.ui.fragments.GameMapFragment" />
