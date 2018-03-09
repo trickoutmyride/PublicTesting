@@ -28,7 +28,7 @@ public class DeckService {
 	}
 
 	public static void drawFaceup(Player player, int index) {
-		proxy.drawTrainCard(new DrawFaceupRequest(player, index));
+		proxy.drawFaceupCard(new DrawFaceupRequest(player, index));
 	}
 
 	public static void onDrawTrainCards(int index, TrainCard drawnCard, ArrayList<TrainCard> cards){
