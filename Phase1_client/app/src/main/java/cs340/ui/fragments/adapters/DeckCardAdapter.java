@@ -22,6 +22,15 @@ public class DeckCardAdapter extends RecyclerView.Adapter<DeckCardAdapter.ViewHo
 
     private ArrayList<TrainCard> _cards;
     private Context _context;
+    private boolean _clickEnabled;
+
+    public boolean isClickEnabled() {
+        return _clickEnabled;
+    }
+
+    public void setClickEnabled(boolean clickEnabled) {
+        _clickEnabled = clickEnabled;
+    }
 
     // Provide a reference to the views for each data item
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -38,6 +47,7 @@ public class DeckCardAdapter extends RecyclerView.Adapter<DeckCardAdapter.ViewHo
     public DeckCardAdapter(ArrayList<TrainCard> cards, Context context) {
         _context = context;
         _cards = cards;
+        _clickEnabled = true;
     }
 
     //Create new views
@@ -63,9 +73,11 @@ public class DeckCardAdapter extends RecyclerView.Adapter<DeckCardAdapter.ViewHo
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DeckFragment df = (DeckFragment)((GameActivity)_context).getFragmentManager().findFragmentById(R.id.deckFragment);
-                df.cardSelected(pos);
-                removeAt(pos);
+                if (_clickEnabled) {
+                    DeckFragment df = (DeckFragment) ((GameActivity) _context).getFragmentManager().findFragmentById(R.id.deckFragment);
+                    df.cardSelected(pos);
+                    _clickEnabled = false;
+                }
             }
         });
 

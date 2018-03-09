@@ -91,7 +91,7 @@ public class ClientFacade implements IClient {
 	public void drawTrainCard(String trainJson) {
 		System.out.println("ClientFacade: drawTrainCard()" + trainJson);
 		DrawTrainCardResult result = gson.fromJson(trainJson, DrawTrainCardResult.class);
-		DeckService.onDrawDeckCard(result.getPlayer().getCards());
+		DeckService.onDrawDeckCard(result.getPlayer());
 	}
 
 	public void chat (String chat) {

@@ -35,8 +35,8 @@ public class DeckService {
 		ClientModel.getInstance().updateFaceUpDeck(index, drawnCard, player);
 	}
 
-	public static void onDrawDeckCard(ArrayList<TrainCard> playerCards){
-		ClientModel.getInstance().updateHandTrainCards(playerCards);
+	public static void onDrawDeckCard(Player player){
+		ClientModel.getInstance().updateHandTrainCards(player);
 	}
 
 	public static void onDrawDestinationCards(ArrayList<DestinationCard> cards) {

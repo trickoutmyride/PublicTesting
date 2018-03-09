@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import cs340.shared.model.ClientModel;
 import cs340.shared.model.DestinationCard;
+import cs340.shared.model.Player;
 import cs340.shared.model.TrainCard;
 import cs340.ui.fragments.interfaces.IHandFragment;
 import cs340.ui.presenters.interfaces.IHandPresenter;
@@ -29,9 +30,9 @@ public class HandPresenter implements IHandPresenter, ClientModel.HandObserver {
     }
 
     @Override
-    public void onTrainCardsUpdated(ArrayList<TrainCard> cards) {
+    public void onTrainCardsUpdated(Player player) {
         System.out.println("HandPresenter: onTrainCardsUpdated!");
-        handFragment.onTrainCardsUpdated(cards);
+        handFragment.onTrainCardsUpdated(player);
     }
 
     @Override

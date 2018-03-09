@@ -83,6 +83,7 @@ public class DeckFragment extends Fragment implements IDeckFragment {
     public void onFaceUpCardUpdated(TrainCard card, int index){
 
         //REPLACE SINGLE CARD IN ARRAY
+        currentFaceUpCards.remove(index);
         currentFaceUpCards.add(index, card);
 
         //Replace cards

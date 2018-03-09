@@ -13,8 +13,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import cs340.shared.model.Player;
 import cs340.shared.model.TrainCard;
 import cs340.ui.R;
+import cs340.ui.activities.GameActivity;
 import cs340.ui.fragments.interfaces.IHandFragment;
 import cs340.ui.presenters.HandPresenter;
 import cs340.ui.presenters.interfaces.IHandPresenter;
@@ -66,7 +68,18 @@ public class HandFragment extends Fragment implements IHandFragment {
     }
 
     //Hand updated, redraw hand
-    public void onTrainCardsUpdated(ArrayList<TrainCard> cards){
+    public void onTrainCardsUpdated(Player player){
+
+        GameActivity gameActivity = (GameActivity)getActivity();
+        Player currentPlayer = gameActivity.getCurrentPlayer();
+
+        //If the current player wasn't updated
+        if (!(currentPlayer.getUsername().equals(player.getUsername()))){
+            gameActivity.onPlayerCardsUpdated(player);
+            return;
+        }
+
+        ArrayList<TrainCard> cards = player.getCards();
 
         if (currentCards != null && currentCards.equals(cards)){
             System.out.println("HandFragment.onTrainCardsUpdated(): hand did not change");

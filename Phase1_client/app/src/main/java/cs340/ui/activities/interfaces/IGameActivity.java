@@ -11,6 +11,8 @@ public interface IGameActivity {
     void onHistoryItemUpdated(String historyItem);
     void onDrawnDestinationCards(ArrayList<DestinationCard> cards);
     void onChatUpdated(String message);
-    void onPlayerCardsUpdated(ArrayList<TrainCard> newCards);
+    void onPlayerCardsUpdated(final int index, final TrainCard card, final Player player);
+    void onPlayerCardsUpdated(Player player);
     Player getCurrentPlayer();
+    void onDestinationCardsUpdated(Player player);
 }

@@ -18,6 +18,7 @@ public class GameMap {
     }
 
     public void addObserver(Observer observer) {
+        observers = new ArrayList<>();
         observers.add(observer);
     }
 

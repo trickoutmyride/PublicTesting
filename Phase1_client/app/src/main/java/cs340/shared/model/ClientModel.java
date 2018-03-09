@@ -129,7 +129,7 @@ public class ClientModel {
 
     //Hand Classes
     public interface HandObserver extends ErrorObserver {
-        void onTrainCardsUpdated(ArrayList<TrainCard> cards);
+        void onTrainCardsUpdated(Player player);
         void onDestinationCardsUpdated(ArrayList<DestinationCard> cards);
     }
 
@@ -143,21 +143,13 @@ public class ClientModel {
         removeErrorObserver(observer);
     }
 
-    //Update train cards in the current player's hand
-    //@param cards contains ALL of the train cards in the player's hand
-    public void updateHandTrainCards(ArrayList<TrainCard> cards) {
-        System.out.println("\n\nClientModel: updateHandTrainCards - ");
-        for (TrainCard c : cards){
-            System.out.print(c.getColor() + ", ");
-        }
-        System.out.println("\n\n");
-        for (HandObserver observer : handObservers) { observer.onTrainCardsUpdated(cards); }
+    public void updateHandTrainCards(Player player) {
+        for (HandObserver observer : handObservers) { observer.onTrainCardsUpdated(player); }
     }
 
     //Update destination cards in the current player's hand
-    //@param cards contains ALL of the destination cards in the player's hand
-    public void updateHandDestinationCards(ArrayList<DestinationCard> cards) {
-        for (HandObserver observer : handObservers) { observer.onDestinationCardsUpdated(cards); }
+    public void updatePlayerDestinationCards(Player player) {
+        for (GameObserver observer : gameObservers) { observer.onDestinationCardsUpdated(player); }
     }
 
 
@@ -165,6 +157,7 @@ public class ClientModel {
 
     public interface GameObserver extends ErrorObserver {
         void onDrawnDestinationCards(ArrayList<DestinationCard> cards);
+        void onDestinationCardsUpdated(Player player);
     }
 
     public void addGameObserver(GameObserver observer){
@@ -236,7 +229,7 @@ public class ClientModel {
     //Done
 
     public interface DeckObserver extends ErrorObserver {
-        void updateFaceUpDeck(int index, TrainCard card, ArrayList<TrainCard> newCards);
+        void updateFaceUpDeck(int index, TrainCard card, Player player);
     }
 
     public void addDeckObserver(DeckObserver observer){
@@ -250,8 +243,8 @@ public class ClientModel {
     }
 
     //Update cards in the face up deck
-    public void updateFaceUpDeck(int index, TrainCard card, ArrayList<TrainCard> newCards){
-        for (DeckObserver observer : deckObservers){ observer.updateFaceUpDeck(index, card, newCards); }
+    public void updateFaceUpDeck(int index, TrainCard card, Player player){
+        for (DeckObserver observer : deckObservers){ observer.updateFaceUpDeck(index, card, player); }
     }
 
     //Chat Functions

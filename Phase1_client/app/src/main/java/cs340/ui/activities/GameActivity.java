@@ -61,15 +61,23 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         //waiting for jking's end turn function
         //wait in-between fake data additions
 
-    //TODO: Display points on Destination Card?
-        //neccesary for Phase 2?
+    //TODO: actually discard the card - set current player's destination cards to "selected" arraylist
+
 
     //TODO: Add toasts to tests
+
+
+    //TODO: train only changes color after it's clicked????
+
+
 
     //Not as important:
     //TODO: Detach presenters
     //TODO: Implement draw destination card functionality (phase 3?)
     //TODO: Presenter onError methods
+    //TODO: Display points on Destination Card?
+    //      neccesary for Phase 2?
+
 
     //Phase 1 to dos
     //TODO: Implement capacity check (LobbyActivity)
@@ -121,7 +129,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
 
         //Populate the player's hand
         handFragment = (IHandFragment)getFragmentManager().findFragmentById(R.id.handFragment);
-        handFragment.onTrainCardsUpdated(currentPlayer.getCards());
+        handFragment.onTrainCardsUpdated(currentPlayer);
 
         //Populate the other player's stuff
         playersFragment = (IPlayersFragment)getFragmentManager().findFragmentById(R.id.playersFragment);
@@ -285,7 +293,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         @Override
         public void run(){
             currentPlayer.setCards(_cards);
-            handFragment.onTrainCardsUpdated(_cards);
+            handFragment.onTrainCardsUpdated(currentPlayer);
         }
     }
 
@@ -404,9 +412,45 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
     public void onDrawnDestinationCards(ArrayList<DestinationCard> cards){}
 
     @Override
-    public void onPlayerCardsUpdated(ArrayList<TrainCard> newCards){
-        currentPlayer.setCards(newCards);
-        handFragment.onTrainCardsUpdated(newCards);
+    public void onPlayerCardsUpdated(final int index, final TrainCard card, final Player player){
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (currentPlayer.getUsername().equals(player.getUsername())){
+                    currentPlayer = player;
+                    handFragment.onTrainCardsUpdated(currentPlayer);
+                }
+                playersFragment.onPlayerUpdated(player);
+                deckFragment.onFaceUpCardUpdated(card, index);
+            }
+        });
+    }
+
+    @Override
+    public void onPlayerCardsUpdated(final Player player){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (currentPlayer.getUsername().equals(player.getUsername())){
+                    currentPlayer = player;
+                }
+                playersFragment.onPlayerUpdated(player);
+            }
+        });
+    }
+
+    @Override
+    public void onDestinationCardsUpdated(final Player player){
+        runOnUiThread(new Runnable(){
+            @Override
+            public void run() {
+                if (currentPlayer.getUsername().equals(player.getUsername())){
+                    currentPlayer = player;
+                }
+                playersFragment.onPlayerUpdated(player);
+            }
+        });
     }
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

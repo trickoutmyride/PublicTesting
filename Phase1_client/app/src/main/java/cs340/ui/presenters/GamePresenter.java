@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import cs340.client.services.ChatService;
 import cs340.shared.model.ClientModel;
 import cs340.shared.model.DestinationCard;
+import cs340.shared.model.Player;
 import cs340.ui.activities.GameActivity;
 import cs340.ui.activities.interfaces.IGameActivity;
 import cs340.ui.fragments.ChatFragment;
@@ -51,6 +52,11 @@ public class GamePresenter implements IGamePresenter, ClientModel.HistoryObserve
     @Override
     public void sendMessage(String message) {
         ChatService.chat(gameActivity.getCurrentPlayer(), message);
+    }
+
+    @Override
+    public void onDestinationCardsUpdated(Player player){
+
     }
 
 }
