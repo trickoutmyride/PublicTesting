@@ -3,6 +3,7 @@ package cs340.ui.activities.interfaces;
 import java.util.ArrayList;
 
 import cs340.shared.model.DestinationCard;
+import cs340.shared.model.Game;
 import cs340.shared.model.Player;
 import cs340.shared.model.TrainCard;
 
@@ -18,4 +19,5 @@ public interface IGameActivity {
     void onPlayerUpdated(final Player player);
     boolean myTurn();
     int getTurnIndex();
+    void onTurnUpdated(final Game game);
 }

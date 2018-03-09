@@ -1,6 +1,7 @@
 package cs340.client.services;
 
 import cs340.client.communication.ServerProxy;
+import cs340.shared.model.ClientModel;
 import cs340.shared.model.Game;
 import cs340.shared.model.Player;
 import cs340.shared.requests.EndTurnRequest;
@@ -17,6 +18,6 @@ public class TurnService {
 	}
 
 	public static void nextTurn(Game game) {
-		//TODO
+		ClientModel.getInstance().changeTurn(game);
 	}
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import cs340.client.services.ChatService;
 import cs340.shared.model.ClientModel;
 import cs340.shared.model.DestinationCard;
+import cs340.shared.model.Game;
 import cs340.shared.model.Player;
 import cs340.ui.activities.GameActivity;
 import cs340.ui.activities.interfaces.IGameActivity;
@@ -59,6 +60,11 @@ public class GamePresenter implements IGamePresenter, ClientModel.HistoryObserve
     @Override
     public void onDestinationCardsUpdated(Player player){
         gameActivity.onDestinationCardsUpdated(player);
+    }
+
+    @Override
+    public void onTurnChanged(Game game) {
+        gameActivity.onTurnUpdated(game);
     }
 
 }

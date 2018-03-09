@@ -2,12 +2,17 @@ package cs340.ui.activities;
 
 import android.app.DialogFragment;
 import android.app.FragmentManager;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -18,6 +23,7 @@ import java.util.Random;
 
 import cs340.client.services.ChatService;
 import cs340.client.services.DeckService;
+import cs340.client.services.TurnService;
 import cs340.shared.model.DestinationCard;
 import cs340.shared.model.Game;
 import cs340.shared.model.Player;
@@ -183,9 +189,17 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
 
                     // Chat (10 points)
 
-                    gamePresenter.sendMessage("I just sent a test message to everyone.");
-                    Toast toast = Toast.makeText(getApplicationContext(), "Chat sent! Check device 2 chat log. 10s left", Toast.LENGTH_SHORT);
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout));
+                    TextView text = (TextView) layout.findViewById(R.id.custom_toast_text);
+                    text.setText("Chat sent! Check device 2 chat log. 15s left\n");
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
                     toast.show();
+
+                    gamePresenter.sendMessage("I just sent a test message to everyone.");
 
                     new Handler().postDelayed(new Runnable(){
 
@@ -196,43 +210,57 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
                             // Face up deck cards can change (5 points)
                             // Game History (5 points)
 
-                            deckFragment.cardSelected(1);
-                            Toast newToast = Toast.makeText(getApplicationContext(), "Selected face up card 1! 20s left", Toast.LENGTH_SHORT);
-                            newToast.show();
-                            newToast = Toast.makeText(getApplicationContext(), "See device 2 - card count update, face up deck, history. 18s left", Toast.LENGTH_SHORT);
-                            newToast.show();
-                            newToast = Toast.makeText(getApplicationContext(), "See current device 1 - hand changed. 16s left", Toast.LENGTH_SHORT);
-                            newToast.show();
+                            LayoutInflater inflater = getLayoutInflater();
+                            View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout));
+                            TextView text = (TextView) layout.findViewById(R.id.custom_toast_text);
+                            text.setText("I am about to select the 2nd card in the face up deck.\n");
+                            Toast toast = new Toast(getApplicationContext());
+                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.setView(layout);
+                            toast.show();
 
-                            /*
-                            new Handler().post(new Runnable(){
+                            new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    // Routes claimed shows on map (10 points)
-                                    //      Player's points can be changed
-                                    //      Trains remaining can be changed
 
-                                    //TODO: @brettbeatty implement map
+                                    LayoutInflater inflater = getLayoutInflater();
+                                    View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout));
+                                    TextView text = (TextView) layout.findViewById(R.id.custom_toast_text);
+                                    text.setText("Changed: hand, 2nd face up card, card count, game history\n");
+                                    Toast toast = new Toast(getApplicationContext());
+                                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                                    toast.setDuration(Toast.LENGTH_LONG);
+                                    toast.setView(layout);
+                                    toast.show();
+
+                                    deckFragment.cardSelected(1);
 
 
-
-
-                                    new Handler().post(new Runnable(){
-
+                                    new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
-                                           // Turn can be changed (5 points)
-                                           //TODO: end turn automated test
+                                            // Routes claimed shows on map (10 points)
+                                            //      Player's points can be changed
+                                            //      Trains remaining can be changed
+
+                                            //TODO: @brettbeatty implement map with postDelayed
+
+                                            Toast toast = Toast.makeText(getApplicationContext(), "Turn ended - check player info", Toast.LENGTH_LONG);
+                                            toast.show();
+                                            TurnService.endTurn(currentPlayer);
                                         }
-                                    }, 10000);
-                                    */
-                            /*
+
+                                    }, 20000);
+
+
+
                                 }
-                            }, 15000);
-                            */
+                            }, 5000);
+
 
                         }
-                    }, 10000);
+                    }, 15000);
 
                 }
 
@@ -460,6 +488,20 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
             public void run() {
                 if (playersFragment != null) {
                     playersFragment.onPlayerUpdated(player);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onTurnUpdated(final Game game){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("onTurnUpdated!");
+                currentGame = game;
+                for (Player p : game.getPlayers()) {
+                    onPlayerUpdated(p);
                 }
             }
         });

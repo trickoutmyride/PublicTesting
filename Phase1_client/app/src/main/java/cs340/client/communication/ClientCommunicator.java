@@ -33,7 +33,7 @@ public class ClientCommunicator {
 
 	//private static final String address = "ws://10.24.198.43:8080/ws/command";
 
-	private static final String address = "ws://192.168.1.102:8080/ws/command";
+	private static final String address = "ws://10.24.31.219:8080/ws/command";
 
 	private static ClientCommunicator singleton;
 	private Session userSession = null;

@@ -130,6 +130,9 @@ public class PlayersFragment extends Fragment implements IPlayersFragment {
         }
         int playerNumber = 0;
 
+        boolean myTurn;
+        int turnid = ((GameActivity)getActivity()).getTurnIndex();
+
         //Get number of player
         for (int i = 0; i < currentGame.getPlayers().size(); i++){
             if (player.getUsername().equals(currentGame.getPlayers().get(i).getUsername())){
@@ -137,36 +140,48 @@ public class PlayersFragment extends Fragment implements IPlayersFragment {
             }
         }
 
+        myTurn = playerNumber == turnid;
+
         switch(playerNumber) {
             case 0:
                 destCardCount1.setText(Integer.toString(player.getDestinations().size()));
                 trainCardCount1.setText(Integer.toString(player.getCards().size()));
                 points1.setText(Integer.toString(player.getPoints()));
                 carCount1.setText(Integer.toString(player.getTrainCars()));
+                if (myTurn){ playerName1.setTypeface(null, Typeface.BOLD_ITALIC);}
+                else{playerName1.setTypeface(null, Typeface.NORMAL);}
                 break;
             case 1:
                 destCardCount2.setText(Integer.toString(player.getDestinations().size()));
                 trainCardCount2.setText(Integer.toString(player.getCards().size()));
                 points2.setText(Integer.toString(player.getPoints()));
                 carCount2.setText(Integer.toString(player.getTrainCars()));
+                if (myTurn){ playerName2.setTypeface(null, Typeface.BOLD_ITALIC);}
+                else{playerName2.setTypeface(null, Typeface.NORMAL);}
                 break;
             case 2:
                 destCardCount3.setText(Integer.toString(player.getDestinations().size()));
                 trainCardCount3.setText(Integer.toString(player.getCards().size()));
                 points3.setText(Integer.toString(player.getPoints()));
                 carCount3.setText(Integer.toString(player.getTrainCars()));
+                if (myTurn){ playerName3.setTypeface(null, Typeface.BOLD_ITALIC);}
+                else{playerName3.setTypeface(null, Typeface.NORMAL);}
                 break;
             case 3:
                 destCardCount4.setText(Integer.toString(player.getDestinations().size()));
                 trainCardCount4.setText(Integer.toString(player.getCards().size()));
                 points4.setText(Integer.toString(player.getPoints()));
                 carCount4.setText(Integer.toString(player.getTrainCars()));
+                if (myTurn){ playerName4.setTypeface(null, Typeface.BOLD_ITALIC);}
+                else{playerName4.setTypeface(null, Typeface.NORMAL);}
                 break;
             case 4:
                 destCardCount5.setText(Integer.toString(player.getDestinations().size()));
                 trainCardCount5.setText(Integer.toString(player.getCards().size()));
                 points5.setText(Integer.toString(player.getPoints()));
                 carCount5.setText(Integer.toString(player.getTrainCars()));
+                if (myTurn){ playerName5.setTypeface(null, Typeface.BOLD_ITALIC);}
+                else{playerName5.setTypeface(null, Typeface.NORMAL);}
                 break;
         }
     }

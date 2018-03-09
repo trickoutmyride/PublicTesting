@@ -158,6 +158,7 @@ public class ClientModel {
     public interface GameObserver extends ErrorObserver {
         void onDrawnDestinationCards(ArrayList<DestinationCard> cards);
         void onDestinationCardsUpdated(Player player);
+        void onTurnChanged(Game game);
     }
 
     public void addGameObserver(GameObserver observer){
@@ -168,6 +169,10 @@ public class ClientModel {
     public void removeGameObserver(GameObserver observer){
         gameObservers.remove(observer);
         removeErrorObserver(observer);
+    }
+
+    public void changeTurn(Game game){
+        for (GameObserver observer: gameObservers){observer.onTurnChanged(game);}
     }
 
     public void newDestinationCards(ArrayList<DestinationCard> cards){
