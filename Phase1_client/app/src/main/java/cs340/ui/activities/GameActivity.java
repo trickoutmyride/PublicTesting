@@ -54,19 +54,17 @@ import cs340.ui.presenters.interfaces.IGamePresenter;
  *      Destination Card Button     displays the current player's destination cards (DestinationCardFragment)
  *      Chat Button                 displays the chat (ChatFragment)
  *      History Button              displays the game history (HistoryFragment)
- *      Add Data                    adds dummy data
- *
- * This activity also implements listeners for the DestinationCard and Deck fragments.
+ *      Test Driver                 runs phase 2 test driver
  *
  */
 public class GameActivity extends AppCompatActivity implements IGameActivity, DestinationCardFragment.DestinationCardDialogListener {
 
-    //Not as important:
+
+    //Phase 2 to dos
     //TODO: Detach presenters
     //TODO: Implement draw destination card functionality (phase 3?)
     //TODO: Presenter onError methods
     //TODO: Display points on Destination Card?
-    //      neccesary for Phase 2?
 
 
     //Phase 1 to dos
@@ -179,7 +177,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         });
 
 
-        //  Fake data button
+        //  Test Driver
         Button testButton = findViewById(R.id.testButton);
         testButton.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -188,7 +186,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
                 if (myTurn()) {
 
                     // Chat (10 points)
-
                     LayoutInflater inflater = getLayoutInflater();
                     View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout));
                     TextView text = (TextView) layout.findViewById(R.id.custom_toast_text);
@@ -201,6 +198,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
 
                     gamePresenter.sendMessage("I just sent a test message to everyone.");
 
+                    // Game history, player info, face up deck, hand - all updated
                     new Handler().postDelayed(new Runnable(){
 
                         @Override
@@ -237,6 +235,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
                                     deckFragment.cardSelected(1);
 
 
+                                    //Turn is ended
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
@@ -269,142 +268,19 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
     }
 
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    /**
-     *  Fake History Data Methods:
-     *      createFakeHistory()     - Makes/adds fake history items, updates fragment if currently shown
-     */
-
-    private void createFakeHistory(){
-
-        //Make fake history items
-        String s1 = "player1 claimed a Route";
-        String s2 = "player1 drew 3 Destination cards";
-        String s3 = "player1 drew 2 Train cards";
-        String s4 = "player1 drew 1 Train card";
-        String s5 = "player2 claimed a Route";
-        String s6 = "player2 drew 3 Destination cards";
-        String s7 = "player2 drew 2 Train cards";
-        String s8 = "player2 drew 1 Train card";
-        String s9 = "player3 claimed a Route";
-        String s10 = "player3 drew 3 Destination cards";
-        String s11 = "player3 drew 2 Train cards";
-        String s12 = "player3 drew 1 Train card";
-        String s13 = "player4 claimed a Route";
-        String s14 = "player4 drew 3 Destination cards";
-        String s15 = "player4 drew 2 Train cards";
-        String s16 = "player4 drew 1 Train card";
-
-        //Add fake history items to an array list
-        ArrayList<String> fakeStrings = new ArrayList<>();
-        fakeStrings.add(s1); fakeStrings.add(s2); fakeStrings.add(s3); fakeStrings.add(s4); fakeStrings.add(s5); fakeStrings.add(s6);
-        fakeStrings.add(s7); fakeStrings.add(s8); fakeStrings.add(s9); fakeStrings.add(s10); fakeStrings.add(s11); fakeStrings.add(s12);
-        fakeStrings.add(s13); fakeStrings.add(s14); fakeStrings.add(s15); fakeStrings.add(s16);
-
-        //Shuffle up the array list
-        Collections.shuffle(fakeStrings, new Random());
-
-        //Add a random amount of history items to the history - between 1 and 16
-        for (int i = 0; i < new Random().nextInt(15); i++){
-            currentHistory.add(fakeStrings.get(i));
-            if (historyFragment != null){
-                historyFragment.updateHistory(fakeStrings.get(i));
-            }
-        }
-    }
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    /**
-     *  Fake Hand Data Methods:
-     *      FakeHandRunnable.class  - sets current player's cards, updates fragment with @param ArrayList<TrainCard> cards
-     *      createFakeHand()        - calls makeFakeTrainCards() and waits for 1s in-between adding the cards to the hand
-     *      makeFakeTrainCards()    - makes between 0 and 1 (randomly) of each type of train card
-     */
-
-    public class FakeHandRunnable implements Runnable {
-        private ArrayList<TrainCard> _cards;
-        public FakeHandRunnable(ArrayList<TrainCard> cards){
-            _cards = cards;
-        }
-        @Override
-        public void run(){
-            currentPlayer.setCards(_cards);
-            handFragment.onTrainCardsUpdated(currentPlayer);
-        }
-    }
-
-    private void createFakeHand(){
-        //Get fake cards
-        ArrayList<TrainCard> fakeCards = makeFakeTrainCards();
-
-        //For each card, add it to the player's hand. Wait 1 second between each add.
-        for (TrainCard card : fakeCards){
-            ArrayList<TrainCard> playerCards = currentPlayer.getCards();
-            playerCards.add(card);
-            Handler h = new Handler();
-            h.postDelayed(new FakeHandRunnable(playerCards),  1000);
-        }
-    }
-
-    private ArrayList<TrainCard> makeFakeTrainCards(){
-
-        //Create one of each type of train cards
-        TrainCard tcblack, tcblue, tcgreen, tcorange, tcpurple, tcred, tcwhite, tcwild, tcyellow;
-        tcblack = new TrainCard("black");
-        tcblue = new TrainCard("blue");
-        tcgreen = new TrainCard("green");
-        tcorange = new TrainCard("orange");
-        tcpurple = new TrainCard("purple");
-        tcred = new TrainCard("red");
-        tcwhite = new TrainCard("white");
-        tcwild = new TrainCard("wild");
-        tcyellow = new TrainCard("yellow");
-
-        //Add random amount of cards
-        ArrayList<TrainCard> trainCards = new ArrayList<>();
-
-        Random rand = new Random();
-
-        //Make between 0 and 1 of each card
-
-        for (int i = 0; i < rand.nextInt(1); i++){trainCards.add(tcblack);}
-
-        for (int i = 0; i < rand.nextInt(1); i++){trainCards.add(tcblue);}
-
-        for (int i = 0; i < rand.nextInt(1); i++){trainCards.add(tcgreen);}
-
-        for (int i = 0; i < rand.nextInt(1); i++){trainCards.add(tcorange);}
-
-        for (int i = 0; i < rand.nextInt(1); i++){trainCards.add(tcpurple);}
-
-        for (int i = 0; i < rand.nextInt(1); i++){trainCards.add(tcred);}
-
-        for (int i = 0; i < rand.nextInt(1); i++){trainCards.add(tcyellow);}
-
-        for (int i = 0; i < rand.nextInt(1); i++){trainCards.add(tcwhite);}
-
-        for (int i = 0; i < rand.nextInt(1); i++){trainCards.add(tcwild);}
-
-        return trainCards;
-    }
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     /**
      *  Callbacks:
-     *      updateHistory()             - Presenter is updating the fragment, this is to update the saved history log
+     *      onHistoryItemUpdated()      - Adds new history item to fragment and log
      *      onDialogPositiveClick()     - Destination Card Fragment selection confirmed - send discarded to server
      *      onChatUpdated()             - New message - add to chat log and display if dialog visible
      *      onDrawnDestinationCards()   - Not implemented (Phase 3)
      *      onPlayerCardsUpdated()      - Player has drawn new cards - update cards in currentPlayer and display
-     *      updateHistory()             -
+     *          Two methods - first updates deck AND player, second just updates player
+     *      onPlayerUpdated()           - Updates player info in PlayerFragment
+     *      onTurnUpdated()             - Updates whose turn it is
+     *      onDestinationCardsUpdated() - New destination cards received from the server
      */
 
     @Override
@@ -509,8 +385,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
 
     @Override
     public void onDestinationCardsUpdated(final Player player){
-        System.out.println("GameActivity onDestinationCardsUpdated() ");
-
         for (DestinationCard c : player.getDestinations()){
             System.out.println(c.getStartPoint() + " to " + c.getEndPoint());
         }
@@ -535,7 +409,9 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
      *  Getters:
      *      getCurrentPlayer()      - gets current player
      *      getCurrentGame()        - gets current game
-     *      getPresenter()          - gets GamePresenter
+     *      getGamePresenter()      - gets GamePresenter
+     *      myTurn()                - gets whether or not it's the current player's turn
+     *      getTurnIndex()          - gets index of the player whose turn it is
      */
 
     public Player getCurrentPlayer() {
@@ -545,39 +421,16 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         return currentGame;
     }
     public IGamePresenter getGamePresenter() { return gamePresenter; }
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
     public boolean myTurn(){
         return currentGame.getPlayers().get(currentGame.getTurn()).getUsername().equals(currentPlayer.getUsername());
     }
-
     public int getTurnIndex(){
         return currentGame.getTurn();
     }
 
-    //Not sure if we need these:
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    private void createFakeChat(){
 
-        ArrayList<String> fakeChat = new ArrayList<>();
-
-        String s1 = "player1: hey guys";
-        String s2 = "player2: hey";
-        String s3 = "player3: gang's all here!";
-        String s4 = "player1: is it my turn?";
-        String s5 = "player3: no";
-        String s6 = "player2: gonna claim this here route";
-        String s7 = "player3: hey where's player4";
-        String s8 = "player4: okay let's do this. LEEEEEROOOOYYYY... JEEEENNNNKKKKIIIINNNSSSSSS";
-
-        fakeChat.add(s1); fakeChat.add(s2); fakeChat.add(s3);
-        fakeChat.add(s4); fakeChat.add(s5); fakeChat.add(s6);
-        fakeChat.add(s7); fakeChat.add(s8);
-        currentChat = fakeChat;
-    }
-    public void setCurrentChat(ArrayList<String> currentChat){this.currentChat = currentChat;}
 
 }
 
