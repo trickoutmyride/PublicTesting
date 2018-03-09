@@ -81,10 +81,11 @@ public class GameMapFragment extends Fragment implements IMapFragment, OnMapRead
     @Override
     public void onMapReady(GoogleMap googleMap) {
         googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(39, -98), 5);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(39, -98), 3);
         googleMap.animateCamera(cameraUpdate);
         map = googleMap;
         presenter = new MapPresenter(this);
+        onRouteClaimed(MapRoute.getRouteMap());
     }
 
     @Override

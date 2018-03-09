@@ -47,6 +47,7 @@ public class Game {
 	}
 
 	public GameMap getGameMap() {
+		if (gameMap == null) gameMap = new GameMap(this);
 		return gameMap;
 	}
 
