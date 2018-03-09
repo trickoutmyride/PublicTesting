@@ -20,7 +20,7 @@ public class Game {
 	private ArrayList<Route> unclaimedRoutes;
 	private ArrayList<TrainCard> trainDeck;
 	private ArrayList<TrainCard> trainFaceup;
-	private GameMap gameMap = new GameMap(this);
+	private GameMap gameMap = null;
 
 	/* "Maybe Later" Fields */
 	//private Map gameMap;
@@ -47,6 +47,7 @@ public class Game {
 	}
 
 	public GameMap getGameMap() {
+		if (gameMap == null) gameMap = new GameMap(this);
 		return gameMap;
 	}
 
