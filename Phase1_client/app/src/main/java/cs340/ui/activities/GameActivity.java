@@ -446,7 +446,9 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                playersFragment.onPlayerUpdated(player);
+                if (playersFragment != null) {
+                    playersFragment.onPlayerUpdated(player);
+                }
             }
         });
     }
