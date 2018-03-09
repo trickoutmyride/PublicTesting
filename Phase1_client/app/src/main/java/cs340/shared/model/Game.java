@@ -1,7 +1,6 @@
 package cs340.shared.model;
 
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.HashMap;
 
 public class Game {
@@ -20,7 +19,7 @@ public class Game {
 	private ArrayList<Route> unclaimedRoutes;
 	private ArrayList<TrainCard> trainDeck;
 	private ArrayList<TrainCard> trainFaceup;
-	private GameMap gameMap = new GameMap(this);
+	private GameMap gameMap;
 
 	/* "Maybe Later" Fields */
 	//private Map gameMap;
@@ -35,6 +34,7 @@ public class Game {
 		//this.gameID = ServerModel.getNextGameID();
 		this.colors = new HashMap<String,String>();
 		this._hasStarted = false;
+		this.gameMap = new GameMap(this);
 	}
 
 	/* Methods */
