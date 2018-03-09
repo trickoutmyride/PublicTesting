@@ -67,7 +67,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
     //TODO: Add toasts to tests
 
 
-    //TODO: train only changes color after it's clicked????
+    //TODO: current player total not updated when deck card is drawn
 
 
 
@@ -436,6 +436,16 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
                 if (currentPlayer.getUsername().equals(player.getUsername())){
                     currentPlayer = player;
                 }
+                playersFragment.onPlayerUpdated(player);
+            }
+        });
+    }
+
+    @Override
+    public void onPlayerUpdated(final Player player){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
                 playersFragment.onPlayerUpdated(player);
             }
         });

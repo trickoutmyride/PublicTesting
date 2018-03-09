@@ -79,6 +79,8 @@ public class HandFragment extends Fragment implements IHandFragment {
             return;
         }
 
+        gameActivity.onPlayerUpdated(player);
+
         ArrayList<TrainCard> cards = player.getCards();
 
         if (currentCards != null && currentCards.equals(cards)){

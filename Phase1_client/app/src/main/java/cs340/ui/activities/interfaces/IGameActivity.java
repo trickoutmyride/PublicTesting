@@ -15,4 +15,5 @@ public interface IGameActivity {
     void onPlayerCardsUpdated(Player player);
     Player getCurrentPlayer();
     void onDestinationCardsUpdated(Player player);
+    void onPlayerUpdated(final Player player);
 }
