@@ -1,6 +1,7 @@
 package cs340.ui.fragments;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
@@ -175,6 +176,8 @@ public class PlayersFragment extends Fragment implements IPlayersFragment {
         playerCount = players.size();
         currentPlayer = ((GameActivity)getActivity()).getCurrentPlayer();
         currentGame = ((GameActivity)getActivity()).getCurrentGame();
+        boolean myTurn;
+        int turnid = ((GameActivity)getActivity()).getTurnIndex();
 
         boolean onCurrentPlayer = false;
         for (int i = 0; i < playerCount; i++){
@@ -184,6 +187,8 @@ public class PlayersFragment extends Fragment implements IPlayersFragment {
             } else {
                 onCurrentPlayer = false;
             }
+            myTurn = i == turnid;
+
 
             switch(i) {
                 case 0:
@@ -195,6 +200,9 @@ public class PlayersFragment extends Fragment implements IPlayersFragment {
                         pointsIcon1.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.points_icon_white, null));
                     }
                     playerName1.setText(players.get(i).getUsername());
+                    if (myTurn){ playerName1.setTypeface(null, Typeface.BOLD_ITALIC);}
+                    else{playerName1.setTypeface(null, Typeface.NORMAL);}
+
                     player1Title.setBackgroundColor(colorStringtoInt(currentGame.getColors().get(players.get(i).getUsername())));
                     if (destCardCount1 == null){ System.out.println("Dest Card Count is null"); }
                     if (players.get(i).getDestinations() == null){ System.out.println("getDestinations is null"); }
@@ -212,6 +220,8 @@ public class PlayersFragment extends Fragment implements IPlayersFragment {
                         pointsIcon2.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.points_icon_white, null));
                     }
                     playerName2.setText(players.get(i).getUsername());
+                    if (myTurn){ playerName2.setTypeface(null, Typeface.BOLD_ITALIC);}
+                    else{playerName2.setTypeface(null, Typeface.NORMAL);}
                     player2Title.setBackgroundColor(colorStringtoInt(currentGame.getColors().get(players.get(i).getUsername())));
                     destCardCount2.setText(Integer.toString(players.get(i).getDestinations().size()));
                     trainCardCount2.setText(Integer.toString(players.get(i).getCards().size()));
@@ -227,6 +237,8 @@ public class PlayersFragment extends Fragment implements IPlayersFragment {
                         pointsIcon3.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.points_icon_white, null));
                     }
                     playerName3.setText(players.get(i).getUsername());
+                    if (myTurn){ playerName3.setTypeface(null, Typeface.BOLD_ITALIC);}
+                    else{playerName3.setTypeface(null, Typeface.NORMAL);}
                     player3Title.setBackgroundColor(colorStringtoInt(currentGame.getColors().get(players.get(i).getUsername())));
                     destCardCount3.setText(Integer.toString(players.get(i).getDestinations().size()));
                     trainCardCount3.setText(Integer.toString(players.get(i).getCards().size()));
@@ -242,6 +254,8 @@ public class PlayersFragment extends Fragment implements IPlayersFragment {
                         pointsIcon4.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.points_icon_white, null));
                     }
                     playerName4.setText(players.get(i).getUsername());
+                    if (myTurn){ playerName4.setTypeface(null, Typeface.BOLD_ITALIC);}
+                    else{playerName4.setTypeface(null, Typeface.NORMAL);}
                     player4Title.setBackgroundColor(colorStringtoInt(currentGame.getColors().get(players.get(i).getUsername())));
                     destCardCount4.setText(Integer.toString(players.get(i).getDestinations().size()));
                     trainCardCount4.setText(Integer.toString(players.get(i).getCards().size()));
@@ -257,6 +271,8 @@ public class PlayersFragment extends Fragment implements IPlayersFragment {
                         pointsIcon5.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.points_icon_white, null));
                     }
                     playerName5.setText(players.get(i).getUsername());
+                    if (myTurn){ playerName5.setTypeface(null, Typeface.BOLD_ITALIC);}
+                    else{playerName5.setTypeface(null, Typeface.NORMAL);}
                     player5Title.setBackgroundColor(colorStringtoInt(currentGame.getColors().get(players.get(i).getUsername())));
                     destCardCount5.setText(Integer.toString(players.get(i).getDestinations().size()));
                     trainCardCount5.setText(Integer.toString(players.get(i).getCards().size()));

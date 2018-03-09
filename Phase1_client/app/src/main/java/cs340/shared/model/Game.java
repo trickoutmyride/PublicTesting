@@ -142,6 +142,10 @@ public class Game {
 		return remainingColors;
 	}
 
+	public int getTurn(){
+		return turn;
+	}
+
 	public ArrayList<TrainCard> getTrainFaceup() {
 		return trainFaceup;
 	}

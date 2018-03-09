@@ -57,17 +57,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
 
     //Phase 2 to dos
     //TODO: Test Button - only the current turn can press it
-    //TODO: Turns - index of turn, get current turn by indexing the ArrayList of players
-        //waiting for jking's end turn function
-        //wait in-between fake data additions
-
-    //TODO: actually discard the card - set current player's destination cards to "selected" arraylist
-
-
     //TODO: Add toasts to tests
-
-
-    //TODO: current player total not updated when deck card is drawn
 
 
 
@@ -489,6 +479,13 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
+    public boolean myTurn(){
+        return currentGame.getPlayers().get(currentGame.getTurn()).getUsername().equals(currentPlayer.getUsername());
+    }
+
+    public int getTurnIndex(){
+        return currentGame.getTurn();
+    }
 
     //Not sure if we need these:
 

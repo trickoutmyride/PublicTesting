@@ -16,4 +16,6 @@ public interface IGameActivity {
     Player getCurrentPlayer();
     void onDestinationCardsUpdated(Player player);
     void onPlayerUpdated(final Player player);
+    boolean myTurn();
+    int getTurnIndex();
 }
