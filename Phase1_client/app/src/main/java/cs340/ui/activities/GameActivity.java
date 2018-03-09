@@ -192,88 +192,82 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
                 if (myTurn()) {
 
                     // Chat (10 points)
-//                    LayoutInflater inflater = getLayoutInflater();
-//                    View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout));
-//                    TextView text = (TextView) layout.findViewById(R.id.custom_toast_text);
-//                    text.setText("Chat sent! Check device 2 chat log. 15s left\n");
-//                    Toast toast = new Toast(getApplicationContext());
-//                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-//                    toast.setDuration(Toast.LENGTH_LONG);
-//                    toast.setView(layout);
-//                    toast.show();
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout));
+                    TextView text = (TextView) layout.findViewById(R.id.custom_toast_text);
+                    text.setText("Chat sent! Check device 2 chat log. 15s left\n");
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
 
                     gamePresenter.sendMessage("I just sent a test message to everyone.");
 
-
-
-                    Toast.makeText(getApplicationContext(), "Claiming Helena to Duluth", Toast.LENGTH_SHORT).show();
-                    MapRoute route = MapRoute.getRouteMap().get(new Pair<>("duluth", "helena"));
-                    mapFragment.getPresenter().claimRoute(route);
-
                     // Game history, player info, face up deck, hand - all updated
-//                    new Handler().postDelayed(new Runnable(){
-//
-//                        @Override
-//                        public void run() {
-//                            // Indicate number of cards other players have (5 points)
-//                            // Hand of Current Player is displayed (5 points)
-//                            // Face up deck cards can change (5 points)
-//                            // Game History (5 points)
-//
-//                            LayoutInflater inflater = getLayoutInflater();
-//                            View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout));
-//                            TextView text = (TextView) layout.findViewById(R.id.custom_toast_text);
-//                            text.setText("I am about to select the 2nd card in the face up deck.\n");
-//                            Toast toast = new Toast(getApplicationContext());
-//                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-//                            toast.setDuration(Toast.LENGTH_LONG);
-//                            toast.setView(layout);
-//                            toast.show();
-//
-//                            new Handler().postDelayed(new Runnable() {
-//                                @Override
-//                                public void run() {
-//
-//                                    LayoutInflater inflater = getLayoutInflater();
-//                                    View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout));
-//                                    TextView text = (TextView) layout.findViewById(R.id.custom_toast_text);
-//                                    text.setText("Changed: hand, 2nd face up card, card count, game history\n");
-//                                    Toast toast = new Toast(getApplicationContext());
-//                                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-//                                    toast.setDuration(Toast.LENGTH_LONG);
-//                                    toast.setView(layout);
-//                                    toast.show();
-//
-//                                    deckFragment.cardSelected(1);
-//
-//
-//                                    //Turn is ended
-//                                    new Handler().postDelayed(new Runnable() {
-//                                        @Override
-//                                        public void run() {
-//                                            // Routes claimed shows on map (10 points)
-//                                            //      Player's points can be changed
-//                                            //      Trains remaining can be changed
-//
-//                                            Toast.makeText(getApplicationContext(), "Claiming Helena to Duluth", Toast.LENGTH_SHORT).show();
-//                                            MapRoute route = MapRoute.getRouteMap().get(new Pair<>("duluth", "helena"));
-//                                            mapFragment.getPresenter().claimRoute(route);
-//
-//                                            Toast toast = Toast.makeText(getApplicationContext(), "Turn ended - check player info", Toast.LENGTH_LONG);
-//                                            toast.show();
-//                                            TurnService.endTurn(currentPlayer);
-//                                        }
-//
-//                                    }, 20000);
-//
-//
-//
-//                                }
-//                            }, 5000);
-//
-//
-//                        }
-//                    }, 15000);
+                    new Handler().postDelayed(new Runnable(){
+
+                        @Override
+                        public void run() {
+                            // Indicate number of cards other players have (5 points)
+                            // Hand of Current Player is displayed (5 points)
+                            // Face up deck cards can change (5 points)
+                            // Game History (5 points)
+
+                            LayoutInflater inflater = getLayoutInflater();
+                            View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout));
+                            TextView text = (TextView) layout.findViewById(R.id.custom_toast_text);
+                            text.setText("I am about to select the 2nd card in the face up deck.\n");
+                            Toast toast = new Toast(getApplicationContext());
+                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.setView(layout);
+                            toast.show();
+
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    LayoutInflater inflater = getLayoutInflater();
+                                    View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout));
+                                    TextView text = (TextView) layout.findViewById(R.id.custom_toast_text);
+                                    text.setText("Changed: hand, 2nd face up card, card count, game history\n");
+                                    Toast toast = new Toast(getApplicationContext());
+                                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                                    toast.setDuration(Toast.LENGTH_LONG);
+                                    toast.setView(layout);
+                                    toast.show();
+
+                                    deckFragment.cardSelected(1);
+
+
+                                    //Turn is ended
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            // Routes claimed shows on map (10 points)
+                                            //      Player's points can be changed
+                                            //      Trains remaining can be changed
+
+                                            Toast.makeText(getApplicationContext(), "Claiming Helena to Duluth", Toast.LENGTH_SHORT).show();
+                                            MapRoute route = MapRoute.getRouteMap().get(new Pair<>("duluth", "helena"));
+                                            mapFragment.getPresenter().claimRoute(route);
+
+                                            Toast toast = Toast.makeText(getApplicationContext(), "Turn ended - check player info", Toast.LENGTH_LONG);
+                                            toast.show();
+                                            TurnService.endTurn(currentPlayer);
+                                        }
+
+                                    }, 20000);
+
+
+
+                                }
+                            }, 5000);
+
+
+                        }
+                    }, 15000);
 
                 }
 
