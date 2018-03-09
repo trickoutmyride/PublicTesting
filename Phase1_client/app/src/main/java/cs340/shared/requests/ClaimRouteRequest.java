@@ -1,27 +1,30 @@
 package cs340.shared.requests;
 
 import cs340.shared.model.Player;
+import cs340.shared.model.Route;
 
 public class ClaimRouteRequest {
 	private Player player;
-	private String start;
-	private String end;
+	private Route route;
 
-	public ClaimRouteRequest(Player player, String start, String end) {
+	public ClaimRouteRequest(Player player, Route route) {
 		this.player = player;
-		this.start = start;
-		this.end = end;
+		this.route = route;
 	}
 
 	public Player getPlayer() {
 		return player;
 	}
 
-	public String getStart() {
-		return start;
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 
-	public String getEnd() {
-		return end;
+	public Route getRoute() {
+		return route;
+	}
+
+	public void setRoute(Route route) {
+		this.route = route;
 	}
 }
