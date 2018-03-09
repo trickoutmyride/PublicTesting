@@ -7,6 +7,7 @@ import cs340.client.results.DiscardDestinationResult;
 import cs340.client.results.DrawDestinationResult;
 import cs340.client.results.DrawFaceupResult;
 import cs340.client.results.DrawTrainCardResult;
+import cs340.client.results.EndTurnResult;
 import cs340.client.results.GameHistoryResult;
 import cs340.client.results.GameResult;
 import cs340.client.results.JoinGameResult;
@@ -103,6 +104,13 @@ public class ClientFacade implements IClient {
 		System.out.println("ClientFacade: gameHistory()" + gameHistoryJson);
 		GameHistoryResult result = gson.fromJson(gameHistoryJson, GameHistoryResult.class);
 		ClientModel.getInstance().updateHistory(result.getType() + ": " + result.getContents());
+	}
+
+	public void endTurn(String endTurnJson) {
+		System.out.println("ClientFacade: endTurn()" + endTurnJson);
+		EndTurnResult result = gson.fromJson(endTurnJson, EndTurnResult.class);
+		TurnService.nextTurn(result.getGame());
+
 	}
 
 	public void error(String error) {

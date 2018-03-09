@@ -13,6 +13,7 @@ import cs340.shared.requests.DiscardDestinationRequest;
 import cs340.shared.requests.DrawDestinationRequest;
 import cs340.shared.requests.DrawFaceupRequest;
 import cs340.shared.requests.DrawTrainCardRequest;
+import cs340.shared.requests.EndTurnRequest;
 import cs340.shared.requests.JoinGameRequest;
 import cs340.shared.requests.SignInRequest;
 import cs340.shared.requests.StartGameRequest;
@@ -89,6 +90,13 @@ public class ServerProxy implements IServer {
 		DrawFaceupRequest drawRequest = (DrawFaceupRequest) request;
 		ServerCommand command = CommandManager.getInstance().makeCommand("drawFaceup", request);
 		ServerMessage message = new ServerMessage(drawRequest.getPlayer().getAuthToken(), command);
+		ClientCommunicator.getInstance().sendMessage(message);
+	}
+
+	public void endTurn(Object request) {
+		EndTurnRequest endRequest = (EndTurnRequest) request;
+		ServerCommand command = CommandManager.getInstance().makeCommand("endTurn", request);
+		ServerMessage message = new ServerMessage(endRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
 	}
 
