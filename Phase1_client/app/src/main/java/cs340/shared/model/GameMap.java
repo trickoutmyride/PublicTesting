@@ -10,7 +10,7 @@ import cs340.ui.R;
 
 public class GameMap {
     private Game game;
-    private ArrayList<Observer> observers;
+    private List<Observer> observers;
     private Map<Pair<String, String>, MapRoute> routes = MapRoute.copyRouteMap();
 
     public GameMap(Game game) {

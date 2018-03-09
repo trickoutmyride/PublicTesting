@@ -3,6 +3,7 @@ package cs340.client.services;
 import com.google.gson.Gson;
 
 import cs340.client.results.CreateGameResult;
+import cs340.client.results.DiscardDestinationResult;
 import cs340.client.results.DrawDestinationResult;
 import cs340.client.results.DrawFaceupResult;
 import cs340.client.results.DrawTrainCardResult;
@@ -77,12 +78,14 @@ public class ClientFacade implements IClient {
 
 	public void discardDestination(String destinationJson) {
 		System.out.println("ClientFacade: discardDestination()" + destinationJson);
+		DiscardDestinationResult result = gson.fromJson(destinationJson, DiscardDestinationResult.class);
+		DeckService.onDiscardDestinationCards(result.getPlayer());
 	}
 
 	public void drawFaceup(String trainJson) {
 		System.out.println("ClientFacade: drawFaceup()" + trainJson);
 		DrawFaceupResult result = gson.fromJson(trainJson, DrawFaceupResult.class);
-		DeckService.onDrawTrainCards(result.getIndex(), result.getDrawnCard(), result.getPlayer().getCards());
+		DeckService.onDrawTrainCards(result.getIndex(), result.getDrawnCard(), result.getPlayer());
 	}
 
 	public void drawTrainCard(String trainJson) {
