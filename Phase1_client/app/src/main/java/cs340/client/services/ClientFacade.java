@@ -2,6 +2,7 @@ package cs340.client.services;
 
 import com.google.gson.Gson;
 
+import cs340.client.results.ClaimRouteResult;
 import cs340.client.results.CreateGameResult;
 import cs340.client.results.DiscardDestinationResult;
 import cs340.client.results.DrawDestinationResult;
@@ -110,7 +111,12 @@ public class ClientFacade implements IClient {
 		System.out.println("ClientFacade: endTurn()" + endTurnJson);
 		EndTurnResult result = gson.fromJson(endTurnJson, EndTurnResult.class);
 		TurnService.nextTurn(result.getGame());
+	}
 
+	public void claimRoute(String routeJson) {
+		System.out.println("claimRoute: " + routeJson);
+		ClaimRouteResult result = gson.fromJson(routeJson, ClaimRouteResult.class);
+		MapService.onRouteClaimed(result.getUsername(), result.getRoute());
 	}
 
 	public void error(String error) {

@@ -1,5 +1,7 @@
 package cs340.client.services;
 
+import java.util.ArrayList;
+
 import cs340.client.communication.ServerProxy;
 import cs340.shared.model.ClientModel;
 import cs340.shared.model.Player;
@@ -14,7 +16,9 @@ public class MapService {
 		ClaimRouteRequest request = new ClaimRouteRequest(player, new Route (start, end, -1, color));
 		proxy.claimRoute(request);
 	}
-	public static void onRouteClaimed(Player player, String start, String end) {
-		ClientModel.getInstance().getCurrentGame().getGameMap().onRouteClaimed(player, start, end);
+	public static void onRouteClaimed(String username, Route route) {
+		ClientModel model = ClientModel.getInstance();
+		ArrayList<String> endpoints = route.getEndpoints();
+		ClientModel.getInstance().getCurrentGame().getGameMap().onRouteClaimed(username, endpoints.get(0), endpoints.get(1));
 	}
 }

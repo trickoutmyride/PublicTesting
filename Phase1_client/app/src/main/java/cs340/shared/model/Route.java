@@ -6,7 +6,7 @@ public class Route {
 	private ArrayList<String> endpoints;
 	private int spaces;
 	private String color;
-	
+
 	public Route(String start, String end, int spaces, String color) {
 		this.endpoints = endpoints;
 		this.spaces = spaces;
@@ -28,9 +28,17 @@ public class Route {
 	public void setSpaces(int spaces) {
 		this.spaces = spaces;
 	}
-	
+
 	public int getPointValue(){
-		return 0; //Stub
+		switch(this.spaces){
+			case 1: return 1;
+			case 2: return 2;
+			case 3: return 4;
+			case 4: return 7;
+			case 5: return 10;
+			case 6: return 15;
+		}
+		return 0;
 	}
 
 	public String getColor() {
