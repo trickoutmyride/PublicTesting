@@ -56,7 +56,9 @@ public class DeckFragment extends Fragment implements IDeckFragment {
         deckButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deckPresenter.drawFromDeck();
+                if (((GameActivity)getActivity()).myTurn()) {
+                    deckPresenter.drawFromDeck();
+                }
             }
         });
 
@@ -100,8 +102,11 @@ public class DeckFragment extends Fragment implements IDeckFragment {
         faceUpCardsView.setAdapter(deckCardAdapter);
     }
 
+    //Only select a card if it's my turn
     public void cardSelected(int index){
-        deckPresenter.cardSelected(index);
+        if (((GameActivity)getActivity()).myTurn()) {
+            deckPresenter.cardSelected(index);
+        }
     }
 
     public GameActivity getGameActivity(){

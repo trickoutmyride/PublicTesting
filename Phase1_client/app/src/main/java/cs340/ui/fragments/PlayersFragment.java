@@ -126,6 +126,7 @@ public class PlayersFragment extends Fragment implements IPlayersFragment {
 
         if (player.getUsername().equals(currentPlayer.getUsername())){
             System.out.println("onPlayerUpdated() - Current Player");
+            currentPlayer = player;
         }
         int playerNumber = 0;
 

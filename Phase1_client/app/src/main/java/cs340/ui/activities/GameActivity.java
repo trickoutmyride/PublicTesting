@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -53,13 +54,6 @@ import cs340.ui.presenters.interfaces.IGamePresenter;
  *
  */
 public class GameActivity extends AppCompatActivity implements IGameActivity, DestinationCardFragment.DestinationCardDialogListener {
-
-
-    //Phase 2 to dos
-    //TODO: Test Button - only the current turn can press it
-    //TODO: Add toasts to tests
-
-
 
     //Not as important:
     //TODO: Detach presenters
@@ -185,34 +179,62 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
             @Override
             public void onClick(View view) {
 
-                // Chat (10 points)
-                //      Chat can be tested by sending a chat message, no need for a fake data function
+                if (myTurn()) {
 
-                // Game History (5 points)
-                //      Create some fake history items
-                createFakeHistory();
+                    // Chat (10 points)
 
-                //TODO: Wait for 5s right here
+                    gamePresenter.sendMessage("I just sent a test message to everyone.");
+                    Toast toast = Toast.makeText(getApplicationContext(), "Chat sent! Check device 2 chat log. 10s left", Toast.LENGTH_SHORT);
+                    toast.show();
 
-                // Hand of Current Player is displayed (5 points)
-                //      Add a few fake cards to the player's hand
-                createFakeHand();
+                    new Handler().postDelayed(new Runnable(){
+
+                        @Override
+                        public void run() {
+                            // Indicate number of cards other players have (5 points)
+                            // Hand of Current Player is displayed (5 points)
+                            // Face up deck cards can change (5 points)
+                            // Game History (5 points)
+
+                            deckFragment.cardSelected(1);
+                            Toast newToast = Toast.makeText(getApplicationContext(), "Selected face up card 1! 20s left", Toast.LENGTH_SHORT);
+                            newToast.show();
+                            newToast = Toast.makeText(getApplicationContext(), "See device 2 - card count update, face up deck, history. 18s left", Toast.LENGTH_SHORT);
+                            newToast.show();
+                            newToast = Toast.makeText(getApplicationContext(), "See current device 1 - hand changed. 16s left", Toast.LENGTH_SHORT);
+                            newToast.show();
+
+                            /*
+                            new Handler().post(new Runnable(){
+                                @Override
+                                public void run() {
+                                    // Routes claimed shows on map (10 points)
+                                    //      Player's points can be changed
+                                    //      Trains remaining can be changed
+
+                                    //TODO: @brettbeatty implement map
 
 
-                // Indicate number of cards other players have (5 points)
-                //      Have another player draw a card, update from server. No fake data function needed
 
-                // Face up deck cards can change (5 points)
-                //      Draw a card, have face up cards update. No fake data function needed
 
-                // Routes claimed shows on map (10 points)
-                //      Player's points can be changed
-                //      Trains remaining can be changed
+                                    new Handler().post(new Runnable(){
 
-                //TODO: @brettbeatty implement map
+                                        @Override
+                                        public void run() {
+                                           // Turn can be changed (5 points)
+                                           //TODO: end turn automated test
+                                        }
+                                    }, 10000);
+                                    */
+                            /*
+                                }
+                            }, 15000);
+                            */
 
-                // Turn can be changed (5 points)
-                //TODO: Turn implementation
+                        }
+                    }, 10000);
+
+                }
 
             }
         });
@@ -445,6 +467,12 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
 
     @Override
     public void onDestinationCardsUpdated(final Player player){
+        System.out.println("GameActivity onDestinationCardsUpdated() ");
+
+        for (DestinationCard c : player.getDestinations()){
+            System.out.println(c.getStartPoint() + " to " + c.getEndPoint());
+        }
+
         runOnUiThread(new Runnable(){
             @Override
             public void run() {

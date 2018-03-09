@@ -22,11 +22,13 @@ public class GamePresenter implements IGamePresenter, ClientModel.HistoryObserve
         this.gameActivity = gameActivity;
         ClientModel.getInstance().addChatObserver(this);
         ClientModel.getInstance().addHistoryObserver(this);
+        ClientModel.getInstance().addGameObserver(this);
     }
 
     public void detach(){
         ClientModel.getInstance().removeChatObserver(this);
         ClientModel.getInstance().removeHistoryObserver(this);
+        ClientModel.getInstance().addGameObserver(this);
     }
 
     @Override

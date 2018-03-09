@@ -44,6 +44,7 @@ public class DeckService {
 	}
 
 	public static void onDiscardDestinationCards(Player player) {
+		System.out.println("DeckService onDiscardDestinationCards()");
 		ClientModel.getInstance().updatePlayerDestinationCards(player);
 	}
 }
