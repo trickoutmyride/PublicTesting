@@ -229,7 +229,7 @@ public class ClientModel {
     //Done
 
     public interface DeckObserver extends ErrorObserver {
-        void updateFaceUpDeck(int index, TrainCard card, Player player);
+        void updateFaceUpDeck(int index, TrainCard card, TrainCard newCard, Player player);
     }
 
     public void addDeckObserver(DeckObserver observer){
@@ -243,8 +243,8 @@ public class ClientModel {
     }
 
     //Update cards in the face up deck
-    public void updateFaceUpDeck(int index, TrainCard card, Player player){
-        for (DeckObserver observer : deckObservers){ observer.updateFaceUpDeck(index, card, player); }
+    public void updateFaceUpDeck(int index, TrainCard oldCard, TrainCard newCard, Player player){
+        for (DeckObserver observer : deckObservers){ observer.updateFaceUpDeck(index, oldCard, newCard, player); }
     }
 
     //Chat Functions

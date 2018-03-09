@@ -31,8 +31,8 @@ public class DeckService {
 		proxy.drawFaceupCard(new DrawFaceupRequest(player, index));
 	}
 
-	public static void onDrawTrainCards(int index, TrainCard drawnCard, Player player){
-		ClientModel.getInstance().updateFaceUpDeck(index, drawnCard, player);
+	public static void onDrawTrainCards(int index, TrainCard drawnCard, TrainCard newCard, Player player){
+		ClientModel.getInstance().updateFaceUpDeck(index, drawnCard, newCard, player);
 	}
 
 	public static void onDrawDeckCard(Player player){

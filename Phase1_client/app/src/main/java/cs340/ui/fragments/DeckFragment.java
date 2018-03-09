@@ -82,6 +82,8 @@ public class DeckFragment extends Fragment implements IDeckFragment {
     @Override
     public void onFaceUpCardUpdated(TrainCard card, int index){
 
+        System.out.println("Old Card: " + currentFaceUpCards.get(index).getColor() + ", New Card: " + card.getColor() + ".");
+
         //REPLACE SINGLE CARD IN ARRAY
         currentFaceUpCards.remove(index);
         currentFaceUpCards.add(index, card);

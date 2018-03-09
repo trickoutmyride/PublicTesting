@@ -411,8 +411,9 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
     @Override
     public void onDrawnDestinationCards(ArrayList<DestinationCard> cards){}
 
+    //called by updateFaceUpDeck in DeckPresenter
     @Override
-    public void onPlayerCardsUpdated(final int index, final TrainCard card, final Player player){
+    public void onPlayerCardsUpdated(final int index, final TrainCard oldCard, final TrainCard newCard, final Player player){
 
         runOnUiThread(new Runnable() {
             @Override
@@ -422,7 +423,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
                     handFragment.onTrainCardsUpdated(currentPlayer);
                 }
                 playersFragment.onPlayerUpdated(player);
-                deckFragment.onFaceUpCardUpdated(card, index);
+                deckFragment.onFaceUpCardUpdated(newCard, index);
             }
         });
     }
