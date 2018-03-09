@@ -38,7 +38,7 @@ import cs340.ui.presenters.interfaces.IGamePresenter;
  * This Activity controls the main UI for the actual game.
  *
  * Persistent fragments:
- *      MapFragment       displays the current map
+ *      GameMapFragment       displays the current map
  *      PlayersFragment   displays information about the game's players
  *      HandFragment      displays cards in the current player's hand
  *      DeckFragment      displays deck, face up cards that can be drawn on a turn

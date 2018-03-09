@@ -20,7 +20,7 @@ public class Game {
 	private ArrayList<Route> unclaimedRoutes;
 	private ArrayList<TrainCard> trainDeck;
 	private ArrayList<TrainCard> trainFaceup;
-	private Map gameMap;
+	private GameMap gameMap = new GameMap(this);
 
 	/* "Maybe Later" Fields */
 	//private Map gameMap;
@@ -45,6 +45,11 @@ public class Game {
 		lobbyObservers.add(observer);
 		addErrorObserver(observer);
 	}
+
+	public GameMap getGameMap() {
+		return gameMap;
+	}
+
 	public String getGameName() {
 		return gameName;
 	}
