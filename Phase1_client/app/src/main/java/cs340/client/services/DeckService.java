@@ -42,4 +42,8 @@ public class DeckService {
 	public static void onDrawDestinationCards(ArrayList<DestinationCard> cards) {
 		ClientModel.getInstance().newDestinationCards(cards);
 	}
+
+	public static void onDiscardDestinationCards(Player player) {
+		ClientModel.getInstance().updatePlayerDestinationCards(player);
+	}
 }
