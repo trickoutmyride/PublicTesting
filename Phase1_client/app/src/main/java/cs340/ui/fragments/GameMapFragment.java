@@ -52,6 +52,10 @@ public class GameMapFragment extends Fragment implements IMapFragment, OnMapRead
         return BitmapDescriptorFactory.fromBitmap(image);
     }
 
+    public MapPresenter getPresenter() {
+        return presenter;
+    }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

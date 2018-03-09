@@ -26,14 +26,14 @@ public class GameMap {
         String colorName = game.getColors().get(player.getUsername());
         Integer color;
         switch (colorName) {
+            case "black":
+                color = R.color.player_black;
+                break;
             case "blue":
                 color = R.color.player_blue;
                 break;
             case "green":
                 color = R.color.player_green;
-                break;
-            case "purple":
-                color = R.color.player_purple;
                 break;
             case "red":
                 color = R.color.player_red;
