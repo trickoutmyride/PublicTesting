@@ -7,16 +7,6 @@
     tools:context="cs340.ui.activities.GameActivity">
 
 
-    <Button
-        android:id="@+id/testButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/historyButton"
-        android:layout_alignStart="@+id/mapFragment"
-        android:background="@drawable/card_count_border"
-        android:text="@string/fake_data_button"
-        android:textColor="@android:color/white" />
-
     <ImageButton
         android:id="@+id/destinationCardButton"
         android:layout_width="70dp"
@@ -80,7 +70,7 @@
         android:layout_width="100dp"
         android:layout_height="335dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/testButton"
+        android:layout_below="@+id/historyButton"
         tools:layout="@layout/fragment_players" />
 
 </android.widget.RelativeLayout>

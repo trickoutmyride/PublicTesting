@@ -41,6 +41,7 @@
     <string name="start_game_label">Start Game</string>
     <string name="logout_button_label">Logout</string>
     <string name="game_lobby_label">Game Lobby</string>
+    <string name="end_game_label">Game Over</string>
 
 
 

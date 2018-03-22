@@ -6,11 +6,11 @@
 
     <ImageButton
         android:id="@+id/face_up_card"
-        android:contentDescription="@string/face_up_card"
-        android:layout_width="90dp"
+        android:layout_width="100dp"
         android:layout_height="55dp"
-        android:scaleType="fitXY"
+        android:contentDescription="@string/face_up_card"
         android:padding="0dp"
+        android:scaleType="fitXY"
         app:srcCompat="@drawable/traincard_black_landscape" />
 
 </RelativeLayout>

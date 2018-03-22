@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/end_game_list_item_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/rounded_grey_background">
+
+    <TextView
+        android:id="@+id/end_game_list_item_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_weight="1"
+        android:text="username"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/end_game_list_item_points_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_weight="1"
+        android:text="Points:"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/end_game_list_item_points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_weight="1"
+        android:text="0"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/end_game_list_item_routes_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_weight="1"
+        android:text="Routes:"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/end_game_list_item_routes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="0"
+        android:textColor="@android:color/black" />
+
+</LinearLayout>
