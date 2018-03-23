@@ -1,6 +1,7 @@
 package cs340.client.services;
 
 import cs340.client.communication.ServerProxy;
+import cs340.client.states.MyTurnState;
 import cs340.shared.model.ClientModel;
 import cs340.shared.model.Game;
 import cs340.shared.model.Player;
@@ -19,5 +20,10 @@ public class TurnService {
 
 	public static void nextTurn(Game game) {
 		ClientModel.getInstance().changeTurn(game);
+		String usernameWithTurn = game.getPlayers().get(game.getTurn()).getUsername();
+		String usernameOfClient = ClientModel.getInstance().getCurrentPlayer().getUsername();
+		if (usernameWithTurn.equals(usernameOfClient)) {
+			ServerProxy.setTurnState(new MyTurnState());
+		}
 	}
 }

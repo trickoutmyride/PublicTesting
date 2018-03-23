@@ -3,6 +3,9 @@ package cs340.client.communication;
 import com.google.gson.Gson;
 
 import cs340.client.command.CommandManager;
+import cs340.client.states.MyTurnState;
+import cs340.client.states.NotMyTurnState;
+import cs340.client.states.TurnState;
 import cs340.shared.command.ServerCommand;
 import cs340.shared.interfaces.IServer;
 import cs340.shared.message.ServerMessage;
@@ -20,9 +23,19 @@ import cs340.shared.requests.StartGameRequest;
 
 public class ServerProxy implements IServer {
 	private static Gson gson = new Gson();
+	private static TurnState turnState;
+
+	/**
+	 * Called by the TurnService when an EndTurn command is received informing us that it is now our turn.
+	 * @param newTurnState
+	 */
+	public static void setTurnState(TurnState newTurnState) {
+		turnState = newTurnState;
+	}
 
 	@Override
 	public void createGame(Object request) {
+		turnState = new MyTurnState();
 		CreateGameRequest createRequest = (CreateGameRequest) request;
 		ServerCommand command = CommandManager.getInstance().makeCommand("createGame", request);
 		ServerMessage message = new ServerMessage(createRequest.getPlayer().getAuthToken(), command);
@@ -31,6 +44,7 @@ public class ServerProxy implements IServer {
 
 	@Override
 	public void joinGame(Object request) {
+		turnState = new NotMyTurnState();
 		JoinGameRequest joinRequest = (JoinGameRequest) request;
 		ServerCommand command = CommandManager.getInstance().makeCommand("joinGame", request);
 		ServerMessage message = new ServerMessage(joinRequest.getPlayer().getAuthToken(), command);
@@ -58,39 +72,59 @@ public class ServerProxy implements IServer {
 		ClientCommunicator.getInstance().sendMessage(message);
 	}
 
-	public void claimRoute(Object request) {
+	public boolean claimRoute(Object request) {
 		ClaimRouteRequest claimRequest = (ClaimRouteRequest) request;
+		turnState = turnState.claimRoute((claimRequest).getPlayer());
+		if (!turnState.isSuccess()) return false;
+
 		ServerCommand command = CommandManager.getInstance().makeCommand("claimRoute", request);
 		ServerMessage message = new ServerMessage(claimRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
+		return true;
 	}
 
-	public void drawDestination(Object request) {
+	public boolean drawDestination(Object request) {
 		DrawDestinationRequest drawRequest = (DrawDestinationRequest) request;
+		turnState = turnState.drawDestination((drawRequest).getPlayer());
+		if (!turnState.isSuccess()) return false;
+
 		ServerCommand command = CommandManager.getInstance().makeCommand("drawDestination", request);
 		ServerMessage message = new ServerMessage(drawRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
+		return true;
 	}
 
-	public void discardDestination(Object request) {
+	public boolean discardDestination(Object request) {
 		DiscardDestinationRequest discardRequest = (DiscardDestinationRequest) request;
+		turnState = turnState.drawDestination((discardRequest).getPlayer());
+		if (!turnState.isSuccess()) return false;
+
 		ServerCommand command = CommandManager.getInstance().makeCommand("discardDestination", request);
 		ServerMessage message = new ServerMessage(discardRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
+		return true;
 	}
 
-	public void drawTrainCard (Object request) {
+	public boolean drawTrainCard (Object request) {
 		DrawTrainCardRequest drawRequest = (DrawTrainCardRequest) request;
+		turnState = turnState.drawTrainCard((drawRequest).getPlayer());
+		if (!turnState.isSuccess()) return false;
+
 		ServerCommand command = CommandManager.getInstance().makeCommand("drawTrainCard", request);
 		ServerMessage message = new ServerMessage(drawRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
+		return true;
 	}
 
-	public void drawFaceupCard (Object request) {
+	public boolean drawFaceupCard (Object request) {
 		DrawFaceupRequest drawRequest = (DrawFaceupRequest) request;
+		turnState = turnState.drawFaceupCard((drawRequest).getPlayer(), drawRequest);
+		if (!turnState.isSuccess()) return false;
+
 		ServerCommand command = CommandManager.getInstance().makeCommand("drawFaceup", request);
 		ServerMessage message = new ServerMessage(drawRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
+		return true;
 	}
 
 	public void endTurn(Object request) {

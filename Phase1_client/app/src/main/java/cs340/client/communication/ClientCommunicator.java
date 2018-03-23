@@ -27,20 +27,18 @@ import cs340.shared.requests.SignInRequest;
 		encoders = MessageEncoder.class
 )
 public class ClientCommunicator {
-	//private static final String address = "wss://real.okcoin.cn:10440/websocket/okcoinapi";
-	//private static final String address = "ws://localhost:8080/ws/command";
-	//private static final String address = "ws://10.37.127.81:8080/ws/command";
-
-	//private static final String address = "ws://10.24.198.43:8080/ws/command";
 
 	private static final String address = "ws://10.24.217.139:8080/ws/command";
-
 	private static ClientCommunicator singleton;
 	private Session userSession = null;
 	private MessageHandler messageHandler;
 	private Gson gson = new Gson();
 
-
+	/**
+	 * @pre class variable address is a valid address for the Java server.
+	 * @return The Singleton ClientCommunicator
+	 * @post Creates a new ClientCommunicator to be the Singleton if there wasn't one already.
+	 */
 	public static ClientCommunicator getInstance() {
 		if (singleton == null) {
 			System.out.println("Connecting to " + address);
@@ -53,7 +51,14 @@ public class ClientCommunicator {
 		return singleton;
 	}
 
-	public ClientCommunicator(URI endpointURI) {
+	/**
+	 * @pre There is no other ClientCommunicator created.
+	 * @pre endpointURI is a valid address for the Java server.
+	 * @param endpointURI
+	 * @post WebSocket is connected.
+	 *
+	 */
+	private ClientCommunicator(URI endpointURI) {
 		try {
 			WebSocketContainer container = ContainerProvider.getWebSocketContainer();
 			container.connectToServer(this, endpointURI);
@@ -66,9 +71,10 @@ public class ClientCommunicator {
 	}
 
 	/**
-	 * Callback hook for Connection open events.
-	 *
+	 * Callback for Connection open events.
+	 * @pre the WebSocket has opened
 	 * @param userSession the userSession which is opened.
+	 * @post the userSession variable in the ClientCommunicator Singleton is set as the param Session.
 	 */
 	@OnOpen
 	public void onOpen(Session userSession) {
@@ -78,9 +84,10 @@ public class ClientCommunicator {
 
 	/**
 	 * Callback hook for Connection close events.
-	 *
+	 * @pre Connection has closed.
 	 * @param userSession the userSession which is getting closed.
 	 * @param reason the reason for connection close
+	 * @post the userSession variable in the ClientCommunicator Singleton is set to null.
 	 */
 	@OnClose
 	public void onClose(Session userSession, CloseReason reason) {
@@ -89,8 +96,10 @@ public class ClientCommunicator {
 	}
 
 	/**
-	 * Callback hook for Message Events. This method will be invoked when a client send a message.
-	 * @param message The text message
+	 * Callback hook for Message Events. This method will be invoked when a client receives a message.
+	 * @pre A message has been received.
+	 * @param message The message in JSON String format
+	 * @post The message received is passed to the MessageHandler that ClientCommunicator has a pointer to.
 	 */
 	@OnMessage
 	public void onMessage(String message) {
@@ -105,16 +114,12 @@ public class ClientCommunicator {
 	}
 
 	/**
-	 * register message handler
-	 *
-	 * @param message
+	 * @pre WebSocket connection is currently open.
+	 * @param message The ServerMessage desired to be sent to the server.
+	 * @post The ServerMessage is sent to the server via the WebSocket connection.
 	 */
 	public void sendMessage(ServerMessage message) {
-		//String send = encoder.encode(message);
-		System.out.println("Sending test message object..." + message.getId());
-		//System.out.println(encoder.encode(message));
-		//Log.d("ClientCommunicator", "Sending test message object..." + message.getId() + "\n" + message.getContents());
-		//this.userSession.getAsyncRemote().sendObject(message);
+		System.out.println("Sending message object..." + message.getId());
 		this.userSession.getAsyncRemote().sendText(gson.toJson(message));
 	}
 
