@@ -2,32 +2,18 @@ package cs340.ui.activities;
 
 import android.app.DialogFragment;
 import android.app.FragmentManager;
-import android.os.CountDownTimer;
-import android.os.Handler;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Pair;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
-
-import cs340.client.services.ChatService;
 import cs340.client.services.DeckService;
-import cs340.client.services.TurnService;
 import cs340.shared.model.DestinationCard;
 import cs340.shared.model.Game;
-import cs340.shared.model.MapRoute;
 import cs340.shared.model.Player;
 import cs340.shared.model.TrainCard;
 import cs340.ui.R;
@@ -62,13 +48,23 @@ import cs340.ui.presenters.interfaces.IGamePresenter;
  */
 public class GameActivity extends AppCompatActivity implements IGameActivity, DestinationCardFragment.DestinationCardDialogListener {
 
+    //Phase 3 To Dos:
+    //TODO: Presenter onError
+    //TODO: Draw Additional Destination Cards
+        //When you draw additional, you must keep at least one
+        //End turn after draw
+    //TODO: Drawing Train Cards
+        //Lock in
+        //Can draw two face down cards
+        //Can draw two non-wild cards
+        //If you draw one non-wild, you can either draw from the deck OR draw a non-wild
+        //End turn after draw
+    //TODO: Switch to End Game Activity when game ends
 
     //Phase 2 to dos
     //TODO: Detach presenters
     //TODO: Implement draw destination card functionality (phase 3?)
-    //TODO: Presenter onError methods
     //TODO: Display points on Destination Card?
-
 
     //Phase 1 to dos
     //TODO: Implement capacity check (LobbyActivity)
@@ -115,7 +111,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         FragmentManager fm = getFragmentManager();
         destinationCardFragment.setArguments(bundle);
         destinationCardFragment.show(fm, "destinationfragment");
-
 
         //Initialize the rest of the fragments
 
@@ -182,97 +177,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
 
         mapFragment = (GameMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
 
-
-        //  Test Driver
-        Button testButton = findViewById(R.id.testButton);
-        testButton.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (myTurn()) {
-
-                    // Chat (10 points)
-                    LayoutInflater inflater = getLayoutInflater();
-                    View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout));
-                    TextView text = (TextView) layout.findViewById(R.id.custom_toast_text);
-                    text.setText("Chat sent! Check device 2 chat log. 15s left\n");
-                    Toast toast = new Toast(getApplicationContext());
-                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                    toast.setDuration(Toast.LENGTH_LONG);
-                    toast.setView(layout);
-                    toast.show();
-
-                    gamePresenter.sendMessage("I just sent a test message to everyone.");
-
-                    // Game history, player info, face up deck, hand - all updated
-                    new Handler().postDelayed(new Runnable(){
-
-                        @Override
-                        public void run() {
-                            // Indicate number of cards other players have (5 points)
-                            // Hand of Current Player is displayed (5 points)
-                            // Face up deck cards can change (5 points)
-                            // Game History (5 points)
-
-                            LayoutInflater inflater = getLayoutInflater();
-                            View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout));
-                            TextView text = (TextView) layout.findViewById(R.id.custom_toast_text);
-                            text.setText("I am about to select the 2nd card in the face up deck.\n");
-                            Toast toast = new Toast(getApplicationContext());
-                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                            toast.setDuration(Toast.LENGTH_LONG);
-                            toast.setView(layout);
-                            toast.show();
-
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-
-                                    LayoutInflater inflater = getLayoutInflater();
-                                    View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout));
-                                    TextView text = (TextView) layout.findViewById(R.id.custom_toast_text);
-                                    text.setText("Changed: hand, 2nd face up card, card count, game history\n");
-                                    Toast toast = new Toast(getApplicationContext());
-                                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                                    toast.setDuration(Toast.LENGTH_LONG);
-                                    toast.setView(layout);
-                                    toast.show();
-
-                                    deckFragment.cardSelected(1);
-
-
-                                    //Turn is ended
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            // Routes claimed shows on map (10 points)
-                                            //      Player's points can be changed
-                                            //      Trains remaining can be changed
-
-                                            Toast.makeText(getApplicationContext(), "Claiming Helena to Duluth", Toast.LENGTH_SHORT).show();
-                                            MapRoute route = MapRoute.getRouteMap().get(new Pair<>("duluth", "helena"));
-                                            mapFragment.getPresenter().claimRoute(route);
-
-                                            Toast toast = Toast.makeText(getApplicationContext(), "Turn ended - check player info", Toast.LENGTH_LONG);
-                                            toast.show();
-                                            TurnService.endTurn(currentPlayer);
-                                        }
-
-                                    }, 20000);
-
-
-
-                                }
-                            }, 5000);
-
-
-                        }
-                    }, 15000);
-
-                }
-
-            }
-        });
     }
 
 
@@ -408,8 +312,26 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         });
     }
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    @Override
+    public void onGameEnded() {
+        //Go to game over activity
+        Intent intent = new Intent(this, EndGameActivity.class);
+        Gson gson = new Gson();
 
+        //Pass game and current player to the game over activity
+        intent.putExtra("currentGame", gson.toJson(currentGame));
+        intent.putExtra("currentPlayer", gson.toJson(currentPlayer));
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onError(String message){
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -437,8 +359,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
     }
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
 
 }
 

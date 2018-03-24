@@ -20,4 +20,6 @@ public interface IGameActivity {
     boolean myTurn();
     int getTurnIndex();
     void onTurnUpdated(final Game game);
+    void onError(String message);
+    void onGameEnded();
 }

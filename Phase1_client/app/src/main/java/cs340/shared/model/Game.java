@@ -20,6 +20,9 @@ public class Game {
 	private ArrayList<TrainCard> trainDeck;
 	private ArrayList<TrainCard> trainFaceup;
 	private GameMap gameMap;
+	private int winner;
+	private int longestRoadIndex;
+
 
 	/* "Maybe Later" Fields */
 	//private Map gameMap;
@@ -148,5 +151,13 @@ public class Game {
 
 	public ArrayList<TrainCard> getTrainFaceup() {
 		return trainFaceup;
+	}
+
+	public int getWinner(){
+		return this.winner;
+	}
+
+	public int getLongestRoadIndex(){
+		return this.longestRoadIndex;
 	}
 }

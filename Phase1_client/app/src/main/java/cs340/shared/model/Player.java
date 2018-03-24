@@ -11,7 +11,12 @@ public class Player {
 	private ArrayList<DestinationCard> destinations;
 	private ArrayList<Route> claimedRoutes;
 	private int points;
+	private int claimedRoutePoints;
+	private int longestRoutePoints;
+	private int reachedDestinationPoints;
+	private int unreachedDestinationPoints;
 	private int trainCars;
+
 
 	public Player(String u, String p, String a){
 		this.username = u;
@@ -32,53 +37,27 @@ public class Player {
 	public String getPassword() {
 		return password;
 	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
 	public String getAuthToken() {
 		return authToken;
 	}
-	public void setAuthToken(String authToken) {
-		this.authToken = authToken;
-	}
-
 	public ArrayList<TrainCard> getCards() {
 		return cards;
 	}
-
-	public void setCards(ArrayList<TrainCard> cards) {
-		this.cards = cards;
-	}
-
 	public ArrayList<DestinationCard> getDestinations() {
 		return destinations;
 	}
-
-	public void setDestinations(ArrayList<DestinationCard> destinations) {
-		this.destinations = destinations;
-	}
-
 	public ArrayList<Route> getClaimedRoutes() {
 		return claimedRoutes;
 	}
-
-	public void setClaimedRoutes(ArrayList<Route> claimedRoutes) {
-		this.claimedRoutes = claimedRoutes;
-	}
-
 	public int getPoints() {
 		return points;
 	}
-
-	public void setPoints(int points) {
-		this.points = points;
-	}
-
 	public int getTrainCars() {
 		return trainCars;
 	}
+	public int getClaimedRoutePoints() { return claimedRoutePoints; }
+	public int getLongestRoutePoints() { return longestRoutePoints;	}
+	public int getReachedDestinationPoints() { return reachedDestinationPoints;	}
+	public int getUnreachedDestinationPoints() { return unreachedDestinationPoints;	}
 
-	public void setTrainCars(int trainCars) {
-		this.trainCars = trainCars;
-	}
 }

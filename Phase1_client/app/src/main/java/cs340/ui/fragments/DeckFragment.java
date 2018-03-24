@@ -42,7 +42,6 @@ public class DeckFragment extends Fragment implements IDeckFragment {
                              Bundle savedInstanceState) {
 
         deckPresenter = new DeckPresenter(this);
-
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_deck, container, false);
 
@@ -102,11 +101,9 @@ public class DeckFragment extends Fragment implements IDeckFragment {
         faceUpCardsView.setAdapter(deckCardAdapter);
     }
 
-    //Only select a card if it's my turn
+    //Tell the deck presenter that we've selected a card
     public void cardSelected(int index){
-        if (((GameActivity)getActivity()).myTurn()) {
-            deckPresenter.cardSelected(index);
-        }
+        deckPresenter.cardSelected(index);
     }
 
     public GameActivity getGameActivity(){
