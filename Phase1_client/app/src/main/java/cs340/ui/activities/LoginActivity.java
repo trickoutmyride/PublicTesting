@@ -24,16 +24,18 @@ import cs340.ui.presenters.LoginPresenter;
 
 public class LoginActivity extends AppCompatActivity implements ILoginActivity {
 
+    //TODO: Validate input on IP Address
+
     //View fields
     private RadioButton loginRadio;
     private RadioGroup login_registerRadioGroup;
-    private EditText usernameField, passwordField, confirmField;
+    private EditText usernameField, passwordField, confirmField, serverIP;
     private Button submitButton;
 
     //User information, options
     private Boolean registerMode;
     private Boolean loginMode;
-    private String username, password, confirm;
+    private String username, password, confirm, ip;
 
     //Presenter
     private ILoginPresenter loginPresenter;
@@ -75,6 +77,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
         passwordField = findViewById(R.id.password_field);
         confirmField = findViewById(R.id.confirm_field);
         submitButton = findViewById(R.id.submit_button);
+        serverIP = findViewById(R.id.server_ip);
 
         //Initialize radio state
         confirmField.setEnabled(false);
@@ -139,6 +142,24 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
 
+        serverIP.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().length() != 0){
+                    ip = editable.toString();
+                }
+                else {
+                    ip = null;
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+        });
 
         //Enable/disable login/confirm mode
         login_registerRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -179,13 +200,17 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
                         Toast toast = Toast.makeText(getApplicationContext(), "Confirm field required.", Toast.LENGTH_SHORT);
                         toast.show();
                     }
+                    else if (ip == null){
+                        Toast toast = Toast.makeText(getApplicationContext(), "IP Field required.", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
                     else if (!password.equals(confirm)) {
                         Toast toast = Toast.makeText(getApplicationContext(), "Passwords do not match.", Toast.LENGTH_SHORT);
                         toast.show();
                     }
                     else {
                         //Pass username and password to the Presenter for Register
-                        loginPresenter.register(username, password);
+                        loginPresenter.register(username, password, ip);
                     }
                 }
                 //User is attempting to login
@@ -198,9 +223,13 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
                         Toast toast = Toast.makeText(getApplicationContext(), "Password field required.", Toast.LENGTH_SHORT);
                         toast.show();
                     }
+                    else if (ip == null){
+                        Toast toast = Toast.makeText(getApplicationContext(), "IP Field required.", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
                     else {
                         //Pass username and password to the Presenter for Login
-                        loginPresenter.login(username,password);
+                        loginPresenter.login(username,password, ip);
                     }
                 }
             }

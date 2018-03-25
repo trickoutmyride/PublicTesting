@@ -15,7 +15,7 @@ import cs340.shared.requests.DrawTrainCardRequest;
 public class DeckService {
 	private static ServerProxy proxy = new ServerProxy();
 
-	public static void drawDestination(int gameID, Player player, boolean isDuringGame) {
+	public static void drawDestination(int gameID, Player player) {
 		proxy.drawDestination(new DrawDestinationRequest(gameID, player));
 	}
 

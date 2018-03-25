@@ -44,7 +44,7 @@ public class GamePresenter implements IGamePresenter, ClientModel.HistoryObserve
 
     @Override
     public void onDrawnDestinationCards(ArrayList<DestinationCard> cards){
-        gameActivity.onDrawnDestinationCards(cards);
+        gameActivity.onDrawnDestinationCards(cards, true);
     }
 
     @Override
