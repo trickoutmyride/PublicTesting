@@ -50,8 +50,8 @@ public class ServerProxy implements IServer {
 		ServerMessage message = new ServerMessage(joinRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
 	}
-	@Override
-	public void login(Object request) {
+	public void login(Object request, String address) {
+		ClientCommunicator.initialize(address);
 		SignInRequest loginRequest = (SignInRequest) request;
 		ServerCommand command = CommandManager.getInstance().makeCommand("login", request);
 		ServerMessage message = new ServerMessage(loginRequest.getUsername(), command);
