@@ -6,7 +6,7 @@ import cs340.shared.requests.DrawFaceupRequest;
 public abstract class TurnState {
 	private boolean success = true;
 	/**
-	 * Each method returns the new Turn State (which can be itself).
+	 * Each method returns the new Turn State (given failure, it will only return itself after calling this.fail() ).
 	 */
 	public abstract TurnState claimRoute(Player player);
 	public abstract TurnState drawDestination(Player player);
@@ -14,7 +14,6 @@ public abstract class TurnState {
 	public abstract TurnState drawTrainCard (Player player);
 	public abstract TurnState drawFaceupCard (Player player, DrawFaceupRequest request);
 	/**
-	 *
 	 * @returns true if the last call was made successfully
 	 */
 	public boolean isSuccess() {

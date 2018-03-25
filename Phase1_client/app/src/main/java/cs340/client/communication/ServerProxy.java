@@ -72,59 +72,54 @@ public class ServerProxy implements IServer {
 		ClientCommunicator.getInstance().sendMessage(message);
 	}
 
-	public boolean claimRoute(Object request) {
+	public void claimRoute(Object request) {
 		ClaimRouteRequest claimRequest = (ClaimRouteRequest) request;
 		turnState = turnState.claimRoute((claimRequest).getPlayer());
-		if (!turnState.isSuccess()) return false;
+		if (!turnState.isSuccess()) return;
 
 		ServerCommand command = CommandManager.getInstance().makeCommand("claimRoute", request);
 		ServerMessage message = new ServerMessage(claimRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
-		return true;
 	}
 
-	public boolean drawDestination(Object request) {
+	public void drawDestination(Object request) {
 		DrawDestinationRequest drawRequest = (DrawDestinationRequest) request;
 		turnState = turnState.drawDestination((drawRequest).getPlayer());
-		if (!turnState.isSuccess()) return false;
+		if (!turnState.isSuccess()) return;
 
 		ServerCommand command = CommandManager.getInstance().makeCommand("drawDestination", request);
 		ServerMessage message = new ServerMessage(drawRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
-		return true;
 	}
 
-	public boolean discardDestination(Object request) {
+	public void discardDestination(Object request) {
 		DiscardDestinationRequest discardRequest = (DiscardDestinationRequest) request;
 		turnState = turnState.drawDestination((discardRequest).getPlayer());
-		if (!turnState.isSuccess()) return false;
+		if (!turnState.isSuccess()) return;
 
 		ServerCommand command = CommandManager.getInstance().makeCommand("discardDestination", request);
 		ServerMessage message = new ServerMessage(discardRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
-		return true;
 	}
 
-	public boolean drawTrainCard (Object request) {
+	public void drawTrainCard (Object request) {
 		DrawTrainCardRequest drawRequest = (DrawTrainCardRequest) request;
 		turnState = turnState.drawTrainCard((drawRequest).getPlayer());
-		if (!turnState.isSuccess()) return false;
+		if (!turnState.isSuccess()) return;
 
 		ServerCommand command = CommandManager.getInstance().makeCommand("drawTrainCard", request);
 		ServerMessage message = new ServerMessage(drawRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
-		return true;
 	}
 
-	public boolean drawFaceupCard (Object request) {
+	public void drawFaceupCard (Object request) {
 		DrawFaceupRequest drawRequest = (DrawFaceupRequest) request;
 		turnState = turnState.drawFaceupCard((drawRequest).getPlayer(), drawRequest);
-		if (!turnState.isSuccess()) return false;
+		if (!turnState.isSuccess()) return;
 
 		ServerCommand command = CommandManager.getInstance().makeCommand("drawFaceup", request);
 		ServerMessage message = new ServerMessage(drawRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
-		return true;
 	}
 
 	public void endTurn(Object request) {

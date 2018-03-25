@@ -1,5 +1,6 @@
 package cs340.client.states;
 
+import cs340.client.services.ClientFacade;
 import cs340.shared.model.ClientModel;
 import cs340.shared.model.Player;
 import cs340.shared.model.TrainCard;
@@ -14,6 +15,7 @@ public class MyTurnState extends TurnState {
 	}
 	public TurnState discardDestination(Player player) {
 		this.fail();
+		ClientFacade.getInstance().error("Invalid Destination Discard");
 		System.out.println("MyTurnState: discardDestination should not have been called here!");
 		return this;
 	}

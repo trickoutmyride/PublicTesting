@@ -15,20 +15,20 @@ import cs340.shared.requests.DrawTrainCardRequest;
 public class DeckService {
 	private static ServerProxy proxy = new ServerProxy();
 
-	public static boolean drawDestination(int gameID, Player player) {
-		return proxy.drawDestination(new DrawDestinationRequest(gameID, player));
+	public static void drawDestination(int gameID, Player player) {
+		proxy.drawDestination(new DrawDestinationRequest(gameID, player));
 	}
 
-	public static boolean discardDestination(int gameID, ArrayList<DestinationCard> cards, Player player) {
-		return proxy.discardDestination(new DiscardDestinationRequest(gameID, cards, player));
+	public static void discardDestination(int gameID, ArrayList<DestinationCard> cards, Player player) {
+		proxy.discardDestination(new DiscardDestinationRequest(gameID, cards, player));
 	}
 
-	public static boolean drawTrainCard(Player player) {
-		return proxy.drawTrainCard(new DrawTrainCardRequest(player));
+	public static void drawTrainCard(Player player) {
+		proxy.drawTrainCard(new DrawTrainCardRequest(player));
 	}
 
-	public static boolean drawFaceup(Player player, int index) {
-		return proxy.drawFaceupCard(new DrawFaceupRequest(player, index));
+	public static void drawFaceup(Player player, int index) {
+		proxy.drawFaceupCard(new DrawFaceupRequest(player, index));
 	}
 
 	public static void onDrawTrainCards(int index, TrainCard drawnCard, TrainCard newCard, Player player){
