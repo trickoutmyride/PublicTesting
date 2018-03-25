@@ -33,7 +33,7 @@ public class ServerProxy implements IServer {
 		turnState = newTurnState;
 	}
 
-	@Override
+
 	public void createGame(Object request) {
 		turnState = new MyTurnState();
 		CreateGameRequest createRequest = (CreateGameRequest) request;
@@ -42,7 +42,7 @@ public class ServerProxy implements IServer {
 		ClientCommunicator.getInstance().sendMessage(message);
 	}
 
-	@Override
+
 	public void joinGame(Object request) {
 		turnState = new NotMyTurnState();
 		JoinGameRequest joinRequest = (JoinGameRequest) request;
@@ -50,6 +50,7 @@ public class ServerProxy implements IServer {
 		ServerMessage message = new ServerMessage(joinRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
 	}
+
 	public void login(Object request, String address) {
 		ClientCommunicator.initialize(address);
 		SignInRequest loginRequest = (SignInRequest) request;
@@ -57,14 +58,15 @@ public class ServerProxy implements IServer {
 		ServerMessage message = new ServerMessage(loginRequest.getUsername(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
 	}
-	@Override
-	public void register(Object request) {
+	
+	public void register(Object request, String address) {
+		ClientCommunicator.initialize(address);
 		SignInRequest registerRequest = (SignInRequest) request;
 		ServerCommand command = CommandManager.getInstance().makeCommand("register", request);
 		ServerMessage message = new ServerMessage(((SignInRequest) request).getUsername(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
 	}
-	@Override
+
 	public void startGame(Object request) {
 		StartGameRequest startRequest = (StartGameRequest) request;
 		ServerCommand command = CommandManager.getInstance().makeCommand("startGame", request);

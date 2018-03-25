@@ -8,8 +8,8 @@ import cs340.client.communication.ServerProxy;
 public class RegisterService {
 	private static ServerProxy proxy = new ServerProxy();
 
-	public static void register(String username, String password) {
-		proxy.register(new SignInRequest(username, password));
+	public static void register(String username, String password, String address) {
+		proxy.register(new SignInRequest(username, password), address);
 	}
 
 	public static void onRegister(Player player) {

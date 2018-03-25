@@ -1,9 +1,6 @@
 package cs340.shared.command;
 
-import java.lang.reflect.Method;
-
 import cs340.shared.interfaces.ICommand;
-import cs340.shared.services.ServerFacade;
 
 public class ServerCommand implements ICommand {
 	private String _methodName; //Specifies the method to call within ServerFacade
@@ -14,14 +11,7 @@ public class ServerCommand implements ICommand {
 		this._param = param;
 	}
 	@Override
-	public void execute() {
-		try{
-			Method method = ServerFacade.class.getMethod(_methodName, String.class);
-			method.invoke(null, _param);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
+	public void execute() {}
 
 	//Gets the method name
 	public String getMethodName(){
