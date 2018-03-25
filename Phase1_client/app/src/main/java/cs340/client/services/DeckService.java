@@ -15,12 +15,12 @@ import cs340.shared.requests.DrawTrainCardRequest;
 public class DeckService {
 	private static ServerProxy proxy = new ServerProxy();
 
-	public static void drawDestination(int gameID, Player player) {
-		proxy.drawDestination(new DrawDestinationRequest(gameID, player));
+	public static void drawDestination(int gameID, Player player, boolean isDuringGame) {
+		proxy.drawDestination(new DrawDestinationRequest(gameID, player), isDuringGame);
 	}
 
-	public static void discardDestination(int gameID, ArrayList<DestinationCard> cards, Player player) {
-		proxy.discardDestination(new DiscardDestinationRequest(gameID, cards, player));
+	public static void discardDestination(int gameID, ArrayList<DestinationCard> cards, Player player, boolean isDuringGame) {
+		proxy.discardDestination(new DiscardDestinationRequest(gameID, cards, player), isDuringGame);
 	}
 
 	public static void drawTrainCard(Player player) {

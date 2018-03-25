@@ -82,20 +82,30 @@ public class ServerProxy implements IServer {
 		ClientCommunicator.getInstance().sendMessage(message);
 	}
 
-	public void drawDestination(Object request) {
+	/**
+	 * @param isDuringGame if true, change turnState, false for the first set you draw at start of game.
+	 */
+	public void drawDestination(Object request, boolean isDuringGame) {
 		DrawDestinationRequest drawRequest = (DrawDestinationRequest) request;
-		turnState = turnState.drawDestination((drawRequest).getPlayer());
-		if (!turnState.isSuccess()) return;
+		if (isDuringGame) {
+			turnState = turnState.drawDestination((drawRequest).getPlayer());
+			if (!turnState.isSuccess()) return;
+		}
 
 		ServerCommand command = CommandManager.getInstance().makeCommand("drawDestination", request);
 		ServerMessage message = new ServerMessage(drawRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
 	}
 
-	public void discardDestination(Object request) {
+	/**
+	 * @param isDuringGame if true, change turnState, false for the first set you draw at start of game.
+	 */
+	public void discardDestination(Object request, boolean isDuringGame) {
 		DiscardDestinationRequest discardRequest = (DiscardDestinationRequest) request;
-		turnState = turnState.drawDestination((discardRequest).getPlayer());
-		if (!turnState.isSuccess()) return;
+		if (isDuringGame) {
+			turnState = turnState.drawDestination((discardRequest).getPlayer());
+			if (!turnState.isSuccess()) return;
+		}
 
 		ServerCommand command = CommandManager.getInstance().makeCommand("discardDestination", request);
 		ServerMessage message = new ServerMessage(discardRequest.getPlayer().getAuthToken(), command);
