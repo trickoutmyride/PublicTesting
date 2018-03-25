@@ -40,28 +40,25 @@ public class ClientCommunicator {
 	 * @post Creates a new ClientCommunicator to be the Singleton if there wasn't one already.
 	 */
 	public static ClientCommunicator getInstance() {
-		if (singleton == null) {
-			System.out.println("Connecting to " + address);
-			try {
-				singleton = new ClientCommunicator(new URI(address));
-			} catch (Exception e) {
-				System.out.println("error at getInstance(): " + e.getLocalizedMessage());
-			}
-		}
 		return singleton;
 	}
 
+	public static void initialize(String address) {
+		singleton = new ClientCommunicator(address);
+	}
 	/**
 	 * @pre There is no other ClientCommunicator created.
 	 * @pre endpointURI is a valid address for the Java server.
-	 * @param endpointURI
+	 * @param address String representation of IP address of destination
 	 * @post WebSocket is connected.
 	 *
 	 */
-	private ClientCommunicator(URI endpointURI) {
+	private ClientCommunicator(String address) {
+		address = "ws://" + address + ":8080/ws/command";
+		System.out.println("Connecting to " + address);
 		try {
 			WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-			container.connectToServer(this, endpointURI);
+			container.connectToServer(this, new URI(address));
 
 			this.messageHandler = new MessageHandler();
 
