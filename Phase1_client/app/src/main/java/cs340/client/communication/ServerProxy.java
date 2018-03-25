@@ -85,12 +85,10 @@ public class ServerProxy implements IServer {
 	/**
 	 * @param isDuringGame if true, change turnState, false for the first set you draw at start of game.
 	 */
-	public void drawDestination(Object request, boolean isDuringGame) {
+	public void drawDestination(Object request) {
 		DrawDestinationRequest drawRequest = (DrawDestinationRequest) request;
-		if (isDuringGame) {
-			turnState = turnState.drawDestination((drawRequest).getPlayer());
-			if (!turnState.isSuccess()) return;
-		}
+		turnState = turnState.drawDestination((drawRequest).getPlayer());
+		if (!turnState.isSuccess()) return;
 
 		ServerCommand command = CommandManager.getInstance().makeCommand("drawDestination", request);
 		ServerMessage message = new ServerMessage(drawRequest.getPlayer().getAuthToken(), command);
