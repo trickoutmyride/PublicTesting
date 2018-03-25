@@ -247,7 +247,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
 
     //called by updateFaceUpDeck in DeckPresenter
     @Override
-    public void onPlayerCardsUpdated(final int index, final TrainCard oldCard, final TrainCard newCard, final Player player){
+    public void onPlayerCardsUpdated(final int index, final TrainCard oldCard, final TrainCard newCard, final Player player, final ArrayList<TrainCard> faceUpCards){
 
         runOnUiThread(new Runnable() {
             @Override
@@ -257,7 +257,23 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
                     handFragment.onTrainCardsUpdated(currentPlayer);
                 }
                 playersFragment.onPlayerUpdated(player);
-                deckFragment.onFaceUpCardUpdated(newCard, index);
+
+                int compareCount = 0;
+                //Were the face up cards shuffled?
+                for (int i = 0; i < currentGame.getTrainFaceup().size(); i++) {
+                    //If the old card at index =/= new card at index for > 1 card
+                    if (!currentGame.getTrainFaceup().get(i).getColor().equals(faceUpCards.get(i).getColor())) {
+                        compareCount++;
+                    }
+                }
+                //Multiple cards changed, it was shuffled
+                if (compareCount > 1) {
+                    deckFragment.initializeFaceUpCards(faceUpCards);
+                }
+                //Only one card changed (the drawn card)
+                else {
+                    deckFragment.onFaceUpCardUpdated(newCard, index);
+                }
             }
         });
     }

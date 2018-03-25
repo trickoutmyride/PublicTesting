@@ -1,5 +1,7 @@
 package cs340.ui.presenters;
 
+import java.util.ArrayList;
+
 import cs340.client.services.DeckService;
 import cs340.shared.model.ClientModel;
 import cs340.shared.model.Player;
@@ -27,8 +29,8 @@ public class DeckPresenter implements IDeckPresenter, ClientModel.DeckObserver {
     }
 
     @Override
-    public void updateFaceUpDeck(int index, TrainCard oldCard, TrainCard newCard, Player player) {
-        deckFragment.getGameActivity().onPlayerCardsUpdated(index, oldCard, newCard, player);
+    public void updateFaceUpDeck(int index, TrainCard oldCard, TrainCard newCard, Player player, ArrayList<TrainCard> faceUpCards) {
+        deckFragment.getGameActivity().onPlayerCardsUpdated(index, oldCard, newCard, player, faceUpCards);
     }
 
     @Override
