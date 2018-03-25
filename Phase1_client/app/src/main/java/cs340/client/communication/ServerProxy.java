@@ -82,9 +82,6 @@ public class ServerProxy implements IServer {
 		ClientCommunicator.getInstance().sendMessage(message);
 	}
 
-	/**
-	 * @param isDuringGame if true, change turnState, false for the first set you draw at start of game.
-	 */
 	public void drawDestination(Object request) {
 		DrawDestinationRequest drawRequest = (DrawDestinationRequest) request;
 		turnState = turnState.drawDestination((drawRequest).getPlayer());
