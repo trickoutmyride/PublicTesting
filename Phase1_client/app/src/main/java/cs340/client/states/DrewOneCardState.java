@@ -28,6 +28,7 @@ public class DrewOneCardState extends TurnState {
 	}
 	public TurnState drawFaceupCard (Player player, DrawFaceupRequest request){
 		TrainCard drawnCard = ClientModel.getInstance().getCurrentGame().getTrainFaceup().get(request.getIndex());
+		System.out.println("DrewOneCardState.drawFaceupCard: " + drawnCard.getColor());
 		if (drawnCard.getColor().equals("wild")) {
 			this.fail();
 			ClientFacade.getInstance().error("You can only draw a non-wild card!");

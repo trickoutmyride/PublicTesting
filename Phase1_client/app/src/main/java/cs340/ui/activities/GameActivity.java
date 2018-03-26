@@ -380,6 +380,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
     public int getTurnIndex(){
         return currentGame.getTurn();
     }
+    public void setCurrentGame(Game game){currentGame = game;}
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

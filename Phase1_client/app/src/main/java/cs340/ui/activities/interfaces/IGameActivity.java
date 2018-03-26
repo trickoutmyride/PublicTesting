@@ -22,4 +22,5 @@ public interface IGameActivity {
     void onTurnUpdated(final Game game);
     void onError(String message);
     void onGameEnded();
+    void setCurrentGame(Game game);
 }
