@@ -65,6 +65,7 @@ public class GamePresenter implements IGamePresenter, ClientModel.HistoryObserve
     @Override
     public void onTurnChanged(Game game) {
         gameActivity.onTurnUpdated(game);
+        ClientModel.getInstance().setCurrentGame(game);
     }
 
 }

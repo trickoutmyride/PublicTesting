@@ -15,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import cs340.client.services.DeckService;
+import cs340.shared.model.ClientModel;
 import cs340.shared.model.DestinationCard;
 import cs340.shared.model.Game;
 import cs340.shared.model.Player;
@@ -165,7 +166,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         });
 
         mapFragment = (GameMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
-
+        ClientModel.getInstance().setCurrentGame(currentGame);
     }
 
 
