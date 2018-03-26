@@ -3,18 +3,18 @@ package cs340.shared.requests;
 import cs340.shared.model.Player;
 
 public class DrawDestinationRequest {
-	private Player p;
+	private Player player;
 
-	public DrawDestinationRequest(Player p) {
-		this.p = p;
+	public DrawDestinationRequest(Player player) {
+		this.player = player;
 	}
 
-	public Player getP() {
-		return p;
+	public Player getPlayer() {
+		return player;
 	}
 
-	public void setP(Player p) {
-		this.p = p;
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 }
 
