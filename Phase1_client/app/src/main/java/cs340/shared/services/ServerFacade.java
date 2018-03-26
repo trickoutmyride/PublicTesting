@@ -35,7 +35,6 @@ public class ServerFacade implements IServer {
 	//@pre request is not null
 	//
 	//@post user detailed in request is logged in OR error is sent
-	@Override
 	public void login(Object request) {
 		SignInRequest loginRequest = (SignInRequest)request;
 		
@@ -46,7 +45,6 @@ public class ServerFacade implements IServer {
 	//@pre request is not null
 	//
 	//@post user detailed in register is registered OR error is sent
-	@Override
 	public void register(Object request) {
 		SignInRequest registerRequest = (SignInRequest)request;
 		

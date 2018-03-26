@@ -58,7 +58,7 @@ public class ServerProxy implements IServer {
 		ServerMessage message = new ServerMessage(loginRequest.getUsername(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
 	}
-	
+
 	public void register(Object request, String address) {
 		ClientCommunicator.initialize(address);
 		SignInRequest registerRequest = (SignInRequest) request;
