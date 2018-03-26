@@ -23,8 +23,8 @@ public class LoginPresenter implements ILoginPresenter, ClientModel.CurrentPlaye
     }
 
     @Override
-    public void login(String username, String password) {
-        LoginService.login(username, password);
+    public void login(String username, String password, String address) {
+        LoginService.login(username, password, address);
     }
 
     @Override
@@ -49,8 +49,8 @@ public class LoginPresenter implements ILoginPresenter, ClientModel.CurrentPlaye
     }
 
     @Override
-    public void register(String username, String password) {
-        RegisterService.register(username, password);
+    public void register(String username, String password, String address) {
+        RegisterService.register(username, password, address);
     }
 
 }

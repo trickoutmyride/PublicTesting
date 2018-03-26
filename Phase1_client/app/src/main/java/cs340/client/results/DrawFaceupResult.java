@@ -5,19 +5,22 @@ import java.util.ArrayList;
 import cs340.shared.model.Player;
 import cs340.shared.model.TrainCard;
 
+
 public class DrawFaceupResult {
 	private TrainCard card;
 	private TrainCard newCard;
 	private int index;
 	private Player player;
 	private ArrayList<String> auths;
-	
-	public DrawFaceupResult(TrainCard card, TrainCard newCard, int index, Player player, ArrayList<String> auths) {
+	private ArrayList<TrainCard> faceupCards;
+
+	public DrawFaceupResult(TrainCard card, TrainCard newCard, int index, Player player, ArrayList<String> auths, ArrayList<TrainCard> faceupCards) {
 		this.card = card;
 		this.newCard = newCard;
 		this.index = index;
 		this.player = player;
 		this.auths = auths;
+		this.faceupCards = faceupCards;
 	}
 
 	public TrainCard getDrawnCard() {
@@ -58,5 +61,21 @@ public class DrawFaceupResult {
 
 	public void setAuths(ArrayList<String> auths) {
 		this.auths = auths;
+	}
+
+	public TrainCard getCard() {
+		return card;
+	}
+
+	public void setCard(TrainCard card) {
+		this.card = card;
+	}
+
+	public ArrayList<TrainCard> getFaceupCards() {
+		return faceupCards;
+	}
+
+	public void setFaceupCards(ArrayList<TrainCard> faceupCards) {
+		this.faceupCards = faceupCards;
 	}
 }

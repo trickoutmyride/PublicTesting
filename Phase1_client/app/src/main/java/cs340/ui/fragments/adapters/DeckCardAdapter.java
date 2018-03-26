@@ -99,7 +99,7 @@ public class DeckCardAdapter extends RecyclerView.Adapter<DeckCardAdapter.ViewHo
     public int cardToDrawable(TrainCard card){
 
         switch (card.getColor()){
-            case "purple":
+            case "pink":
                 return R.drawable.traincard_purple_landscape;
             case "white":
                 return R.drawable.traincard_white_landscape;

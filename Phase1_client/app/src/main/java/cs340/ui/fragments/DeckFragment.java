@@ -103,6 +103,7 @@ public class DeckFragment extends Fragment implements IDeckFragment {
 
     //Tell the deck presenter that we've selected a card
     public void cardSelected(int index){
+        System.out.println("Card Selected! " + currentFaceUpCards.get(index).getColor());
         deckPresenter.cardSelected(index);
     }
 

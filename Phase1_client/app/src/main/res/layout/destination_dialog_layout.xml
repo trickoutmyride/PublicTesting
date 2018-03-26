@@ -21,15 +21,27 @@
         android:layout_height="250dp"
         android:layout_below="@+id/destination_cards_title"
         android:layout_centerHorizontal="true"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/destination_cards_list"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@color/colorAccent"
             android:scrollbarThumbVertical="@drawable/scrollbar"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/draw_destination_button"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="Draw More Cards"
+            android:textColor="@android:color/white"
+            android:visibility="gone" />
     </LinearLayout>
 
 </RelativeLayout>

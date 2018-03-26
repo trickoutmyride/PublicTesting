@@ -15,7 +15,7 @@ import cs340.shared.requests.DrawTrainCardRequest;
 public class DeckService {
 	private static ServerProxy proxy = new ServerProxy();
 
-	public static void drawDestination(int gameID, Player player, boolean isDuringGame) {
+	public static void drawDestination(int gameID, Player player) {
 		proxy.drawDestination(new DrawDestinationRequest(gameID, player));
 	}
 
@@ -31,8 +31,8 @@ public class DeckService {
 		proxy.drawFaceupCard(new DrawFaceupRequest(player, index));
 	}
 
-	public static void onDrawTrainCards(int index, TrainCard drawnCard, TrainCard newCard, Player player){
-		ClientModel.getInstance().updateFaceUpDeck(index, drawnCard, newCard, player);
+	public static void onDrawTrainCards(int index, TrainCard drawnCard, TrainCard newCard, Player player, ArrayList<TrainCard> faceUpCards){
+		ClientModel.getInstance().updateFaceUpDeck(index, drawnCard, newCard, player, faceUpCards);
 	}
 
 	public static void onDrawDeckCard(Player player){

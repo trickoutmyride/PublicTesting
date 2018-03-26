@@ -26,8 +26,8 @@ public class HandFragment extends Fragment implements IHandFragment {
 
     private IHandPresenter handPresenter;
 
-    private ImageView blackCard, blueCard, greenCard, orangeCard, purpleCard, redCard, whiteCard, wildCard, yellowCard;
-    private TextView blackLabel, blueLabel, greenLabel, orangeLabel, purpleLabel, redLabel, whiteLabel, wildCount, yellowLabel;
+    private ImageView blackCard, blueCard, greenCard, orangeCard, pinkCard, redCard, whiteCard, wildCard, yellowCard;
+    private TextView blackLabel, blueLabel, greenLabel, orangeLabel, pinkLabel, redLabel, whiteLabel, wildCount, yellowLabel;
 
     private Animation fadeOut;
     private Animation fadeIn;
@@ -53,7 +53,7 @@ public class HandFragment extends Fragment implements IHandFragment {
         blueCard = v.findViewById(R.id.hand_blue_card); blueLabel = v.findViewById(R.id.hand_blue_label);
         greenCard = v.findViewById(R.id.hand_green_card); greenLabel = v.findViewById(R.id.hand_green_label);
         orangeCard = v.findViewById(R.id.hand_orange_card); orangeLabel = v.findViewById(R.id.hand_orange_label);
-        purpleCard = v.findViewById(R.id.hand_purple_card); purpleLabel = v.findViewById(R.id.hand_purple_label);
+        pinkCard = v.findViewById(R.id.hand_purple_card); pinkLabel = v.findViewById(R.id.hand_purple_label);
         redCard = v.findViewById(R.id.hand_red_card); redLabel = v.findViewById(R.id.hand_red_label);
         whiteCard = v.findViewById(R.id.hand_white_card); whiteLabel = v.findViewById(R.id.hand_white_label);
         yellowCard = v.findViewById(R.id.hand_yellow_card); yellowLabel = v.findViewById(R.id.hand_yellow_label);
@@ -90,7 +90,7 @@ public class HandFragment extends Fragment implements IHandFragment {
 
         //Initialize card counts
         int blackCount = 0, bluecount = 0, greenCount = 0, orangeCount = 0,
-                purpleCount = 0, redCount = 0, whiteCount = 0, yellowCount = 0, wildCount = 0;
+                pinkCount = 0, redCount = 0, whiteCount = 0, yellowCount = 0, wildCount = 0;
 
         //Count cards
         for (TrainCard card : cards) {
@@ -107,8 +107,8 @@ public class HandFragment extends Fragment implements IHandFragment {
                 case "orange":
                     orangeCount++;
                     break;
-                case "purple":
-                    purpleCount++;
+                case "pink":
+                    pinkCount++;
                     break;
                 case "red":
                     redCount++;
@@ -132,7 +132,7 @@ public class HandFragment extends Fragment implements IHandFragment {
         updateCard(blueCard, blueLabel, bluecount);
         updateCard(greenCard, greenLabel, greenCount);
         updateCard(orangeCard, orangeLabel, orangeCount);
-        updateCard(purpleCard, purpleLabel, purpleCount);
+        updateCard(pinkCard, pinkLabel, pinkCount);
         updateCard(redCard, redLabel, redCount);
         updateCard(whiteCard, whiteLabel, whiteCount);
         updateCard(yellowCard, yellowLabel, yellowCount);

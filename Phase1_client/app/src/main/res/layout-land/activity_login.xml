@@ -100,42 +100,78 @@
 
         </LinearLayout>
 
-        <RadioGroup
-            android:id="@+id/login_registerGroup"
-            android:layout_width="200dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:checkedButton="@+id/login"
             android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/login_radio"
-                android:layout_width="30dp"
+            <TextView
+                android:id="@+id/server_label"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:text="Server IP:"
+                android:textAlignment="textEnd"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+
+            <EditText
+                android:id="@+id/server_ip"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/login_radio_label" />
+                android:ems="10"
+                android:hint="192.168.1.10"
+                android:inputType="text"
+                android:maxLength="15" />
 
-            <RadioButton
-                android:id="@+id/register_radio"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/register_radio_label" />
-
-        </RadioGroup>
-
-        <Button
-            android:id="@+id/submit_button"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:text="@string/submit_button_label"
-            android:textAlignment="center"
-            android:visibility="visible"
-            android:background="@color/colorPrimaryDark"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="5dp"/>
+            android:gravity="center">
+
+            <RadioGroup
+                android:id="@+id/login_registerGroup"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:checkedButton="@+id/login"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/login_radio"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/login_radio_label" />
+
+                <RadioButton
+                    android:id="@+id/register_radio"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/register_radio_label" />
+
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/submit_button"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:text="@string/submit_button_label"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

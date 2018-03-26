@@ -10,8 +10,12 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import cs340.client.services.DeckService;
+import cs340.shared.model.ClientModel;
 import cs340.shared.model.DestinationCard;
 import cs340.shared.model.Game;
 import cs340.shared.model.Player;
@@ -49,17 +53,10 @@ import cs340.ui.presenters.interfaces.IGamePresenter;
 public class GameActivity extends AppCompatActivity implements IGameActivity, DestinationCardFragment.DestinationCardDialogListener {
 
     //Phase 3 To Dos:
-    //TODO: Presenter onError
+    //TODO: Presenter Classes onError
     //TODO: Draw Additional Destination Cards
         //When you draw additional, you must keep at least one
         //End turn after draw
-    //TODO: Drawing Train Cards
-        //Lock in
-        //Can draw two face down cards
-        //Can draw two non-wild cards
-        //If you draw one non-wild, you can either draw from the deck OR draw a non-wild
-        //End turn after draw
-    //TODO: Switch to End Game Activity when game ends
 
     //Phase 2 to dos
     //TODO: Detach presenters
@@ -102,15 +99,8 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         currentHistory = new ArrayList<>();
         currentChat = new ArrayList<>();
 
-        //Pop up Destination Card dialog for initial destination card selection
-        Bundle bundle = new Bundle();
-        Gson g = new Gson();
-        bundle.putString("player", gson.toJson(currentPlayer));
-        bundle.putBoolean("selection", true);
-        destinationCardFragment = new DestinationCardFragment();
-        FragmentManager fm = getFragmentManager();
-        destinationCardFragment.setArguments(bundle);
-        destinationCardFragment.show(fm, "destinationfragment");
+        //Pop up destination card selection
+        onDrawnDestinationCards(currentPlayer.getDestinations(), false);
 
         //Initialize the rest of the fragments
 
@@ -176,7 +166,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         });
 
         mapFragment = (GameMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
-
+        ClientModel.getInstance().setCurrentGame(currentGame);
     }
 
 
@@ -215,11 +205,15 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
 
         DestinationCardSelectionAdapter dcsa = dcf.getDestinationCardSelectionAdapter();
         ArrayList<DestinationCard> unselected = dcsa.getUnselectedCards();
-
         //If a card was discarded, send it to the server
         if (unselected.size() != 0) {
-            DeckService.discardDestination(currentGame.getGameID(), unselected, currentPlayer);
+            DeckService.discardDestination(currentGame.getGameID(), unselected, currentPlayer, dcf.getGameStarted());
         }
+    }
+
+    @Override
+    public void onDrawNewDestinationCardsSelected() {
+        DeckService.drawDestination(currentGame.getGameID(), currentPlayer);
     }
 
     public void onChatUpdated(final String message){
@@ -237,11 +231,24 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
     }
 
     @Override
-    public void onDrawnDestinationCards(ArrayList<DestinationCard> cards){}
+    public void onDrawnDestinationCards(ArrayList<DestinationCard> cards, boolean gameStarted) {
+        //Pop up Destination Card dialog for initial destination card selection
+        Bundle bundle = new Bundle();
+        Gson gson = new Gson();
+        bundle.putString("player", gson.toJson(currentPlayer));
+        final Type type = new TypeToken<ArrayList<DestinationCard>>(){}.getType();
+        bundle.putString("newCards", gson.toJson(cards, type));
+        bundle.putBoolean("gameStarted", gameStarted);
+        bundle.putBoolean("selection", true);
+        destinationCardFragment = new DestinationCardFragment();
+        FragmentManager fm = getFragmentManager();
+        destinationCardFragment.setArguments(bundle);
+        destinationCardFragment.show(fm, "destinationfragment");
+    }
 
     //called by updateFaceUpDeck in DeckPresenter
     @Override
-    public void onPlayerCardsUpdated(final int index, final TrainCard oldCard, final TrainCard newCard, final Player player){
+    public void onPlayerCardsUpdated(final int index, final TrainCard oldCard, final TrainCard newCard, final Player player, final ArrayList<TrainCard> faceUpCards){
 
         runOnUiThread(new Runnable() {
             @Override
@@ -251,7 +258,23 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
                     handFragment.onTrainCardsUpdated(currentPlayer);
                 }
                 playersFragment.onPlayerUpdated(player);
-                deckFragment.onFaceUpCardUpdated(newCard, index);
+
+                int compareCount = 0;
+                //Were the face up cards shuffled?
+                for (int i = 0; i < currentGame.getTrainFaceup().size(); i++) {
+                    //If the old card at index =/= new card at index for > 1 card
+                    if (!currentGame.getTrainFaceup().get(i).getColor().equals(faceUpCards.get(i).getColor())) {
+                        compareCount++;
+                    }
+                }
+                //Multiple cards changed, it was shuffled
+                if (compareCount > 1) {
+                    deckFragment.initializeFaceUpCards(faceUpCards);
+                }
+                //Only one card changed (the drawn card)
+                else {
+                    deckFragment.onFaceUpCardUpdated(newCard, index);
+                }
             }
         });
     }

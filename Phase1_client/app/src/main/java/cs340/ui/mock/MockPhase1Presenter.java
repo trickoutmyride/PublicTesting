@@ -33,12 +33,12 @@ public class MockPhase1Presenter implements IPregamePresenter, ILoginPresenter, 
     }
 
     @Override
-    public void login(String username, String password) {
+    public void login(String username, String password, String address) {
         loginActivity.onLogin(new Player(username, password, username.concat(password)));
     }
 
     @Override
-    public void register(String username, String password) {
+    public void register(String username, String password, String address) {
         loginActivity.onLogin(new Player(username, password, username.concat(password)));
     }
 

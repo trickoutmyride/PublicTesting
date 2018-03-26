@@ -11,11 +11,17 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+import cs340.shared.model.DestinationCard;
 import cs340.shared.model.Player;
 import cs340.ui.R;
 import cs340.ui.fragments.adapters.DestinationCardDisplayAdapter;
@@ -28,6 +34,9 @@ public class DestinationCardFragment extends DialogFragment implements Destinati
     private DestinationCardSelectionAdapter destinationCardSelectionAdapter;
     private RecyclerView destinationCardList;
     private int checked;
+    private Button drawButton;
+    private ArrayList<DestinationCard> newCards;
+    private boolean gameStarted;
 
     //If this is true, we are in selection mode. Else, we are in display mode.
     private boolean selection;
@@ -37,12 +46,15 @@ public class DestinationCardFragment extends DialogFragment implements Destinati
     private ArrayList<String> currentHistory;
     private Player player;
 
+    public boolean getGameStarted(){ return gameStarted; }
+
     public DestinationCardSelectionAdapter getDestinationCardSelectionAdapter(){
         return destinationCardSelectionAdapter;
     }
 
     public interface DestinationCardDialogListener{
         public void onDialogPositiveClick(DialogFragment dialog);
+        void onDrawNewDestinationCardsSelected();
     }
     DestinationCardDialogListener listener;
 
@@ -56,6 +68,12 @@ public class DestinationCardFragment extends DialogFragment implements Destinati
         Gson gson = new Gson();
         player = gson.fromJson(this.getArguments().getString("player"), Player.class);
         selection = this.getArguments().getBoolean("selection");
+        gameStarted = this.getArguments().getBoolean("gameStarted");
+
+        if (selection) {
+            final Type type = new TypeToken<ArrayList<DestinationCard>>(){}.getType();
+            newCards = gson.fromJson(this.getArguments().getString("newCards"), type);
+        }
 
         //Get layout inflater:
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -94,7 +112,7 @@ public class DestinationCardFragment extends DialogFragment implements Destinati
     public void onStart() {
         super.onStart();
 
-        AlertDialog d = (AlertDialog)getDialog();
+        final AlertDialog d = (AlertDialog)getDialog();
         d.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
         if (selection) {
             d.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
@@ -109,11 +127,24 @@ public class DestinationCardFragment extends DialogFragment implements Destinati
         destinationCardList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         if (selection) {
-            destinationCardSelectionAdapter = new DestinationCardSelectionAdapter(player, this, getContext());
+            destinationCardSelectionAdapter = new DestinationCardSelectionAdapter(player, newCards, this, getContext());
             destinationCardList.setAdapter(destinationCardSelectionAdapter);
         }else{
             destinationCardDisplayAdapter = new DestinationCardDisplayAdapter(player, getContext());
             destinationCardList.setAdapter(destinationCardDisplayAdapter);
+        }
+
+        //If display mode, display selection button
+        if (!selection){
+            drawButton = d.findViewById(R.id.draw_destination_button);
+            drawButton.setVisibility(View.VISIBLE);
+            drawButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onDrawNewDestinationCardsSelected();
+                    d.dismiss();
+                }
+            });
         }
     }
 
@@ -132,21 +163,41 @@ public class DestinationCardFragment extends DialogFragment implements Destinati
 
     @Override
     public void onCardSelected(){
-        checked++;
-        //Enable confirm button
-        if (checked >= 2){
-            AlertDialog d = (AlertDialog)getDialog();
-            d.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+        if (selection) {
+            checked++;
+            //Enable confirm button
+            if (!gameStarted) {
+                if (checked >= 2) {
+                    AlertDialog d = (AlertDialog) getDialog();
+                    d.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                }
+            }
+            else {
+                if (checked >= 1) {
+                    AlertDialog d = (AlertDialog) getDialog();
+                    d.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                }
+            }
         }
     }
 
     @Override
     public void onCardDeselected(){
-        checked--;
-        //Disable confirm button
-        if (checked < 2) {
-            AlertDialog d = (AlertDialog)getDialog();
-            d.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+        if (selection) {
+            checked--;
+            //Disable confirm button
+            if (!gameStarted) {
+                if (checked < 2) {
+                    AlertDialog d = (AlertDialog) getDialog();
+                    d.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                }
+            }
+            else{
+                if (checked < 1) {
+                    AlertDialog d = (AlertDialog) getDialog();
+                    d.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                }
+            }
         }
     }
 }

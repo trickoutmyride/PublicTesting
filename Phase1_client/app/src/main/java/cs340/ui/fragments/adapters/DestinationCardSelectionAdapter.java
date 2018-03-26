@@ -64,10 +64,10 @@ public class DestinationCardSelectionAdapter extends RecyclerView.Adapter<Destin
     }
 
 
-    public DestinationCardSelectionAdapter(Player currentPlayer, CardSelectionListener listener, Context context) {
+    public DestinationCardSelectionAdapter(Player currentPlayer, ArrayList<DestinationCard> newCards, CardSelectionListener listener, Context context) {
         _currentPlayer = currentPlayer;
         _context = context;
-        _cards = currentPlayer.getDestinations();
+        _cards = newCards;
         _selectedCards = new ArrayList<>();
         _listener = listener;
     }
