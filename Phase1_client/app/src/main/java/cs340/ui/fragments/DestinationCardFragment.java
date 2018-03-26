@@ -166,7 +166,7 @@ public class DestinationCardFragment extends DialogFragment implements Destinati
         if (selection) {
             checked++;
             //Enable confirm button
-            if (gameStarted) {
+            if (!gameStarted) {
                 if (checked >= 2) {
                     AlertDialog d = (AlertDialog) getDialog();
                     d.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
@@ -186,7 +186,7 @@ public class DestinationCardFragment extends DialogFragment implements Destinati
         if (selection) {
             checked--;
             //Disable confirm button
-            if (gameStarted) {
+            if (!gameStarted) {
                 if (checked < 2) {
                     AlertDialog d = (AlertDialog) getDialog();
                     d.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
