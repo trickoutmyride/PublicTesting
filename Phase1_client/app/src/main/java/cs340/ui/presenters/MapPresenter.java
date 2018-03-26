@@ -2,6 +2,7 @@ package cs340.ui.presenters;
 
 import android.util.Pair;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import cs340.shared.model.ClientModel;
 import cs340.shared.model.GameMap;
 import cs340.shared.model.MapRoute;
 import cs340.shared.model.Player;
+import cs340.shared.model.TrainCard;
 import cs340.ui.R;
 import cs340.ui.fragments.interfaces.IMapFragment;
 import cs340.ui.presenters.interfaces.IMapPresenter;
@@ -41,7 +43,7 @@ public class MapPresenter implements GameMap.Observer, IMapPresenter {
         String end = route.getStop().getKey();
         Player player = ClientModel.getInstance().getCurrentPlayer();
         String start = route.getStart().getKey();
-        MapService.claimRoute(player, start, end, color);
+        MapService.claimRoute(player, start, end, color, new ArrayList<TrainCard>()); // TODO FIX THIS
     }
 
     public void detach() {
