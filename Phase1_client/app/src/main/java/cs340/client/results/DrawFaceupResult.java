@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import cs340.shared.model.Player;
 import cs340.shared.model.TrainCard;
 
-
 public class DrawFaceupResult {
 	private TrainCard card;
 	private TrainCard newCard;
@@ -13,7 +12,7 @@ public class DrawFaceupResult {
 	private Player player;
 	private ArrayList<String> auths;
 	private ArrayList<TrainCard> faceupCards;
-
+	
 	public DrawFaceupResult(TrainCard card, TrainCard newCard, int index, Player player, ArrayList<String> auths, ArrayList<TrainCard> faceupCards) {
 		this.card = card;
 		this.newCard = newCard;

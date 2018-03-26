@@ -1,4 +1,4 @@
-package model;
+package cs340.shared.model;
 
 public class RouteNode {
 	private Route route;
