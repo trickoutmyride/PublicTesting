@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +22,10 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import cs340.shared.model.MapRoute;
@@ -33,6 +36,7 @@ import cs340.ui.presenters.MapPresenter;
 public class GameMapFragment extends Fragment implements IMapFragment, OnMapReadyCallback {
     private GoogleMap map;
     private MapPresenter presenter;
+    private Map<Polyline, MapRoute> routeLines = new HashMap<>();
 
     public GameMapFragment() {}
 
@@ -90,6 +94,15 @@ public class GameMapFragment extends Fragment implements IMapFragment, OnMapRead
         map = googleMap;
         presenter = new MapPresenter(this);
         onRouteClaimed(MapRoute.getRouteMap());
+
+        googleMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
+
+            @Override
+            public void onPolylineClick(Polyline polyline) {
+                MapRoute route = routeLines.get(polyline);
+                if (presenter != null && route != null) presenter.claimRoute(route);
+            }
+        });
     }
 
     @Override
@@ -99,14 +112,16 @@ public class GameMapFragment extends Fragment implements IMapFragment, OnMapRead
             MapRoute route = entry.getValue();
             Integer color = getResources().getColor(route.getColor());
             PolylineOptions line = new PolylineOptions()
+                    .clickable(true)
                     .color(color)
-                    .add(route.getStart().getLatLng())
-                    .add(route.getStop().getLatLng());
+                    .add(route.getStartLatLng())
+                    .add(route.getStopLatLng());
             MarkerOptions label = new MarkerOptions()
                     .icon(createTextIcon(route.getLength().toString(), color, route.getBackground()))
                     .position(route.getMidpoint());
-            map.addPolyline(line);
+            Polyline polyline = map.addPolyline(line);
             map.addMarker(label);
+            routeLines.put(polyline, route);
         }
     }
 }

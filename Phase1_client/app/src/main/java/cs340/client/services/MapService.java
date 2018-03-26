@@ -19,6 +19,6 @@ public class MapService {
 	public static void onRouteClaimed(String username, Route route) {
 		ClientModel model = ClientModel.getInstance();
 		ArrayList<String> endpoints = route.getEndpoints();
-		//ClientModel.getInstance().getCurrentGame().getGameMap().onRouteClaimed(username, endpoints.get(0), endpoints.get(1));
+		ClientModel.getInstance().getCurrentGame().getGameMap().onRouteClaimed(username, endpoints.get(0), endpoints.get(1));
 	}
 }
