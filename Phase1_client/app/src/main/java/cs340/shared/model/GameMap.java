@@ -22,8 +22,8 @@ public class GameMap {
         observers.add(observer);
     }
 
-    public void onRouteClaimed(Player player, String start, String end) {
-        String colorName = game.getColors().get(player.getUsername());
+    public void onRouteClaimed(String username, String start, String end) {
+        String colorName = game.getColors().get(username);
         Integer color;
         switch (colorName) {
             case "black":
