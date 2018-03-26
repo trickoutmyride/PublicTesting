@@ -60,6 +60,7 @@ public class Game {
 	public void setGameName(String gameName) {
 		this.gameName = gameName;
 	}
+	public void setTrainFaceup(ArrayList<TrainCard> trainFaceup){this.trainFaceup = trainFaceup; }
 	public int getGameID() {
 		return gameID;
 	}

@@ -24,6 +24,7 @@ public class MyTurnState extends TurnState {
 	}
 	public TurnState drawFaceupCard (Player player, DrawFaceupRequest request){
 		TrainCard drawnCard = ClientModel.getInstance().getCurrentGame().getTrainFaceup().get(request.getIndex());
+		System.out.println("MyTurnState.drawFaceupCard: " + drawnCard.getColor());
 		if (drawnCard.getColor().equals("wild")) {
 			return new NotMyTurnState(player);
 		}
